@@ -1,0 +1,35 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic_Tasks", "Basic_Tasks\Basic_Tasks.csproj", "{67BD4E4C-9EB2-49CE-B071-D114CF77253A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basic_Threading", "Basic_Threading\Basic_Threading.csproj", "{502797E9-BF7D-460F-8467-AE8646E64BBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GpioInterrogation", "GpioInterrogation\GpioInterrogation.csproj", "{1EBFD0E5-F32C-46CD-9A60-0143EB8B8FA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloLED", "HelloLED\HelloLED.csproj", "{E4E2339E-D040-4467-9EB2-A36143B90CB7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{67BD4E4C-9EB2-49CE-B071-D114CF77253A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67BD4E4C-9EB2-49CE-B071-D114CF77253A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67BD4E4C-9EB2-49CE-B071-D114CF77253A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67BD4E4C-9EB2-49CE-B071-D114CF77253A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{502797E9-BF7D-460F-8467-AE8646E64BBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{502797E9-BF7D-460F-8467-AE8646E64BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{502797E9-BF7D-460F-8467-AE8646E64BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{502797E9-BF7D-460F-8467-AE8646E64BBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EBFD0E5-F32C-46CD-9A60-0143EB8B8FA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EBFD0E5-F32C-46CD-9A60-0143EB8B8FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EBFD0E5-F32C-46CD-9A60-0143EB8B8FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EBFD0E5-F32C-46CD-9A60-0143EB8B8FA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4E2339E-D040-4467-9EB2-A36143B90CB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4E2339E-D040-4467-9EB2-A36143B90CB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4E2339E-D040-4467-9EB2-A36143B90CB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4E2339E-D040-4467-9EB2-A36143B90CB7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
