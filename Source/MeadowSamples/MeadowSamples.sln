@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "F7Micro", "F7Micro", "{C1DB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Walking_DigitalOutputs", "F7Micro\Walking_DigitalOutputs\Walking_DigitalOutputs.csproj", "{E8407C33-AED5-44A4-96A5-974E7A954E11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalInputPort_IObservable", "DigitalInputPort_IObservable\DigitalInputPort_IObservable.csproj", "{4D228F7E-709A-4577-97A8-BD90EF62C496}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ButtonEvents", "F7Micro\ButtonEvents\ButtonEvents.csproj", "{7E145413-338D-45C0-B367-3D12D419519B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,8 +43,17 @@ Global
 		{E8407C33-AED5-44A4-96A5-974E7A954E11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8407C33-AED5-44A4-96A5-974E7A954E11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8407C33-AED5-44A4-96A5-974E7A954E11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D228F7E-709A-4577-97A8-BD90EF62C496}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D228F7E-709A-4577-97A8-BD90EF62C496}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D228F7E-709A-4577-97A8-BD90EF62C496}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D228F7E-709A-4577-97A8-BD90EF62C496}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E145413-338D-45C0-B367-3D12D419519B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E145413-338D-45C0-B367-3D12D419519B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E145413-338D-45C0-B367-3D12D419519B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E145413-338D-45C0-B367-3D12D419519B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E8407C33-AED5-44A4-96A5-974E7A954E11} = {C1DB0C6C-C232-41EB-99FE-F1297EAB49AB}
+		{7E145413-338D-45C0-B367-3D12D419519B} = {C1DB0C6C-C232-41EB-99FE-F1297EAB49AB}
 	EndGlobalSection
 EndGlobal
