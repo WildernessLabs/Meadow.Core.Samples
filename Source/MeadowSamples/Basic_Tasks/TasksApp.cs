@@ -23,12 +23,12 @@ namespace Basic_Tasks
 
         public void StartATask()
         {
-            Task t = new Task(() => {
+            Task t = new Task(async () => {
                 while (true) {
                     out2.State = true;
-                    Task.Delay(250);
+                    await Task.Delay(250);
                     out2.State = false;
-                    Task.Delay(250);
+                    await Task.Delay(250);
                 }
             });
             t.Start();
