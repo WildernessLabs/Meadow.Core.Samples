@@ -29,9 +29,9 @@ namespace Walking_DigitalOutputs
         protected void ConfigureOutputs()
         {
             foreach (var pin in Device.Pins.AllPins) {
-                Console.WriteLine("Found pin: " + pin.Name);
+                Console.WriteLine($"Found pin: {pin.Name}");
                 foreach (var channel in pin.SupportedChannels) {
-                    Console.WriteLine("Contains " + channel.Name + "channel.");
+                    Console.WriteLine($"Contains {channel.Name} channel.");
 
                     // if it's a digital channel, create a port.
                     if(channel is IDigitalChannelInfo 
@@ -41,7 +41,7 @@ namespace Walking_DigitalOutputs
                         if (!_outChans.Contains(channel.Name)) {
                             _outs.Add(Device.CreateDigitalOutputPort(pin));
                         } else {
-                            Debug.WriteLine("Cannot add pin " + pin.Name + ", as the digital channel, " + channel.Name + " exists on another pin");
+                            Debug.WriteLine($"Cannot add pin {pin.Name}, as the digital channel, {channel.Name} exists on another pin");
                         }
                     }
                 }
