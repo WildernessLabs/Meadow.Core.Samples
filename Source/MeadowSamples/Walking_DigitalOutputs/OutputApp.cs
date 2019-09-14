@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace Walking_DigitalOutputs
 {
-    public class OutputApp : AppBase<F7Micro, OutputApp>
+    public class OutputApp : App<F7Micro, OutputApp>
     {
         IList<IDigitalOutputPort> _outs = new List<IDigitalOutputPort>();
         IList<string> _outChans = new List<string>();
