@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace Walking_DigitalOutputs
 {
-    public class OutputApp : AppBase<F7Micro, OutputApp>
+    public class OutputApp : App<F7Micro, OutputApp>
     {
         IList<IDigitalOutputPort> _outs = new List<IDigitalOutputPort>();
 
@@ -29,9 +29,9 @@ namespace Walking_DigitalOutputs
         // creates output ports on all pins
         protected void ConfigureOutputs()
         {
-            _outs.Add(Device.CreateDigitalOutputPort(Device.Pins.OnboardLEDRed));
-            _outs.Add(Device.CreateDigitalOutputPort(Device.Pins.OnboardLEDGreen));
-            _outs.Add(Device.CreateDigitalOutputPort(Device.Pins.OnboardLEDBlue));
+            _outs.Add(Device.CreateDigitalOutputPort(Device.Pins.OnboardLedRed));
+            _outs.Add(Device.CreateDigitalOutputPort(Device.Pins.OnboardLedGreen));
+            _outs.Add(Device.CreateDigitalOutputPort(Device.Pins.OnboardLedBlue));
             _outs.Add(Device.CreateDigitalOutputPort(Device.Pins.D00));
             _outs.Add(Device.CreateDigitalOutputPort(Device.Pins.D01));
             _outs.Add(Device.CreateDigitalOutputPort(Device.Pins.D02));
