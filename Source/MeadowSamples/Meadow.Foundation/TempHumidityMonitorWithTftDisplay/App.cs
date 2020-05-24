@@ -14,7 +14,7 @@ namespace TempHumidityMonitorWithTftDisplay
     {
         IDigitalOutputPort blueLed;
         GraphicsLibrary display;
-        SHT31D sensor;
+        Sht31D sensor;
 
         public TempHumidityMonitorWithTftDisplay()
         {
@@ -28,10 +28,10 @@ namespace TempHumidityMonitorWithTftDisplay
             Console.WriteLine("Initialize hardware...");
             blueLed = Device.CreateDigitalOutputPort(Device.Pins.OnboardLedBlue);
 
-            sensor = new SHT31D(Device.CreateI2cBus());
+            sensor = new Sht31D(Device.CreateI2cBus());
             sensor.Updated += Sensor_Updated;
 
-            var st7789 = new ST7789(Device, Device.CreateSpiBus(),
+            var st7789 = new St7789(Device, Device.CreateSpiBus(),
                 Device.Pins.D02, Device.Pins.D01, Device.Pins.D00,
                 135, 240);
 
