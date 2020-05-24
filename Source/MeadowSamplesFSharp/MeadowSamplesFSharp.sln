@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "HelloLED", "HelloLED\HelloLED.fsproj", "{151A6220-FE2D-4214-A5F4-D0E45F77690B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{151A6220-FE2D-4214-A5F4-D0E45F77690B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{151A6220-FE2D-4214-A5F4-D0E45F77690B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{151A6220-FE2D-4214-A5F4-D0E45F77690B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{151A6220-FE2D-4214-A5F4-D0E45F77690B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {89C613D0-CCAE-4E30-8C80-638EB98842F6}
+	EndGlobalSection
+EndGlobal
