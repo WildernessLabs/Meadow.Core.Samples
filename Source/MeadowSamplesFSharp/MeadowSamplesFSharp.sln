@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "F7Micro", "F7Micro", "{6A30
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "ButtonEvents", "F7Micro\ButtonEvents\ButtonEvents.fsproj", "{C9BDFAB6-5447-4D8B-A8E0-CFBD7A166855}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Walking_DigitalOutputs", "F7Micro\Walking_DigitalOutputs\Walking_DigitalOutputs.fsproj", "{B2651AEF-2225-4F27-B496-E5EE83293C34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,12 +25,17 @@ Global
 		{C9BDFAB6-5447-4D8B-A8E0-CFBD7A166855}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9BDFAB6-5447-4D8B-A8E0-CFBD7A166855}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9BDFAB6-5447-4D8B-A8E0-CFBD7A166855}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2651AEF-2225-4F27-B496-E5EE83293C34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2651AEF-2225-4F27-B496-E5EE83293C34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2651AEF-2225-4F27-B496-E5EE83293C34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2651AEF-2225-4F27-B496-E5EE83293C34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C9BDFAB6-5447-4D8B-A8E0-CFBD7A166855} = {6A303C49-B999-4946-8CDA-97744472A985}
+		{B2651AEF-2225-4F27-B496-E5EE83293C34} = {6A303C49-B999-4946-8CDA-97744472A985}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {89C613D0-CCAE-4E30-8C80-638EB98842F6}
