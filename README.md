@@ -1,22 +1,7 @@
-# Meadow_Samples
+# Meadow.Core Samples
 
-Public samples for Meadow core functionality. 
+Sample Meadow applications that illustrate usage of Meadow.Core features. 
 
+For peripheral samples, see the [Meadow.Foundation rep](https://github.com/wildernesslabs/Meadow.Foundation).
 
-## General, Device-Agnostic Samples
-
-| Sample Name      | Description                                |
-|------------------|--------------------------------------------|
-| HelloLED         | Blinks the onboard LED.                    |
-| Basic_Tasks      | Illustrates basic `System.Task` usage.     |
-| Basic_Threading  | Illustrates basic `System.Thread` usage.   |
-| GpioInterrogation | Illustrates how to enumerate potential device IO and their functionality. |
-| DigitalInputPort_IObservable | Illustrates how to use `FilterableObserver` pattern on input events. |
-| Walking_DigitalOutputs | Enumerates all digital outputs on the device and then writes to them. |
-
-## F7 Micro Samples
-
-| Sample Name      | Description                                |
-|------------------|--------------------------------------------|
-| Walking_DigitalOutputs | Writes to all the named digital outputs. |
-| ButtonEvents | Simple interrupts from a PushButton            |
+For project samples, see the [Meadow projects on Hackster.io](https://www.hackster.io/WildernessLabs/projects?sort=published).
