@@ -5,9 +5,9 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation" Version="0.13.2" />
+    <PackageReference Include="Meadow.Foundation" Version="0.15.2" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.Displays.Ssd1306" Version="0.12.2" />
+    <PackageReference Include="Meadow.Foundation.Displays.Ssd1306" Version="0.12.4" />
   </ItemGroup>
 </Project>
