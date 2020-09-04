@@ -1,0 +1,86 @@
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Net;
+using System.Net.Http;
+using Meadow;
+using Meadow.Devices;
+using Meadow.Gateway.WiFi;
+using Meadow.Hardware;
+
+namespace WiFi_Basics
+{
+    public class MeadowApp : App<F7Micro, MeadowApp>
+    {
+        //static WiFiAdapter wifi;
+        //static Esp32Coprocessor _esp;
+
+        public MeadowApp()
+        {
+            Initialize();
+
+            //Device.WiFiAdapterInitilaized += (s, e) => {
+                if (Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD).ConnectionStatus != ConnectionStatus.Success) {
+                    throw new Exception("Cannot connect to network, applicaiton halted.");
+                }
+                Console.WriteLine("Connection request completed.");
+
+                ScanForAccessPoints();
+
+                GetWebPageAsync("http://www.wildernesslabs.co").Wait();
+
+            //};
+
+        }
+
+        void Initialize()
+        {
+            Console.WriteLine("Initialize hardware...");
+
+            //_esp = new Esp32Coprocessor();
+            //_esp.Reset();
+            //Thread.Sleep(5000);
+            //wifi = new WiFiAdapter(_esp);
+
+
+        }
+
+        private void Device_WiFiAdapterInitilaized(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected void ScanForAccessPoints()
+        {
+            //while (true) {
+                Console.WriteLine("Getting list of access points.");
+                Device.WiFiAdapter.Scan();
+                if (Device.WiFiAdapter.Networks.Count > 0) {
+                    Console.WriteLine("|-------------------------------------------------------------|---------|");
+                    Console.WriteLine("|         Network Name             | RSSI |       BSSID       | Channel |");
+                    Console.WriteLine("|-------------------------------------------------------------|---------|");
+                    foreach (WifiNetwork accessPoint in Device.WiFiAdapter.Networks) {
+                        Console.WriteLine($"| {accessPoint.Ssid,-32} | {accessPoint.SignalDbStrength,4} | {accessPoint.Bssid,17} |   {accessPoint.ChannelCenterFrequency,3}   |");
+                    }
+                } else {
+                    Console.WriteLine($"No access points detected.");
+                }
+                Thread.Sleep(15000);
+            //}
+        }
+
+        public async Task GetWebPageAsync(string uri)
+        {
+            Console.WriteLine($"Requesting {uri}");
+
+            HttpClient client = new HttpClient();
+
+            HttpResponseMessage response = await client.GetAsync(uri);
+
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(responseBody);
+        }
+
+    }
+}
