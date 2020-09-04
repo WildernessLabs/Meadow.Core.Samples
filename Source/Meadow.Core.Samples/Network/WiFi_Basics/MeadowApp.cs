@@ -12,14 +12,13 @@ namespace WiFi_Basics
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        //static WiFiAdapter wifi;
-        //static Esp32Coprocessor _esp;
-
         public MeadowApp()
         {
             Initialize();
 
-            //Device.WiFiAdapterInitilaized += (s, e) => {
+            Device.WiFiAdapterInitilaized += (s,e) => {
+                Console.WriteLine($"Connecting to WiFi Network {Secrets.WIFI_NAME}");
+
                 if (Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD).ConnectionStatus != ConnectionStatus.Success) {
                     throw new Exception("Cannot connect to network, applicaiton halted.");
                 }
@@ -29,7 +28,7 @@ namespace WiFi_Basics
 
                 GetWebPageAsync("http://www.wildernesslabs.co").Wait();
 
-            //};
+            };
 
         }
 
@@ -37,36 +36,23 @@ namespace WiFi_Basics
         {
             Console.WriteLine("Initialize hardware...");
 
-            //_esp = new Esp32Coprocessor();
-            //_esp.Reset();
-            //Thread.Sleep(5000);
-            //wifi = new WiFiAdapter(_esp);
-
-
-        }
-
-        private void Device_WiFiAdapterInitilaized(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         protected void ScanForAccessPoints()
         {
-            //while (true) {
-                Console.WriteLine("Getting list of access points.");
-                Device.WiFiAdapter.Scan();
-                if (Device.WiFiAdapter.Networks.Count > 0) {
-                    Console.WriteLine("|-------------------------------------------------------------|---------|");
-                    Console.WriteLine("|         Network Name             | RSSI |       BSSID       | Channel |");
-                    Console.WriteLine("|-------------------------------------------------------------|---------|");
-                    foreach (WifiNetwork accessPoint in Device.WiFiAdapter.Networks) {
-                        Console.WriteLine($"| {accessPoint.Ssid,-32} | {accessPoint.SignalDbStrength,4} | {accessPoint.Bssid,17} |   {accessPoint.ChannelCenterFrequency,3}   |");
-                    }
-                } else {
-                    Console.WriteLine($"No access points detected.");
+            Console.WriteLine("Getting list of access points.");
+            Device.WiFiAdapter.Scan();
+            if (Device.WiFiAdapter.Networks.Count > 0) {
+                Console.WriteLine("|-------------------------------------------------------------|---------|");
+                Console.WriteLine("|         Network Name             | RSSI |       BSSID       | Channel |");
+                Console.WriteLine("|-------------------------------------------------------------|---------|");
+                foreach (WifiNetwork accessPoint in Device.WiFiAdapter.Networks) {
+                    Console.WriteLine($"| {accessPoint.Ssid,-32} | {accessPoint.SignalDbStrength,4} | {accessPoint.Bssid,17} |   {accessPoint.ChannelCenterFrequency,3}   |");
                 }
-                Thread.Sleep(15000);
-            //}
+            } else {
+                Console.WriteLine($"No access points detected.");
+            }
+            Thread.Sleep(15000);
         }
 
         public async Task GetWebPageAsync(string uri)
