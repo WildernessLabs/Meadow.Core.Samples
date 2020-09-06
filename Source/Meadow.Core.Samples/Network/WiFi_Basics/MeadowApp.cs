@@ -16,7 +16,7 @@ namespace WiFi_Basics
         {
             Initialize();
 
-            Device.WiFiAdapterInitilaized += (s,e) => {
+            //Device.WiFiAdapterInitilaized += (s,e) => {
 
                 Console.WriteLine($"Connecting to WiFi Network {Secrets.WIFI_NAME}");
 
@@ -25,17 +25,20 @@ namespace WiFi_Basics
                 }
                 Console.WriteLine("Connection request completed.");
 
+                //throw new Exception("Test exception");
+
                 ScanForAccessPoints();
 
                 GetWebPageAsync("http://postman-echo.com/get?foo1=bar1&foo2=bar2").Wait();
 
-            };
+            //};
         }
 
         void Initialize()
         {
             Console.WriteLine("Initialize hardware...");
 
+            Device.InitWiFiAdapter().Wait();
         }
 
         protected void ScanForAccessPoints()
