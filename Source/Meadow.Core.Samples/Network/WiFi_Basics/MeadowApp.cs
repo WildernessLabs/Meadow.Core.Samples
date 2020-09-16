@@ -62,6 +62,7 @@ namespace WiFi_Basics
             Console.WriteLine($"Requesting {uri}");
 
             HttpClient client = new HttpClient();
+            client.Timeout = new TimeSpan(0, 5, 0);
 
             HttpResponseMessage response = await client.GetAsync(uri);
 
