@@ -17,6 +17,7 @@ namespace MeadowApp
         string delimiterString = "$$$";
         byte[] delimiterBytes;
         Encoding encoding = Encoding.UTF8;
+        SerialPortName serialPortName = Device.SerialPortNames.Com1;
 
         public MeadowApp()
         {
@@ -24,7 +25,7 @@ namespace MeadowApp
             delimiterBytes = Encoding.ASCII.GetBytes(delimiterString);
 
             Console.WriteLine("SerialMessagePort_Test");
-            Console.WriteLine($"Using '{Device.SerialPortNames.Com1.FriendlyName}'...");
+            Console.WriteLine($"Using '{serialPortName.FriendlyName}'...");
             Console.WriteLine($"delimiter:{delimiterString}");
 
             //TestDoubleMessageWithSuffix();
@@ -46,7 +47,7 @@ namespace MeadowApp
 
             // instantiate our serial port
             this.serialPort = Device.CreateSerialMessagePort(
-                Device.SerialPortNames.Com1, delimiterBytes, preseveDelimiter, baudRate: 115200);
+                serialPortName, delimiterBytes, preseveDelimiter, baudRate: 115200);
             Console.WriteLine("\tCreated");
 
             // open the serial port
@@ -77,7 +78,7 @@ namespace MeadowApp
         {
             // instantiate our serial port
             this.serialPort = Device.CreateSerialMessagePort(
-                Device.SerialPortNames.Com1, Encoding.UTF8.GetBytes("\r\n"), false, baudRate: 115200);
+                serialPortName, Encoding.UTF8.GetBytes("\r\n"), false, baudRate: 115200);
             Console.WriteLine("\tCreated");
 
             // open the serial port
@@ -109,7 +110,7 @@ namespace MeadowApp
 
             // instantiate our serial port
             this.serialPort = Device.CreateSerialMessagePort(
-                Device.SerialPortNames.Com1, delimiterBytes, preseveDelimiter, baudRate:115200);
+                serialPortName, delimiterBytes, preseveDelimiter, baudRate:115200);
             Console.WriteLine("\tCreated");
 
             // open the serial port
@@ -137,7 +138,7 @@ namespace MeadowApp
 
             // instantiate our serial port
             this.serialPort = Device.CreateSerialMessagePort(
-                Device.SerialPortNames.Com1, delimiterBytes, preseveDelimiter, 27, baudRate: 115200);
+                serialPortName, delimiterBytes, preseveDelimiter, 27, baudRate: 115200);
             Console.WriteLine("\tCreated");
 
             // open the serial port
