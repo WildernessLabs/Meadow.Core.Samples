@@ -331,3 +331,6 @@ ASALocalRun/
 
 # macOS Garbage
 **/*.DS_Store
+
+# Secrets
+**/Secrets.cs
