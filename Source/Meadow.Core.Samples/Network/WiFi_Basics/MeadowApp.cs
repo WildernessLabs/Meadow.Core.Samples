@@ -20,8 +20,10 @@ namespace WiFi_Basics
 
             Console.WriteLine($"Connecting to WiFi Network {Secrets.WIFI_NAME}");
 
-            if (Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD).ConnectionStatus != ConnectionStatus.Success) {
-                throw new Exception("Cannot connect to network, applicaiton halted.");
+            var result = Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
+            if (result.ConnectionStatus != ConnectionStatus.Success) { 
+            //if (Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD).ConnectionStatus != ConnectionStatus.Success) {
+                throw new Exception($"Cannot connect to network: {result.ConnectionStatus}");
             }
             Console.WriteLine("Connection request completed.");
 
