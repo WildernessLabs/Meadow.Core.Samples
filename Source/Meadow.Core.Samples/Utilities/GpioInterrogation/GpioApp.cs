@@ -12,20 +12,20 @@ namespace GpioInterrogation
     {
         public GpioApp()
         {
-            //// uncomment to build out a table of pins functions
-            //StringBuilder table = new StringBuilder();
-            //table.Append(BuildHeader());
-            //foreach (var pin in Device.Pins.AllPins) {
-            //    table.Append(BuildRow(pin));
-            //}
-            //Console.WriteLine(table.ToString());
-
+            // uncomment to build out a table of pins functions
+            StringBuilder table = new StringBuilder();
+            table.Append(BuildHeader());
             foreach (var pin in Device.Pins.AllPins) {
-                Console.WriteLine($"Found pin: {pin.Name}");
-                foreach (var channel in pin.SupportedChannels) {
-                    Console.WriteLine($"Contains a {channel.GetType()} channel called: {channel.Name}.");
-                }
+                table.Append(BuildRow(pin));
             }
+            Console.WriteLine(table.ToString());
+
+            //foreach (var pin in Device.Pins.AllPins) {
+            //    Console.WriteLine($"Found pin: {pin.Name}");
+            //    foreach (var channel in pin.SupportedChannels) {
+            //        Console.WriteLine($"Contains a {channel.GetType()} channel called: {channel.Name}.");
+            //    }
+            //}
         }
 
         protected string BuildHeader()
@@ -80,7 +80,7 @@ namespace GpioInterrogation
             stringBuilder.Append($" { ((digitalChan == null) ? "n/a" : digitalChan?.Name)} |");
             stringBuilder.Append($" { ((analogChan == null) ? "n/a" : analogChan?.Name)} |");
             stringBuilder.Append($" { ((pwmChan == null) ? "n/a" : pwmChan?.TimerChannel.ToString())} |");
-            //stringBuilder.Append($" { ((digitalChan == null) ? "n/a" : digitalChan?.)} |");
+            stringBuilder.Append($" { ((digitalChan == null) ? "n/a" : digitalChan?.InterruptGroup?.ToString())} |");
             stringBuilder.Append("\r\n");
             return stringBuilder.ToString();
         }
