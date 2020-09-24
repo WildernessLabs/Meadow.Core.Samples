@@ -17,6 +17,7 @@ namespace MeadowApp
         string delimiterString = "$$$";
         byte[] delimiterBytes;
         Encoding encoding = Encoding.UTF8;
+        SerialPortName serialPortName = Device.SerialPortNames.Com1;
 
         public MeadowApp()
         {
@@ -24,13 +25,15 @@ namespace MeadowApp
             delimiterBytes = Encoding.ASCII.GetBytes(delimiterString);
 
             Console.WriteLine("SerialMessagePort_Test");
-            Console.WriteLine($"Using '{Device.SerialPortNames.Com1.FriendlyName}'...");
+            Console.WriteLine($"Using '{serialPortName.FriendlyName}'...");
             Console.WriteLine($"delimiter:{delimiterString}");
 
-            TestDoubleMessageWithSuffix();
+            //TestDoubleMessageWithSuffix();
 
-            //TestSuffixDelimiter();
+            TestSuffixDelimiter();
             //TestPrefixDelimiter();
+
+            //TestSuffixDelimeterAndBufferLengthForNulls();
         }
 
         /// <summary>
@@ -40,11 +43,11 @@ namespace MeadowApp
         {
             // TEST PARAM
             // whether or not to return the message with the tokens in it
-            bool preseveDelimiter = false;
+            bool preseveDelimiter = true;
 
             // instantiate our serial port
             this.serialPort = Device.CreateSerialMessagePort(
-                Device.SerialPortNames.Com1, delimiterBytes, preseveDelimiter, baudRate: 115200);
+                serialPortName, delimiterBytes, preseveDelimiter, baudRate: 115200);
             Console.WriteLine("\tCreated");
 
             // open the serial port
@@ -68,6 +71,37 @@ namespace MeadowApp
             }
         }
 
+        /// <summary>
+        /// Test for https://github.com/WildernessLabs/Meadow_Issues/issues/102
+        /// </summary>
+        protected void TestSuffixDelimeterAndBufferLengthForNulls()
+        {
+            // instantiate our serial port
+            this.serialPort = Device.CreateSerialMessagePort(
+                serialPortName, Encoding.UTF8.GetBytes("\r\n"), false, baudRate: 115200);
+            Console.WriteLine("\tCreated");
+
+            // open the serial port
+            this.serialPort.Open();
+            Console.WriteLine("\tOpened");
+
+            // wire up message received handler
+            this.serialPort.MessageReceived += (object sender, SerialMessageData e) => {
+                Console.WriteLine($"Message Lenght: {e.Message.Length}");
+                if (e.Message.Length == 11) {
+                    Console.WriteLine("Things are groovy.");
+                } else {
+                    Console.WriteLine("Things are not so groovy.");
+                }
+
+            };
+
+            var dataToWrite = Encoding.ASCII.GetBytes($"TestMessage\r\n");
+            var written = this.serialPort.Write(dataToWrite);
+            Console.WriteLine($"\nWrote {written} bytes");
+
+        }
+
         protected void TestDoubleMessageWithSuffix()
         {
             // TEST PARAM
@@ -76,7 +110,7 @@ namespace MeadowApp
 
             // instantiate our serial port
             this.serialPort = Device.CreateSerialMessagePort(
-                Device.SerialPortNames.Com1, delimiterBytes, preseveDelimiter, baudRate:115200);
+                serialPortName, delimiterBytes, preseveDelimiter, baudRate:115200);
             Console.WriteLine("\tCreated");
 
             // open the serial port
@@ -104,7 +138,7 @@ namespace MeadowApp
 
             // instantiate our serial port
             this.serialPort = Device.CreateSerialMessagePort(
-                Device.SerialPortNames.Com1, delimiterBytes, preseveDelimiter, 27, baudRate: 115200);
+                serialPortName, delimiterBytes, preseveDelimiter, 27, baudRate: 115200);
             Console.WriteLine("\tCreated");
 
             // open the serial port
