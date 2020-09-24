@@ -11,6 +11,6 @@
     <LangVersion>latestmajor</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="WildernessLabs.Meadow.Assemblies" Version="0.3.2" />
+    <PackageReference Include="Meadow" Version="0.16.0" />
   </ItemGroup>
 </Project>
