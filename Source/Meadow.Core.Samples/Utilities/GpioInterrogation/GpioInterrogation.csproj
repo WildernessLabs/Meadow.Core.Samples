@@ -11,6 +11,6 @@
     <LangVersion>latestmajor</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Meadow.Core\source\Meadow.Core\Meadow.Core.csproj" />
+    <PackageReference Include="WildernessLabs.Meadow.Assemblies" Version="0.3.2" />
   </ItemGroup>
 </Project>
