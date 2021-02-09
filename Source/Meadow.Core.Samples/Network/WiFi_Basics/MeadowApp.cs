@@ -34,8 +34,9 @@ namespace WiFi_Basics
 
             ScanForAccessPoints();
 
-            GetWebPageViaHttpClient("http://postman-echo.com/get?foo1=bar1&foo2=bar2").Wait();
+            GetWebPageViaHttpClient("https://postman-echo.com/get?foo1=bar1&foo2=bar2").Wait();
 
+            Console.WriteLine("Done.");
         }
 
         void Initialize()
