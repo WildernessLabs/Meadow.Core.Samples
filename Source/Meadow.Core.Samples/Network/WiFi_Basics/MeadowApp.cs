@@ -44,6 +44,13 @@ namespace WiFi_Basics
             Console.WriteLine("Initialize hardware...");
 
             Device.InitWiFiAdapter().Wait();
+
+            Device.WiFiAdapter.ConnectionCompleted += WiFiAdapter_ConnectionCompleted;
+        }
+
+        private void WiFiAdapter_ConnectionCompleted(object sender, EventArgs e)
+        {
+            Console.WriteLine("Yay, an event!");
         }
 
         protected void ScanForAccessPoints()

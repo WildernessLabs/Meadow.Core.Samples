@@ -4,12 +4,12 @@
     <OutputType>Exe</OutputType>
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Meadow" Version="0.*" />
-  </ItemGroup>
   <!--
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="copy C:\Users\[your user]\.nuget\packages\wildernesslabs.meadow.assemblies\0.3.2\lib\net472\System.Net.Http.dll  $(OutDir)" />
   </Target>
   -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\Meadow.Core\source\Meadow.Core\Meadow.Core.csproj" />
+  </ItemGroup>
 </Project>
