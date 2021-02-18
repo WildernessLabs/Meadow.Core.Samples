@@ -24,9 +24,9 @@ namespace Basic_Digital_Input
             // we'll create 3 inputs, with each of the available resistor modes
             var d5 = Device.CreateDigitalInputPort(Device.Pins.D05, resistorMode: ResistorMode.Disabled);
             _inputs.Add(d5);
-            var d6 = Device.CreateDigitalInputPort(Device.Pins.D06, resistorMode: ResistorMode.PullUp);
+            var d6 = Device.CreateDigitalInputPort(Device.Pins.D06, resistorMode: ResistorMode.InternalPullUp);
             _inputs.Add(d6);
-            var d7 = Device.CreateDigitalInputPort(Device.Pins.D07, resistorMode: ResistorMode.PullDown);
+            var d7 = Device.CreateDigitalInputPort(Device.Pins.D07, resistorMode: ResistorMode.InternalPullDown);
             _inputs.Add(d7);
 
             double debounceDuration = 500;
@@ -35,12 +35,12 @@ namespace Basic_Digital_Input
             d4.Changed += OnStateChangedHandler;
             _inputs.Add(d4);
             // since we're looking for falling, pull it up
-            var d3 = Device.CreateDigitalInputPort(Device.Pins.D03, InterruptMode.EdgeFalling, ResistorMode.PullUp);
+            var d3 = Device.CreateDigitalInputPort(Device.Pins.D03, InterruptMode.EdgeFalling, ResistorMode.InternalPullUp);
             d3.DebounceDuration = debounceDuration;
             d3.Changed += OnStateChangedHandler;
             _inputs.Add(d3);
             // since we're looking for risinging, pull it down
-            var d2 = Device.CreateDigitalInputPort(Device.Pins.D02, InterruptMode.EdgeRising, ResistorMode.PullDown);
+            var d2 = Device.CreateDigitalInputPort(Device.Pins.D02, InterruptMode.EdgeRising, ResistorMode.InternalPullDown);
             d2.DebounceDuration = debounceDuration;
             d2.Changed += OnStateChangedHandler;
             _inputs.Add(d2);

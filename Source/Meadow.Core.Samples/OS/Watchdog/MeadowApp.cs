@@ -74,7 +74,7 @@ namespace MeadowApp
 
         void ShowColorPulse(Color color, int duration = 1000)
         {
-            onboardLed.StartPulse(color, (uint)(duration / 2));
+            onboardLed.StartPulse(color, (int)(duration / 2));
             Thread.Sleep(duration);
             onboardLed.Stop();
         }
