@@ -19,38 +19,39 @@ namespace WiFi_Basics
     {
         public MeadowApp()
         {
-            Initialize();
-
-
-            Console.WriteLine($"Connecting to WiFi Network {Secrets.WIFI_NAME}");
-
-            var result = Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
-            if (result.ConnectionStatus != ConnectionStatus.Success) { 
-            //if (Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD).ConnectionStatus != ConnectionStatus.Success) {
-                throw new Exception($"Cannot connect to network: {result.ConnectionStatus}");
-            }
-            Console.WriteLine("Connection request completed.");
-
-
-            ScanForAccessPoints();
-
+            Initialize().Wait();
+            
             GetWebPageViaHttpClient("https://postman-echo.com/get?foo1=bar1&foo2=bar2").Wait();
 
             Console.WriteLine("Done.");
         }
 
-        void Initialize()
+        async Task Initialize()
         {
             Console.WriteLine("Initialize hardware...");
 
-            Device.InitWiFiAdapter().Wait();
+            // initialize the wifi adpater
+            if (!Device.InitWiFiAdapter().Result) {
+                throw new Exception("Could not initialize the WiFi adapter.");
+            }
 
-            Device.WiFiAdapter.ConnectionCompleted += WiFiAdapter_ConnectionCompleted;
+            // connected event test.
+            Device.WiFiAdapter.WiFiConnected += WiFiAdapter_ConnectionCompleted;
+
+            // enumerate the public WiFi channels
+            ScanForAccessPoints();
+
+            // connnect to the wifi network.
+            Console.WriteLine($"Connecting to WiFi Network {Secrets.WIFI_NAME}");
+            var connectionResult = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
+            if (connectionResult.ConnectionStatus != ConnectionStatus.Success) {
+                throw new Exception($"Cannot connect to network: {connectionResult.ConnectionStatus}");
+            }
         }
 
         private void WiFiAdapter_ConnectionCompleted(object sender, EventArgs e)
         {
-            Console.WriteLine("Yay, an event!");
+            Console.WriteLine("Connection request completed.");
         }
 
         protected void ScanForAccessPoints()
