@@ -11,10 +11,6 @@ using System.IO;
 
 namespace WiFi_Basics
 {
-    // **** WINDOWS USERS ****
-    // due to a VSWindows bug that links out the System.Net.Http.dll, you must
-    // manually edit the .csproj file, uncomment the post-build step, and
-    // change the [your user] text to your username.
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
         public MeadowApp()
