@@ -22,7 +22,9 @@ namespace MeadowApp
             Console.WriteLine($"Current antenna in use: {Device.CurrentAntenna}");
 
             // change to the external antenna
+            Console.WriteLine($"Switching to external antenna.");
             Device.SetAntenna(AntennaType.External);
+            Console.WriteLine($"Current antenna in use: {Device.CurrentAntenna}");
 
             // enumerate WiFis again on the new antenna
             ScanForAccessPoints();
