@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Hardware;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 
 namespace Basic_Digital_Input
 {
-    class InputApp : App<F7Micro, InputApp>
+    class MeadowApp : App<F7Micro, MeadowApp>
     {
         private List<IDigitalInputPort> _inputs = new List<IDigitalInputPort>();
 
-        public InputApp()
+        public MeadowApp()
         {
             ConfigureInputs();
             ShowStates();

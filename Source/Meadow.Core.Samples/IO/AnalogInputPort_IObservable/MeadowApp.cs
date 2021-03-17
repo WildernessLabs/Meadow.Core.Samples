@@ -1,17 +1,17 @@
-using System;
 using Meadow;
 using Meadow.Devices;
 using Meadow.Hardware;
+using System;
 
 namespace AnalogObserver
 {
-    public class AnalogObserverApp : App<F7Micro, AnalogObserverApp>
+    public class MeadowApp : App<F7Micro, MeadowApp>
     {
         IAnalogInputPort _analogIn;
 
         protected IDisposable _absoluteObserver = null;
 
-        public AnalogObserverApp()
+        public MeadowApp()
         {
             Console.WriteLine("Starting App");
             this.InitializeIO();

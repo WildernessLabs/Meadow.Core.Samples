@@ -1,15 +1,14 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using System;
-using Meadow.Hardware;
 using System.Text;
 using System.Threading;
 
 namespace SerialEcho
 {
-    public class SerialEcho : App<F7Micro, SerialEcho>
+    public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        public SerialEcho()
+        public MeadowApp()
         {
             Console.WriteLine("+SerialEcho");
 

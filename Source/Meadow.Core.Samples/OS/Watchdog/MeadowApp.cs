@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
+using System;
+using System.Threading;
 
 namespace MeadowApp
 {

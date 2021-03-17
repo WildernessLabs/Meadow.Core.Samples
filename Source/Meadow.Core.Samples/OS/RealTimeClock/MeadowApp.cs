@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
+using System;
 
-namespace MeadowApp
+namespace RealTimeClock
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {

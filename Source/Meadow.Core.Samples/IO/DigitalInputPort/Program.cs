@@ -1,7 +1,7 @@
 ﻿using Meadow;
 using System.Threading;
 
-namespace WiFi_Basics
+namespace Basic_Digital_Input
 {
     class Program
     {

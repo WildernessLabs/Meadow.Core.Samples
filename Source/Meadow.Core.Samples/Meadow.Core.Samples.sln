@@ -1,77 +1,74 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31105.61
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IO", "IO", "{234C2A00-F5E8-4E3D-899F-7EC3470B03E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalogInputPort", "IO\AnalogInputPort\AnalogInputPort.csproj", "{029A1DE8-CE15-4B04-81DC-3470156D0340}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnalogInputPort", "IO\AnalogInputPort\AnalogInputPort.csproj", "{029A1DE8-CE15-4B04-81DC-3470156D0340}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalogInputPort_IObservable", "IO\AnalogInputPort_IObservable\AnalogInputPort_IObservable.csproj", "{8B5A95A8-14B7-4344-9BCB-D9BB1A6EE689}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnalogInputPort_IObservable", "IO\AnalogInputPort_IObservable\AnalogInputPort_IObservable.csproj", "{8B5A95A8-14B7-4344-9BCB-D9BB1A6EE689}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiDirectonalPort", "IO\BiDirectonalPort\BiDirectonalPort.csproj", "{71571663-A35C-403A-9511-F36FAE91694B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiDirectonalPort", "IO\BiDirectonalPort\BiDirectonalPort.csproj", "{71571663-A35C-403A-9511-F36FAE91694B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalInputPort", "IO\DigitalInputPort\DigitalInputPort.csproj", "{3173C381-839B-4458-A2E9-D2EF326ACF2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigitalInputPort", "IO\DigitalInputPort\DigitalInputPort.csproj", "{3173C381-839B-4458-A2E9-D2EF326ACF2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalInputPort_IObservable", "IO\DigitalInputPort_IObservable\DigitalInputPort_IObservable.csproj", "{4D228F7E-709A-4577-97A8-BD90EF62C496}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigitalInputPort_IObservable", "IO\DigitalInputPort_IObservable\DigitalInputPort_IObservable.csproj", "{4D228F7E-709A-4577-97A8-BD90EF62C496}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "I2C", "IO\I2C\I2C.csproj", "{FC0409C2-669C-4AEE-A3E5-F9223683B5EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "I2C", "IO\I2C\I2C.csproj", "{FC0409C2-669C-4AEE-A3E5-F9223683B5EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PWM", "IO\PWM\PWM.csproj", "{95314D29-B049-41B2-9392-046C7BA087F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PWM", "IO\PWM\PWM.csproj", "{95314D29-B049-41B2-9392-046C7BA087F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialListener", "IO\SerialListener\SerialListener.csproj", "{3E0A6B57-8D6B-4F37-9EB0-69B07703D0EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerialListener", "IO\SerialListener\SerialListener.csproj", "{3E0A6B57-8D6B-4F37-9EB0-69B07703D0EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialMessagePort", "IO\SerialMessagePort\SerialMessagePort.csproj", "{2C3575DB-7780-4CF5-85DF-5CE97FC31A9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerialMessagePort", "IO\SerialMessagePort\SerialMessagePort.csproj", "{2C3575DB-7780-4CF5-85DF-5CE97FC31A9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialPort", "IO\SerialPort\SerialPort.csproj", "{17D6B681-F2AB-4420-A02F-6B3EEC264175}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerialPort", "IO\SerialPort\SerialPort.csproj", "{17D6B681-F2AB-4420-A02F-6B3EEC264175}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialPort_Echo", "IO\SerialPort_Echo\SerialPort_Echo.csproj", "{1FCC5969-83D6-464E-A621-0122CB4FDEE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SerialPort_Echo", "IO\SerialPort_Echo\SerialPort_Echo.csproj", "{1FCC5969-83D6-464E-A621-0122CB4FDEE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPI", "IO\SPI\SPI.csproj", "{6B6D29B4-7C3D-4421-91C0-3846708B566B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SPI", "IO\SPI\SPI.csproj", "{6B6D29B4-7C3D-4421-91C0-3846708B566B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Board_Specific_Samples", "Board_Specific_Samples", "{0BE529A3-6BDD-42AA-8516-144CAFE1AC4E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OS", "OS", "{8D279C3D-43E8-4823-9D33-682231D1A48D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealTimeClock", "OS\RealTimeClock\RealTimeClock.csproj", "{FD127397-8269-4094-8792-54D0E69CC4EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealTimeClock", "OS\RealTimeClock\RealTimeClock.csproj", "{FD127397-8269-4094-8792-54D0E69CC4EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Threading", "OS\Threading\Threading.csproj", "{502797E9-BF7D-460F-8467-AE8646E64BBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threading", "OS\Threading\Threading.csproj", "{502797E9-BF7D-460F-8467-AE8646E64BBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Threading.Tasks", "OS\Threading.Tasks\Threading.Tasks.csproj", "{67BD4E4C-9EB2-49CE-B071-D114CF77253A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threading.Tasks", "OS\Threading.Tasks\Threading.Tasks.csproj", "{67BD4E4C-9EB2-49CE-B071-D114CF77253A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "F7_Micro", "F7_Micro", "{470D41EF-4884-4D8A-9E38-C5FC727023D0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "F7_Embedded", "F7_Embedded", "{93EA3696-15A6-4F2C-AE64-295A651B534E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Walking_DigitalOutputs", "Board_Specific_Samples\F7_Micro\Walking_DigitalOutputs\Walking_DigitalOutputs.csproj", "{E8407C33-AED5-44A4-96A5-974E7A954E11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Walking_DigitalOutputs", "Board_Specific_Samples\F7_Micro\Walking_DigitalOutputs\Walking_DigitalOutputs.csproj", "{E8407C33-AED5-44A4-96A5-974E7A954E11}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{78162874-E723-4C4D-82EF-0FE2257B03D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GpioInterrogation", "Utilities\GpioInterrogation\GpioInterrogation.csproj", "{38EE99FD-3BF1-4ABC-A506-875AEE5BE409}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GpioInterrogation", "Utilities\GpioInterrogation\GpioInterrogation.csproj", "{38EE99FD-3BF1-4ABC-A506-875AEE5BE409}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities.Walking_DigitalOutputs", "Utilities\Walking_DigitalOutputs\Utilities.Walking_DigitalOutputs.csproj", "{DE131C41-0928-41AC-AFC4-72F0BA61E7F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utilities.Walking_DigitalOutputs", "Utilities\Walking_DigitalOutputs\Utilities.Walking_DigitalOutputs.csproj", "{DE131C41-0928-41AC-AFC4-72F0BA61E7F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F7_Micro_Board_Diagnostics", "Board_Specific_Samples\F7_Micro\F7_Micro_Board_Diagnostics\F7_Micro_Board_Diagnostics.csproj", "{3EC4C5CD-A0E7-4A2A-9EAF-19D9D0739CB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "F7_Micro_Board_Diagnostics", "Board_Specific_Samples\F7_Micro\F7_Micro_Board_Diagnostics\F7_Micro_Board_Diagnostics.csproj", "{3EC4C5CD-A0E7-4A2A-9EAF-19D9D0739CB2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Network", "Network", "{DD274BA7-34B7-40E2-B650-4CA6245CCBCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WiFi_Basics", "Network\WiFi_Basics\WiFi_Basics.csproj", "{1E700379-4387-45FD-A0C2-5ABE8B1B7AED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WiFi_Basics", "Network\WiFi_Basics\WiFi_Basics.csproj", "{1E700379-4387-45FD-A0C2-5ABE8B1B7AED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hello_LED", "IO\Hello_LED\Hello_LED.csproj", "{9A60640E-2654-4933-A800-5EC0715D4255}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hello_LED", "IO\Hello_LED\Hello_LED.csproj", "{9A60640E-2654-4933-A800-5EC0715D4255}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project References", "Project References", "{7985EEA8-28F3-4CDC-9073-E27F742943E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meadow.Core", "..\..\..\Meadow.Core\source\Meadow.Core\Meadow.Core.csproj", "{0E2A95DA-F6AD-4268-8C80-7038716FD25B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Watchdog", "OS\Watchdog\Watchdog.csproj", "{52F9F1F5-4FFE-4554-8E67-AF77B499D5AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Watchdog", "OS\Watchdog\Watchdog.csproj", "{52F9F1F5-4FFE-4554-8E67-AF77B499D5AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Foundation.Core", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Core\Meadow.Foundation.Core.csproj", "{39C010AB-6B94-452F-BE26-AE8FF97C795F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meadow.Foundation.Core", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Core\Meadow.Foundation.Core.csproj", "{39C010AB-6B94-452F-BE26-AE8FF97C795F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Antenna_Switching", "Network\Antenna_Switching\Antenna_Switching.csproj", "{BD76718C-7B1D-49D9-B62C-7D1BC0F10B51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meadow.Units", "..\..\..\Meadow.Core\source\Meadow.Units\Meadow.Units.csproj", "{D87AF75A-83BD-492F-BBA7-9109DD1C8078}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpListener", "Network\HttpListener\HttpListener.csproj", "{2E9D34F4-7367-4F3D-851B-AE79115DE8AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Antenna_Switching", "Network\Antenna_Switching\Antenna_Switching.csproj", "{BD76718C-7B1D-49D9-B62C-7D1BC0F10B51}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpListener", "Network\HttpListener\HttpListener.csproj", "{2E9D34F4-7367-4F3D-851B-AE79115DE8AE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatteryLevel", "OS\BatteryLevel\BatteryLevel.csproj", "{64CF81A3-8CA4-4E54-99C1-5F3BFF3815CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BatteryLevel", "OS\BatteryLevel\BatteryLevel.csproj", "{64CF81A3-8CA4-4E54-99C1-5F3BFF3815CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -163,10 +160,6 @@ Global
 		{9A60640E-2654-4933-A800-5EC0715D4255}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A60640E-2654-4933-A800-5EC0715D4255}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A60640E-2654-4933-A800-5EC0715D4255}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0E2A95DA-F6AD-4268-8C80-7038716FD25B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E2A95DA-F6AD-4268-8C80-7038716FD25B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E2A95DA-F6AD-4268-8C80-7038716FD25B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E2A95DA-F6AD-4268-8C80-7038716FD25B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{52F9F1F5-4FFE-4554-8E67-AF77B499D5AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{52F9F1F5-4FFE-4554-8E67-AF77B499D5AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52F9F1F5-4FFE-4554-8E67-AF77B499D5AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -175,10 +168,6 @@ Global
 		{39C010AB-6B94-452F-BE26-AE8FF97C795F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39C010AB-6B94-452F-BE26-AE8FF97C795F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39C010AB-6B94-452F-BE26-AE8FF97C795F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D87AF75A-83BD-492F-BBA7-9109DD1C8078}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D87AF75A-83BD-492F-BBA7-9109DD1C8078}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D87AF75A-83BD-492F-BBA7-9109DD1C8078}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D87AF75A-83BD-492F-BBA7-9109DD1C8078}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BD76718C-7B1D-49D9-B62C-7D1BC0F10B51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BD76718C-7B1D-49D9-B62C-7D1BC0F10B51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD76718C-7B1D-49D9-B62C-7D1BC0F10B51}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -191,6 +180,9 @@ Global
 		{64CF81A3-8CA4-4E54-99C1-5F3BFF3815CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64CF81A3-8CA4-4E54-99C1-5F3BFF3815CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64CF81A3-8CA4-4E54-99C1-5F3BFF3815CB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{029A1DE8-CE15-4B04-81DC-3470156D0340} = {234C2A00-F5E8-4E3D-899F-7EC3470B03E0}
@@ -216,11 +208,12 @@ Global
 		{3EC4C5CD-A0E7-4A2A-9EAF-19D9D0739CB2} = {470D41EF-4884-4D8A-9E38-C5FC727023D0}
 		{1E700379-4387-45FD-A0C2-5ABE8B1B7AED} = {DD274BA7-34B7-40E2-B650-4CA6245CCBCA}
 		{9A60640E-2654-4933-A800-5EC0715D4255} = {234C2A00-F5E8-4E3D-899F-7EC3470B03E0}
-		{0E2A95DA-F6AD-4268-8C80-7038716FD25B} = {7985EEA8-28F3-4CDC-9073-E27F742943E1}
 		{52F9F1F5-4FFE-4554-8E67-AF77B499D5AC} = {8D279C3D-43E8-4823-9D33-682231D1A48D}
-		{D87AF75A-83BD-492F-BBA7-9109DD1C8078} = {7985EEA8-28F3-4CDC-9073-E27F742943E1}
 		{BD76718C-7B1D-49D9-B62C-7D1BC0F10B51} = {DD274BA7-34B7-40E2-B650-4CA6245CCBCA}
 		{2E9D34F4-7367-4F3D-851B-AE79115DE8AE} = {DD274BA7-34B7-40E2-B650-4CA6245CCBCA}
 		{64CF81A3-8CA4-4E54-99C1-5F3BFF3815CB} = {8D279C3D-43E8-4823-9D33-682231D1A48D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B3E6AE55-DFFB-4B7B-8143-96D0D1AA8CD9}
 	EndGlobalSection
 EndGlobal

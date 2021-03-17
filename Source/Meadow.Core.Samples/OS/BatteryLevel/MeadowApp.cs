@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
+using System;
+using System.Threading;
 
 namespace MeadowApp
 {

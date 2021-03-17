@@ -1,18 +1,17 @@
-﻿using System;
-using Meadow;
-using Meadow.Hardware;
+﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Hardware;
+using System;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Basic_AnalogReads
 {
-    public class AnalogReadApp : App<F7Micro, AnalogReadApp>
+    public class MeadowApp : App<F7Micro, MeadowApp>
     {
         IAnalogInputPort _a00;
         IAnalogInputPort _a01;
 
-        public AnalogReadApp()
+        public MeadowApp()
         {
             Console.WriteLine("Starting App");
             _a00 = Device.CreateAnalogInputPort(Device.Pins.A00);

@@ -7,9 +7,9 @@ using Meadow.Hardware;
 
 namespace Basic_PWM
 {
-    class PWMApp : App<F7Micro, PWMApp>
+    class MeadowApp : App<F7Micro, MeadowApp>
     {
-        public PWMApp()
+        public MeadowApp()
         {
             Console.WriteLine("+PWMApp");
 

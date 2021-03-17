@@ -1,17 +1,19 @@
-﻿using System;
-using Meadow;
+﻿using Meadow;
+using System.Threading;
 
 namespace GpioInterrogation
 {
-    class MainClass
+    class Program
     {
-        static IApp _app;
-
+        static IApp app;
         public static void Main(string[] args)
         {
-            // instantiate and run new meadow app
-            _app = new GpioApp();
+            if (args.Length > 0 && args[0] == "--exitOnDebug") return;
 
+            // instantiate and run new meadow app
+            app = new MeadowApp();
+
+            Thread.Sleep(Timeout.Infinite);
         }
     }
 }

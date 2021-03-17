@@ -1,7 +1,7 @@
-﻿using System;
-using Meadow;
-using Meadow.Hardware;
+﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Hardware;
+using System;
 
 namespace DigitalInputPort_IObservable_Sample
 {
@@ -12,11 +12,11 @@ namespace DigitalInputPort_IObservable_Sample
     /// not currently working, add a 10k pull-down resistor to the input side as illustrated in
     /// http://developer.wildernesslabs.co/Hardware/Tutorials/Electronics/Part4/PullUp_PullDown_Resistors/
     /// </summary>
-    public class InputObservableApp : App<F7Micro, InputObservableApp>
+    public class MeadowApp : App<F7Micro, MeadowApp>
     {
         IDigitalInputPort _input;
 
-        public InputObservableApp()
+        public MeadowApp()
         {
             // create an input port on D02. 
             _input = Device.CreateDigitalInputPort(Device.Pins.D02);

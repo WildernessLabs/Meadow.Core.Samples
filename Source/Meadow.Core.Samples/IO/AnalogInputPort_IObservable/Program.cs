@@ -1,14 +1,19 @@
-using System;
+using Meadow;
+using System.Threading;
 
 namespace AnalogObserver
 {
-    class MainClass
+    class Program
     {
-        static AnalogObserverApp _app;
-
+        static IApp app;
         public static void Main(string[] args)
         {
-            _app = new AnalogObserverApp();
+            if (args.Length > 0 && args[0] == "--exitOnDebug") return;
+
+            // instantiate and run new meadow app
+            app = new MeadowApp();
+
+            Thread.Sleep(Timeout.Infinite);
         }
     }
 }

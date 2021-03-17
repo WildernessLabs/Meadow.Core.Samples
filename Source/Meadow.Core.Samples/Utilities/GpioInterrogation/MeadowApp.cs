@@ -1,16 +1,16 @@
 ﻿#nullable enable
 
-using System;
-using System.Text;
 using Meadow;
 using Meadow.Devices;
 using Meadow.Hardware;
+using System;
+using System.Text;
 
 namespace GpioInterrogation
 {
-    public class GpioApp : App<F7Micro, GpioApp>
+    public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        public GpioApp()
+        public MeadowApp()
         {
             // uncomment to build out a table of pins functions
             StringBuilder table = new StringBuilder();

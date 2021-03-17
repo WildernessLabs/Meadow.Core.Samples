@@ -1,19 +1,19 @@
-﻿using System;
-using System.Threading;
-using System.Collections.Generic;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Hardware;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Walking_DigitalOutputs
 {
-    public class OutputApp : App<F7Micro, OutputApp>
+    public class MeadowApp : App<F7Micro, MeadowApp>
     {
         IList<IDigitalOutputPort> _outs = new List<IDigitalOutputPort>();
         IList<string> _outChans = new List<string>();
 
-        public OutputApp()
+        public MeadowApp()
         {
             while (true) {
 

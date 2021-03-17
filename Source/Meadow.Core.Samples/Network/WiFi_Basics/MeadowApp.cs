@@ -1,13 +1,9 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Net;
-using System.Net.Http;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Gateway.WiFi;
-using Meadow.Hardware;
-using System.IO;
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace WiFi_Basics
 {

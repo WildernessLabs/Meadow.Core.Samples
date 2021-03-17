@@ -7,9 +7,9 @@ using Meadow.Hardware;
 
 namespace F7_Micro_Board_Diagnostics
 {
-    public class F7MicroDiagApp : App<F7Micro, F7MicroDiagApp>
+    public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        public F7MicroDiagApp()
+        public MeadowApp()
         {
             // Simple Digital IO
             Tuple<bool, List<PortTestResult>> digitalIOResults = TestDigitalIO();

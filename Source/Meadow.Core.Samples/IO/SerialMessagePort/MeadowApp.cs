@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Meadow;
+using Meadow.Devices;
+using Meadow.Hardware;
+using System;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using Meadow;
-using Meadow.Devices;
-using Meadow.Hardware;
 
 namespace MeadowApp
 {

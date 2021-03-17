@@ -1,19 +1,18 @@
-using System;
-using System.Threading;
 using Meadow;
+using System.Threading;
 
 namespace F7_Micro_Board_Diagnostics
 {
-    class MainClass
+    class Program
     {
-        static IApp _app;
-
+        static IApp app;
         public static void Main(string[] args)
         {
-            // launch the app
-            _app = new F7MicroDiagApp();
+            if (args.Length > 0 && args[0] == "--exitOnDebug") return;
 
-            // stay alive forever.
+            // instantiate and run new meadow app
+            app = new MeadowApp();
+
             Thread.Sleep(Timeout.Infinite);
         }
     }

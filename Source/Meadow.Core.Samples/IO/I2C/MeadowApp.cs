@@ -1,14 +1,14 @@
-﻿using System;
-using System.Threading;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Hardware;
+using System;
+using System.Threading;
 
 namespace BasicI2CTest
 {
-    public class I2CApp : App<F7Micro, I2CApp>
+    public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        public I2CApp()
+        public MeadowApp()
         {
             Console.WriteLine("+I2CApp");
 

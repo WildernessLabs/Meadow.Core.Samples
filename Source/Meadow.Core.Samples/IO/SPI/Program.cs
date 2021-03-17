@@ -1,15 +1,17 @@
-using System;
+using Meadow;
 using System.Threading;
-using Meadow.Core;
 
 namespace SPITest
 {
-    class MainClass
+    class Program
     {
+        static IApp app;
         public static void Main(string[] args)
         {
-            SPITestApplication application = new SPITestApplication();
-            application.Run();
+            if (args.Length > 0 && args[0] == "--exitOnDebug") return;
+
+            // instantiate and run new meadow app
+            app = new MeadowApp();
 
             Thread.Sleep(Timeout.Infinite);
         }

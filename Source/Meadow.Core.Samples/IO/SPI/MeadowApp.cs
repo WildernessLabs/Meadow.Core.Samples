@@ -14,13 +14,13 @@ namespace SPITest
         }
     }
 
-    public class SPITestApplication : App<F7Micro, SPITestApplication>
+    public class MeadowApp : App<F7Micro, MeadowApp>
     {
         private readonly IDigitalOutputPort _chipSelect;
         private readonly ISpiBus _spiBus;
         private SampleSpi _peripheral;
 
-        public SPITestApplication()
+        public MeadowApp()
         {
             Console.WriteLine($"SPI TEST");
 

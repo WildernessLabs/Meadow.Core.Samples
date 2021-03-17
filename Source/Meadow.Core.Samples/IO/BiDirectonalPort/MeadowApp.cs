@@ -1,19 +1,19 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Hardware;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Basic_BiDirectonalPort
 {
-    class BiDirectionalPortApp : App<F7Micro, BiDirectionalPortApp>
+    class MeadowApp : App<F7Micro, MeadowApp>
     {
         private IBiDirectionalPort _d04 = null;
         private IBiDirectionalPort _d05 = null;
         private IBiDirectionalPort _d06 = null;
 
-        public BiDirectionalPortApp()
+        public MeadowApp()
         {
             var name = this.GetType().Name;
             Console.WriteLine(name);

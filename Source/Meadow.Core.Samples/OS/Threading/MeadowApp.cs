@@ -1,37 +1,38 @@
-﻿using System;
-using System.Threading.Tasks;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Hardware;
+using System.Threading;
 
-namespace Basic_Tasks
+namespace Basic_Threading
 {
-    public class TasksApp : App<F7Micro, TasksApp>
+    public class MeadowApp : App<F7Micro, MeadowApp>
     {
         IDigitalOutputPort out1;
         IDigitalOutputPort out2;
 
-        public TasksApp()
+        public MeadowApp()
         {
             out1 = Device.CreateDigitalOutputPort(Device.Pins.D00);
             out2 = Device.CreateDigitalOutputPort(Device.Pins.D01);
 
             out1.State = true;
 
-            StartATask();
+            StartAThread();
+
+            Thread.Sleep(Timeout.Infinite);
         }
 
-        public void StartATask()
+        public void StartAThread()
         {
-            Task t = new Task(async () => {
+            Thread th = new Thread(() => {
                 while (true) {
                     out2.State = true;
-                    await Task.Delay(250);
+                    Thread.Sleep(250);
                     out2.State = false;
-                    await Task.Delay(250);
+                    Thread.Sleep(250);
                 }
             });
-            t.Start();
+            th.Start();
         }
     }
 }

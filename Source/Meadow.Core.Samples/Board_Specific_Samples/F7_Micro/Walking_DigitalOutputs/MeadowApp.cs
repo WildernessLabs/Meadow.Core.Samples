@@ -8,11 +8,11 @@ using System.Diagnostics;
 
 namespace Walking_DigitalOutputs
 {
-    public class OutputApp : App<F7Micro, OutputApp>
+    public class MeadowApp : App<F7Micro, MeadowApp>
     {
         IList<IDigitalOutputPort> _outs = new List<IDigitalOutputPort>();
 
-        public OutputApp()
+        public MeadowApp()
         {
             while (true) {
 

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Threading;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
-using Meadow.Devices.Esp32.MessagePayloads;
 using Meadow.Gateway.WiFi;
 using Meadow.Gateways;
+using System;
 
 namespace MeadowApp
 {
@@ -56,6 +54,5 @@ namespace MeadowApp
                 Console.WriteLine($"No access points detected.");
             }
         }
-
     }
 }
