@@ -15,6 +15,7 @@ namespace MeadowApp
 
         //==== internals
         Definition bleTreeDefinition;
+        CharacteristicBool onOffCharacteristic;
 
         public MeadowApp()
         {
@@ -49,16 +50,28 @@ namespace MeadowApp
                 };
             }
 
+            // addressing individual characteristics:
+            onOffCharacteristic.ValueSet += (c,d) => {
+                Console.WriteLine($"{ c.Name }: {d}");
+            };
+
             Console.WriteLine("Hardware initialized.");
         }
 
         protected Definition GetDefinition()
         {
+            onOffCharacteristic = new CharacteristicBool(
+                    "On_Off",
+                    Guid.NewGuid().ToString(),
+                    CharacteristicPermission.Read | CharacteristicPermission.Write,
+                    CharacteristicProperty.Read | CharacteristicProperty.Write);
+
             var definition = new Definition(
                 "MY MEADOW F7",
                 new Service(
                     "ServiceA",
                     253,
+                    onOffCharacteristic,
                     new CharacteristicBool(
                         "My Bool",
                         uuid: "017e99d6-8a61-11eb-8dcd-0242ac1300aa",
