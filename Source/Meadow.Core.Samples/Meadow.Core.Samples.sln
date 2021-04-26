@@ -68,6 +68,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpListener", "Network\Htt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BatteryLevel", "OS\BatteryLevel\BatteryLevel.csproj", "{64CF81A3-8CA4-4E54-99C1-5F3BFF3815CB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meadow.Core", "..\..\..\Meadow.Core\source\Meadow.Core\Meadow.Core.csproj", "{FCBCBA95-792C-4522-8F97-F36B9F66745C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bluetooth", "Bluetooth", "{4E2D7F5C-9AF1-452A-A415-2967E5433843}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bluetooth_Basics", "Bluetooth\Bluetooth_Basics\Bluetooth_Basics.csproj", "{E4DB17EF-1E77-44D3-A954-C6E94AE86262}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -174,6 +180,14 @@ Global
 		{64CF81A3-8CA4-4E54-99C1-5F3BFF3815CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64CF81A3-8CA4-4E54-99C1-5F3BFF3815CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64CF81A3-8CA4-4E54-99C1-5F3BFF3815CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCBCBA95-792C-4522-8F97-F36B9F66745C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCBCBA95-792C-4522-8F97-F36B9F66745C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCBCBA95-792C-4522-8F97-F36B9F66745C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCBCBA95-792C-4522-8F97-F36B9F66745C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4DB17EF-1E77-44D3-A954-C6E94AE86262}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4DB17EF-1E77-44D3-A954-C6E94AE86262}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4DB17EF-1E77-44D3-A954-C6E94AE86262}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4DB17EF-1E77-44D3-A954-C6E94AE86262}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -206,6 +220,8 @@ Global
 		{BD76718C-7B1D-49D9-B62C-7D1BC0F10B51} = {DD274BA7-34B7-40E2-B650-4CA6245CCBCA}
 		{2E9D34F4-7367-4F3D-851B-AE79115DE8AE} = {DD274BA7-34B7-40E2-B650-4CA6245CCBCA}
 		{64CF81A3-8CA4-4E54-99C1-5F3BFF3815CB} = {8D279C3D-43E8-4823-9D33-682231D1A48D}
+		{FCBCBA95-792C-4522-8F97-F36B9F66745C} = {7985EEA8-28F3-4CDC-9073-E27F742943E1}
+		{E4DB17EF-1E77-44D3-A954-C6E94AE86262} = {4E2D7F5C-9AF1-452A-A415-2967E5433843}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B3E6AE55-DFFB-4B7B-8143-96D0D1AA8CD9}
