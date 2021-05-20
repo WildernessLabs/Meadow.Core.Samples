@@ -41,7 +41,7 @@ namespace MeadowApp
             // initialize the bluetooth defnition tree
             Console.WriteLine("Starting the BLE server.");
             bleTreeDefinition = GetDefinition();
-            Device.BluetoothAdapter.StartBluetoothStack(bleTreeDefinition);
+            Device.BluetoothAdapter.StartBluetoothServer(bleTreeDefinition);
 
             // wire up some notifications on set
             foreach (var characteristic in bleTreeDefinition.Services[0].Characteristics) {
