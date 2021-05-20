@@ -1,36 +1,66 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Hardware;
+using Meadow.Units;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Basic_AnalogReads
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        IAnalogInputPort _a00;
-        IAnalogInputPort _a01;
+        IAnalogInputPort analogIn00;
 
         public MeadowApp()
         {
             Console.WriteLine("Starting App");
-            _a00 = Device.CreateAnalogInputPort(Device.Pins.A00);
-            _a01 = Device.CreateAnalogInputPort(Device.Pins.A01);
-            Console.WriteLine("Analog port created");
-            this.StartReading();
+
+            // configure our analog port
+            Initialize();
+
+            //==== Do a one-off read
+            PerformOneRead().Wait();
+
+            //==== Start updating
+            analogIn00.StartUpdating();
         }
 
-        protected async void StartReading()
+        void Initialize()
         {
-            float v0, v1;
+            Console.WriteLine("Initializing hardware...");
 
-            while(true) {
-                v0 = await _a00.Read(1);
-                Thread.Sleep(1000);
-                v1 = await _a01.Read(1);
-                Console.WriteLine($"Voltages: {v0}\t{v1}");
-                Thread.Sleep(1000);
-            }
+            //==== create our analog input port
+            analogIn00 = Device.CreateAnalogInputPort(Device.Pins.A00);
+
+            //==== Classic .NET Events
+            analogIn00.Updated += (s, result) => {
+                Console.WriteLine($"Analog event, new voltage: {result.New.Volts:N2}V, old: {result.Old?.Volts:N2}V");
+            };
+
+            //==== Filterable Observable
+            var observer = IAnalogInputPort.CreateObserver(
+                handler: result => {
+                    Console.WriteLine($"Analog observer triggered; new: {result.New.Volts:n2}V, old: {result.Old?.Volts:n2}V");
+                },
+                // filter is optional. in this case, we're only notifying if the
+                // voltage changes by at least `0.1V`.
+                filter: result => {
+                    if (result.Old is { } oldValue) {
+                        return (result.New - oldValue).Abs().Volts > 0.1;
+                    } else { return false; }
+                }
+            );
+            analogIn00.Subscribe(observer);
+
+            Console.WriteLine("Hardware initialized.");
+        }
+
+        protected async Task PerformOneRead()
+        {
+            // Analog port returns a `Voltage` unit
+            Voltage voltageReading = await analogIn00.Read();
+            Console.WriteLine($"Voltages: {voltageReading.Volts:N3}");
         }
     }
 }
