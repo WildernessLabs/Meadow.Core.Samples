@@ -40,15 +40,18 @@ namespace DigitalInputPort_IObservable_Sample
             // the last event.
             var observer = IDigitalInputPort.CreateObserver(
                 handler: result => {
-                    Console.WriteLine($"Observer Observing the Observable, Observably speaking, Time: {result.New.Time.ToShortTimeString()}");
+                    Console.WriteLine($"Observer filter satisfied, time: {result.New.Time.ToShortTimeString()}");
                 },
                 // Optional filter paramter, showing a 1 second filter, i.e., only notify
-                // if the new event is > 1 second from last.
+                // if the new event is > 1 second from last time it was notified.
                 filter: result => {
-                    if (result.Old is { } old) {
+                    if (result.Old is { } old) { // C# 8 null pattern matching for not null
                         return (result.New.Time - old.Time) > TimeSpan.FromSeconds(1);
                     } else return false;
-                });
+                }
+                // OR, for all events, use:
+                // filter: null
+                );
             input.Subscribe(observer);
 
             Console.WriteLine("Hardware initialized.");
