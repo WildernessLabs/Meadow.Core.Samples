@@ -10,7 +10,7 @@ namespace Basic_Digital_Input
 {
     class MeadowApp : App<F7Micro, MeadowApp>
     {
-        private List<IDigitalInputPort> _inputs = new List<IDigitalInputPort>();
+        private List<IDigitalInputPort> inputs = new List<IDigitalInputPort>();
 
         public MeadowApp()
         {
@@ -22,30 +22,30 @@ namespace Basic_Digital_Input
         {
             // we'll create 3 inputs, with each of the available resistor modes
             var d5 = Device.CreateDigitalInputPort(Device.Pins.D05, resistorMode: ResistorMode.Disabled);
-            _inputs.Add(d5);
+            inputs.Add(d5);
             var d6 = Device.CreateDigitalInputPort(Device.Pins.D06, resistorMode: ResistorMode.InternalPullUp);
-            _inputs.Add(d6);
+            inputs.Add(d6);
             var d7 = Device.CreateDigitalInputPort(Device.Pins.D07, resistorMode: ResistorMode.InternalPullDown);
-            _inputs.Add(d7);
+            inputs.Add(d7);
 
             double debounceDuration = 500;
             var d4 = Device.CreateDigitalInputPort(Device.Pins.D04, InterruptMode.EdgeBoth, ResistorMode.Disabled);
             d4.DebounceDuration = debounceDuration;
             d4.Changed += OnStateChangedHandler;
-            _inputs.Add(d4);
+            inputs.Add(d4);
             // since we're looking for falling, pull it up
             var d3 = Device.CreateDigitalInputPort(Device.Pins.D03, InterruptMode.EdgeFalling, ResistorMode.InternalPullUp);
             d3.DebounceDuration = debounceDuration;
             d3.Changed += OnStateChangedHandler;
-            _inputs.Add(d3);
+            inputs.Add(d3);
             // since we're looking for risinging, pull it down
             var d2 = Device.CreateDigitalInputPort(Device.Pins.D02, InterruptMode.EdgeRising, ResistorMode.InternalPullDown);
             d2.DebounceDuration = debounceDuration;
             d2.Changed += OnStateChangedHandler;
-            _inputs.Add(d2);
+            inputs.Add(d2);
         }
 
-        private void OnStateChangedHandler(object sender, DigitalInputPortEventArgs e)
+        private void OnStateChangedHandler(object sender, DigitalPortResult e)
         {
             var port = sender as IDigitalInputPort;
 
@@ -55,7 +55,7 @@ namespace Basic_Digital_Input
             }
             else
             {
-                Console.WriteLine($"{port.Pin.Name} state changed to {e.Value}");
+                Console.WriteLine($"{port.Pin.Name} state changed to {e.New.State}");
             }
         }
 
@@ -70,8 +70,8 @@ namespace Basic_Digital_Input
             // You can then drive the outputs with a jumper to either GND or VCC to change their states to high or low
             while (true)
             {
-                var line1 = string.Join(" ", _inputs.Select(i => i.Pin.Name).ToArray());
-                var line2 = string.Join(" ", _inputs.Select(i => $" {(i.State ? 1 : 0)} ").ToArray());
+                var line1 = string.Join(" ", inputs.Select(i => i.Pin.Name).ToArray());
+                var line2 = string.Join(" ", inputs.Select(i => $" {(i.State ? 1 : 0)} ").ToArray());
 
                 Console.WriteLine(line1);
                 Console.WriteLine(line2 + "\n");
