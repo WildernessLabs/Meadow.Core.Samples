@@ -10,7 +10,7 @@ namespace Basic_AnalogReads
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        IAnalogInputPort analogIn00;
+        IAnalogInputPort analogIn;
 
         public MeadowApp()
         {
@@ -23,7 +23,7 @@ namespace Basic_AnalogReads
             PerformOneRead().Wait();
 
             //==== Start updating
-            analogIn00.StartUpdating();
+            analogIn.StartUpdating();
         }
 
         void Initialize()
@@ -31,10 +31,10 @@ namespace Basic_AnalogReads
             Console.WriteLine("Initializing hardware...");
 
             //==== create our analog input port
-            analogIn00 = Device.CreateAnalogInputPort(Device.Pins.A00);
+            analogIn = Device.CreateAnalogInputPort(Device.Pins.A00);
 
             //==== Classic .NET Events
-            analogIn00.Updated += (s, result) => {
+            analogIn.Updated += (s, result) => {
                 Console.WriteLine($"Analog event, new voltage: {result.New.Volts:N2}V, old: {result.Old?.Volts:N2}V");
             };
 
@@ -51,7 +51,7 @@ namespace Basic_AnalogReads
                     } else { return false; }
                 }
             );
-            analogIn00.Subscribe(observer);
+            analogIn.Subscribe(observer);
 
             Console.WriteLine("Hardware initialized.");
         }
@@ -59,7 +59,7 @@ namespace Basic_AnalogReads
         protected async Task PerformOneRead()
         {
             // Analog port returns a `Voltage` unit
-            Voltage voltageReading = await analogIn00.Read();
+            Voltage voltageReading = await analogIn.Read();
             Console.WriteLine($"Voltages: {voltageReading.Volts:N3}");
         }
     }
