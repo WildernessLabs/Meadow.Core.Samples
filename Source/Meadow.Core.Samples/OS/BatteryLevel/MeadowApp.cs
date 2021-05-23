@@ -14,7 +14,7 @@ namespace MeadowApp
 
             while (true) {
 
-                Console.WriteLine($"Battery Voltage: {Device.GetBatteryLevel()}V");
+                Console.WriteLine($"Battery Voltage: {Device.GetBatteryLevel().Volts:N2}V");
 
                 Thread.Sleep(3000);
             }
@@ -23,7 +23,7 @@ namespace MeadowApp
         void Initialize()
         {
             Console.WriteLine("Initialize hardware...");
-            Device.InitCoProcessor();
+            Device.InitCoprocessor();
 
             Console.WriteLine("Initialization complete.");
         }
