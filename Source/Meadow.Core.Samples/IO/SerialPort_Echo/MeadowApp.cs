@@ -37,7 +37,8 @@ namespace SerialEcho
                 Console.WriteLine("Writing data...");
                 port.Write(Encoding.ASCII.GetBytes("Hello Meadow!"));
 
-                var read = port.Read(buffer, 0, buffer.Length);
+                var dataLength = port.BytesToRead;
+                var read = port.Read(buffer, 0, dataLength);
 
                 if (read == 0)
                 {
