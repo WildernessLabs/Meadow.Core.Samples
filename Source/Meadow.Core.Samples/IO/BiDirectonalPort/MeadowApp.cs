@@ -47,7 +47,7 @@ namespace Basic_BiDirectonalPort
             Console.WriteLine("ok");
         }
 
-        private async void OnD06Changed(object sender, DigitalInputPortEventArgs args)
+        private async void OnD06Changed(object sender, DigitalPortResult args)
         {
           // The circuit had an led tied to Vcc an resister from the led to D06
           // and a push button from ground to D06. If the led has a low forward

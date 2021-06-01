@@ -66,34 +66,35 @@ namespace MeadowApp
                     CharacteristicPermission.Read | CharacteristicPermission.Write,
                     CharacteristicProperty.Read | CharacteristicProperty.Write);
 
-            var definition = new Definition(
-                "MY MEADOW F7",
-                new Service(
-                    "ServiceA",
-                    253,
-                    onOffCharacteristic,
-                    new CharacteristicBool(
-                        "My Bool",
-                        uuid: "017e99d6-8a61-11eb-8dcd-0242ac1300aa",
-                        permissions: CharacteristicPermission.Read,
-                        properties: CharacteristicProperty.Read
-                        ),
-                    new CharacteristicInt32(
-                        "My Number",
-                        uuid: "017e99d6-8a61-11eb-8dcd-0242ac1300bb",
-                        permissions: CharacteristicPermission.Write | CharacteristicPermission.Read,
-                        properties: CharacteristicProperty.Write | CharacteristicProperty.Read
-                        ),
-                    new CharacteristicString(
-                        "My Text",
-                        uuid: "017e99d6-8a61-11eb-8dcd-0242ac1300cc",
-                        maxLength: 20,
-                        permissions: CharacteristicPermission.Write | CharacteristicPermission.Read,
-                        properties: CharacteristicProperty.Write | CharacteristicProperty.Read
-                        )
-                    )
-                );
-            return definition;
+            var service = new Service(
+                 "ServiceA",
+                 253,
+                 onOffCharacteristic,
+
+                 new CharacteristicBool(
+                     "My Bool",
+                     uuid: "017e99d6-8a61-11eb-8dcd-0242ac1300aa",
+                     permissions: CharacteristicPermission.Read,
+                     properties: CharacteristicProperty.Read
+                     ),
+
+                 new CharacteristicInt32(
+                     "My Number",
+                     uuid: "017e99d6-8a61-11eb-8dcd-0242ac1300bb",
+                     permissions: CharacteristicPermission.Write | CharacteristicPermission.Read,
+                     properties: CharacteristicProperty.Write | CharacteristicProperty.Read
+                     ),
+
+                 new CharacteristicString(
+                     "My Text",
+                     uuid: "017e99d6-8a61-11eb-8dcd-0242ac1300cc",
+                     maxLength: 20,
+                     permissions: CharacteristicPermission.Write | CharacteristicPermission.Read,
+                     properties: CharacteristicProperty.Write | CharacteristicProperty.Read
+                     )
+            );
+            
+            return new Definition("MY MEADOW F7", service);
         }
     }
 }
