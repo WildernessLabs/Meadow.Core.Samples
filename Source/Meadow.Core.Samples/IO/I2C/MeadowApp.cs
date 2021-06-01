@@ -32,7 +32,7 @@ namespace BasicI2CTest
             {
                 try
                 {
-                    Console.WriteLine($" Reading @{i2c.Frequency / 1000} kHz...");
+                    Console.WriteLine($" Reading @{i2c.Frequency.Kilohertz} kHz...");
                     gyro.Refresh();
 
                     Console.WriteLine($" ({gyro.AccelerationX:X4},{gyro.AccelerationY:X4},{gyro.AccelerationZ:X4}) ({gyro.GyroX:X4},{gyro.GyroY:X4},{gyro.GyroZ:X4}) {gyro.Temperature}");
@@ -40,16 +40,16 @@ namespace BasicI2CTest
                     switch (count++ % 4)
                     {
                         case 0:
-                            i2c.Frequency = 100000;
+                            i2c.Frequency = new Meadow.Units.Frequency(100000, Meadow.Units.Frequency.UnitType.Hertz);
                             break;
                         case 1:
-                            i2c.Frequency = 400000;
+                            i2c.Frequency = new Meadow.Units.Frequency(400000, Meadow.Units.Frequency.UnitType.Hertz);
                             break;
                         case 2:
-                            i2c.Frequency = 1000000;
+                            i2c.Frequency = new Meadow.Units.Frequency(1000000, Meadow.Units.Frequency.UnitType.Hertz);
                             break;
                         case 3:
-                            i2c.Frequency = 3400000;
+                            i2c.Frequency = new Meadow.Units.Frequency(3400000, Meadow.Units.Frequency.UnitType.Hertz);
                             break;
                     }
                 }
