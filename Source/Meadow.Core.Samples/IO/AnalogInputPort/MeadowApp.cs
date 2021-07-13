@@ -23,7 +23,7 @@ namespace Basic_AnalogReads
             PerformOneRead().Wait();
 
             //==== Start updating
-            analogIn.StartUpdating();
+            analogIn.StartUpdating(TimeSpan.FromSeconds(1));
         }
 
         void Initialize()
