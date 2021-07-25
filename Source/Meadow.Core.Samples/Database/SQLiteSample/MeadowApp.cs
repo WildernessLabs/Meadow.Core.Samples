@@ -21,12 +21,12 @@ namespace MeadowApp
 
             try
             {
-                var file = Path.Combine(MeadowOS.FileSystem.DataDirectory, "test.db");
-                file = $"file:{file}";
-                fixed (char* pName = file)
+                var file = Encoding.ASCII.GetBytes(Path.Combine(MeadowOS.FileSystem.DataDirectory, "test2.db"));
+
+                fixed (byte* pName = file)
                 {
                     Console.WriteLine($"Opening DB at {file}...");
-                    var result = NativeMethods.sqlite3_open((byte*)pName, out IntPtr pDB);
+                    var result = NativeMethods.sqlite3_open_v2(pName, out IntPtr pDB, NativeMethods.SQLITE_OPEN_READWRITE | NativeMethods.SQLITE_OPEN_CREATE, (byte*)null);
                     Console.WriteLine($"result={result}  DB={pDB}");
                     if(result != 0)
                     {
