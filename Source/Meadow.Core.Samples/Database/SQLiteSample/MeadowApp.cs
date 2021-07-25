@@ -1,21 +1,76 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace MeadowApp
 {
+    public class SensorInfo
+    {
+        public DateTime Timestamp { get; set; }
+        public double Value { get; set; }
+    }
+
+    public class MeadowContext : DbContext
+    {
+        public DbSet<SensorInfo> Readings { get; set; }
+
+        public string DbPath { get; private set; }
+
+        public MeadowContext()
+        {
+            DbPath = Path.Combine(MeadowOS.FileSystem.DataDirectory, "readings.db");
+        }
+
+        
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        { 
+            options.UseSqlite($"Data Source={DbPath}");
+
+            Console.WriteLine($"Context Configured.");
+        }
+    }
+
     public unsafe class MeadowApp : App<F7Micro, MeadowApp>
     {
         public MeadowApp()
         {
+            SensorValue = 42.42;
         }
 
-        public void Run()
+        public double SensorValue { get; set; }
+
+        public void StoreData()
+        {
+            using (var db = new MeadowContext())
+            {
+                Console.WriteLine($"Database path: {db.DbPath}.");
+
+                Console.WriteLine($"Ensuring DB exists...");
+                db.Database.EnsureCreated();
+
+                Console.WriteLine("Inserting a row...");
+                db.Add(new SensorInfo { Timestamp = DateTime.Now, Value = SensorValue });
+                db.SaveChanges();
+
+                Console.WriteLine("Reading back the row...");
+                var r = db.Readings.FirstOrDefault();
+                Console.WriteLine($"Reading was {r.Value} at {r.Timestamp.ToShortTimeString()}");
+
+            }
+
+            SensorValue += 1;
+        }
+
+        public void PInvokeTest()
         { 
             ListFiles(MeadowOS.FileSystem.DataDirectory);
 
@@ -53,7 +108,7 @@ namespace MeadowApp
             ListFiles(MeadowOS.FileSystem.DataDirectory);
         }
 
-        private void ListFiles(string dir)
+        public void ListFiles(string dir)
         {
             Console.WriteLine($"Files in {dir}:");
 
