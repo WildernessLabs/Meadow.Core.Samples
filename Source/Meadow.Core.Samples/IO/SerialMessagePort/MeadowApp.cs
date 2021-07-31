@@ -17,10 +17,13 @@ namespace MeadowApp
         string delimiterString = "$$$";
         byte[] delimiterBytes;
         Encoding encoding = Encoding.UTF8;
-        SerialPortName serialPortName = Device.SerialPortNames.Com1;
-
+        SerialPortName serialPortName;
+        
         public MeadowApp()
         {
+            serialPortName = Device.SerialPortNames.Com1;
+
+            Console.WriteLine("Get delimiter");
             // convert for later. 
             delimiterBytes = Encoding.ASCII.GetBytes(delimiterString);
 
@@ -210,8 +213,5 @@ The time is gone, the song is over,
 Thought I'd something more to say."
                 };
         }
-
-
-
     }
 }
