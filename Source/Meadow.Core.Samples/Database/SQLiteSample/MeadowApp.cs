@@ -1,44 +1,14 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using Meadow;
 using Meadow.Devices;
-using Meadow.Foundation;
-using Meadow.Foundation.Leds;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
+using SQLite;
+
 
 namespace MeadowApp
 {
-    public class SensorInfo
-    {
-        public DateTime Timestamp { get; set; }
-        public double Value { get; set; }
-    }
-
-    public class MeadowContext : DbContext
-    {
-        public DbSet<SensorInfo> Readings { get; set; }
-
-        public string DbPath { get; private set; }
-
-        public MeadowContext()
-        {
-            DbPath = Path.Combine(MeadowOS.FileSystem.DataDirectory, "readings.db");
-        }
-
-        
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        { 
-            options.UseSqlite($"Data Source={DbPath}");
-
-            Console.WriteLine($"Context Configured.");
-        }
-    }
-
     public unsafe class MeadowApp : App<F7Micro, MeadowApp>
     {
         public MeadowApp()
@@ -48,7 +18,21 @@ namespace MeadowApp
 
         public double SensorValue { get; set; }
 
-        public void StoreData()
+        public void SQLiteNetTest()
+        {
+            var databasePath = Path.Combine(MeadowOS.FileSystem.DataDirectory, "sensor_data.db");
+            var db = new SQLite.SQLiteConnection(databasePath);
+            db.CreateTable<SensorInfo>();
+
+            Console.WriteLine("Inserting a row...");
+            db.Insert(new SensorInfo { Timestamp = DateTime.Now, Value = SensorValue });
+
+            Console.WriteLine("Reading back the row...");
+            var r = db.Table<SensorInfo>().FirstOrDefault();
+            Console.WriteLine($"Reading was {r.Value} at {r.Timestamp.ToShortTimeString()}");
+        }
+        /*
+        public void EFTest()
         {
             using (var db = new MeadowContext())
             {
@@ -69,6 +53,7 @@ namespace MeadowApp
 
             SensorValue += 1;
         }
+        */
 
         public void PInvokeTest()
         { 

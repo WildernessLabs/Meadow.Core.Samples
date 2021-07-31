@@ -14,9 +14,13 @@
   <ItemGroup>
     <PackageReference Include="Meadow.Foundation" Version="0.27.0" />
     <PackageReference Include="Meadow.F7" Version="0.24.7.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.8" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
+    <None Remove="sqlite-net" />
+    <None Remove="sqlite-net-pcl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="MeadowContext.cs" />
   </ItemGroup>
 </Project>

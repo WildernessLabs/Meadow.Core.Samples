@@ -16,13 +16,15 @@ namespace MeadowApp
 
             try
             {
-                app.StoreData();
-                Thread.Sleep(1000);
-                app.StoreData();
+                app.SQLiteNetTest();
             }
             catch(Exception ex)
             {
                 Console.WriteLine($"FAILURE: {ex.Message}");
+                if(ex.InnerException!= null)
+                {
+                    Console.WriteLine($"Inner exception: {ex.InnerException.Message}");
+                }
             }
 
             Thread.Sleep(Timeout.Infinite);
