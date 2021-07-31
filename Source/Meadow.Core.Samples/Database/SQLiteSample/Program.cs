@@ -10,9 +10,6 @@ namespace MeadowApp
         {
             // instantiate and run new meadow app
             var app = new MeadowApp();
-            app.ListFiles("/meadow0/Data");
-
-            //            app.PInvokeTest();
 
             try
             {
