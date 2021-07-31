@@ -6,7 +6,7 @@ using System;
 
 namespace MeadowApp
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         public MeadowApp()
         {
@@ -21,7 +21,7 @@ namespace MeadowApp
 
             // change to the external antenna
             Console.WriteLine($"Switching to external antenna.");
-            Device.SetAntenna(AntennaType.External);
+            Device.SetAntenna(AntennaType.External,  persist: false);
             Console.WriteLine($"Current antenna in use: {Device.CurrentAntenna}");
 
             // enumerate WiFis again on the new antenna
