@@ -10,14 +10,12 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
-    <None Remove="sqlite-net" />
-    <None Remove="sqlite-net-pcl" />
-  </ItemGroup>
+  </PropertyGroup>  
   <ItemGroup>
     <Compile Remove="MeadowContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="sqlite-net-static" Version="1.8.116" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\Meadow.Core\source\Meadow.F7\Meadow.F7.csproj" />
