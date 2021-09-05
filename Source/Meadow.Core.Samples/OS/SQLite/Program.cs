@@ -11,18 +11,6 @@ namespace MeadowApp
             // instantiate and run new meadow app
             var app = new MeadowApp();
 
-            try
-            {
-                app.SQLiteNetTest();
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine($"FAILURE: {ex.Message}");
-                if(ex.InnerException!= null)
-                {
-                    Console.WriteLine($"Inner exception: {ex.InnerException.Message}");
-                }
-            }
 
             Thread.Sleep(Timeout.Infinite);
         }
