@@ -140,24 +140,5 @@ namespace MeadowApp
             reading = Database.Table<SensorModel>().Take(1).First();
             Console.WriteLine($"new first record ID: {reading.ID}");
         }
-
-
-        //public void ListFiles(string dir)
-        //{
-        //    Console.WriteLine($"Files in {dir}:");
-
-        //    var files = Directory.GetFiles(dir);
-        //    if (files == null || files.Length == 0)
-        //    {
-        //        Console.WriteLine("  [ EMPTY DIRECTORY ]");
-        //    }
-        //    else
-        //    {
-        //        foreach (var f in Directory.GetFiles(dir))
-        //        {
-        //            Console.WriteLine($"  {f}");
-        //        }
-        //    }
-        //}
     }
 }
