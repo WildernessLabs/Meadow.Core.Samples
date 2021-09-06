@@ -11,7 +11,6 @@ namespace MeadowApp
             // instantiate and run new meadow app
             var app = new MeadowApp();
 
-
             Thread.Sleep(Timeout.Infinite);
         }
     }

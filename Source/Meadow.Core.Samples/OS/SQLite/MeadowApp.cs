@@ -29,8 +29,22 @@ namespace MeadowApp
                 // read out the data
                 RetreiveData();
 
+                // update a record
+                UpdateData();
+
+                RetreiveData();
+
+                // retreive by primary key
+                RetrieveByPrimaryKey();
+
+                RetrieveViaLinqQuery();
+
+                RetrieveViaTSqlQuery();
+
+                DeleteARow();
+
             } catch (Exception ex) {
-                Console.WriteLine($"FAILURE: {ex.Message}");
+                Console.WriteLine($"Problem: {ex.Message}");
                 if (ex.InnerException != null) {
                     Console.WriteLine($"Inner exception: {ex.InnerException.Message}");
                 }
@@ -40,7 +54,7 @@ namespace MeadowApp
         protected void ConfigureDatabase()
         {
             // database files should go in the `DataDirectory`
-            var databasePath = Path.Combine(MeadowOS.FileSystem.DataDirectory, "sensor_data.db");
+            var databasePath = Path.Combine(MeadowOS.FileSystem.DataDirectory, "MySqliteDatabase.db");
             // make the connection
             Database = new SQLite.SQLiteConnection(databasePath);
             // add table(s)
@@ -64,6 +78,67 @@ namespace MeadowApp
             foreach (var r in rows) {
                 Console.WriteLine($"Reading was {r.Value} at {r.Timestamp.ToString("HH:mm:ss")}");
             }
+        }
+
+        protected void UpdateData()
+        {
+            // pull the first record out of the table
+            SensorModel reading = Database.Table<SensorModel>().Take(1).First();
+
+            Console.WriteLine($"Found a record, ID: {reading.ID}");
+
+            // change the value
+            reading.Value = reading.Value * 2;
+
+            // update the data
+            Database.Update(reading);
+        }
+
+        protected void RetrieveByPrimaryKey()
+        {
+            SensorModel firstRow = Database.Table<SensorModel>().Take(1).First();
+            var sensorReading1 = Database.Get<SensorModel>(firstRow.ID);
+            Console.WriteLine($"Sensor Reading 1: {sensorReading1.Value}");
+        }
+
+        protected void RetrieveViaSearchPredicate()
+        {
+            var firstSensorReadingOver50 = Database.Get<SensorModel>(reading => reading.Value > 50 );
+            Console.WriteLine($"found a sensor reading over 50; ID: {firstSensorReadingOver50.ID}, value: {firstSensorReadingOver50.Value}");
+        }
+
+        protected void RetrieveViaLinqQuery()
+        {
+            Console.WriteLine("RetrieveViaLinqQuery()");
+            var readings = from rows in Database.Table<SensorModel>()
+                            where rows.Value > 50
+                            select rows;
+            Console.WriteLine($"Found {readings.Count()} readings over 50: ");
+            foreach (var reading in readings) {
+                Console.WriteLine($"ID: {reading.ID}, value: {reading.Value}");
+            }
+        }
+
+        protected void RetrieveViaTSqlQuery()
+        {
+            Console.WriteLine("RetrieveViaTSqlQuery()");
+            var readings = Database.Query<SensorModel>("SELECT * FROM SensorReadings WHERE value > ?", 50);
+            Console.WriteLine($"Found {readings.Count()} readings over 50: ");
+            foreach (var reading in readings) {
+                Console.WriteLine($"ID: {reading.ID}, value: {reading.Value}");
+            }
+        }
+
+        protected void DeleteARow()
+        {
+            // pull the first record out of the table
+            SensorModel reading = Database.Table<SensorModel>().Take(1).First();
+            Console.WriteLine($"First record ID: {reading.ID}");
+            Database.Delete<SensorModel>(reading.ID);
+            Console.WriteLine($"Deleted the record");
+            // get the first record again
+            reading = Database.Table<SensorModel>().Take(1).First();
+            Console.WriteLine($"new first record ID: {reading.ID}");
         }
 
 
