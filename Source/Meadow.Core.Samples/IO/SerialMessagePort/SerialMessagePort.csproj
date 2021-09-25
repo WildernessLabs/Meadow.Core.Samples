@@ -6,6 +6,6 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.F7" Version="0.24.7.1" />
+    <PackageReference Include="Meadow.F7" Version="0.*" />
   </ItemGroup>
 </Project>

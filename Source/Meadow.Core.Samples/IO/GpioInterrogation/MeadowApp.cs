@@ -38,7 +38,7 @@ namespace GpioInterrogation
         {
             StringBuilder stringBuilder = new StringBuilder("| ");
 
-            stringBuilder.Append($"{pin.Name} | {pin.Key.ToString()} | ");
+            stringBuilder.Append($"{pin} | {pin.Key.ToString()} | ");
 
             IUartChannelInfo? uartChan = null;
             ICanChannelInfo? canChan = null;

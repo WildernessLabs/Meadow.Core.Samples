@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Threading;
 using Meadow;
 using Meadow.Devices;
-//using Meadow.Foundation;
-//using Meadow.Foundation.Leds;
 using Meadow.Gateways.Bluetooth;
 
 namespace MeadowApp
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
-        //==== peripherals
-        //RgbPwmLed onboardLed;
-
-        //==== internals
         Definition bleTreeDefinition;
         CharacteristicBool onOffCharacteristic;
 
@@ -25,17 +18,8 @@ namespace MeadowApp
         void Initialize()
         {
             Console.WriteLine("Initialize hardware...");
-
-            //onboardLed = new RgbPwmLed(device: Device,
-            //    redPwmPin: Device.Pins.OnboardLedRed,
-            //    greenPwmPin: Device.Pins.OnboardLedGreen,
-            //    bluePwmPin: Device.Pins.OnboardLedBlue,
-            //    3.3f, 3.3f, 3.3f,
-            //    Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
-
-            //==== configure bluetooth
-            // init coprocessor (provides bluetooth and WiFi)
-            Console.WriteLine("Initializing the coprocessor.");
+            
+            // initializing the coprocessor
             Device.InitCoprocessor();
 
             // initialize the bluetooth defnition tree

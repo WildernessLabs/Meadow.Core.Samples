@@ -13,7 +13,13 @@ namespace WiFi_Basics
         {
             Initialize().Wait();
             
-            GetWebPageViaHttpClient("https://postman-echo.com/get?foo1=bar1&foo2=bar2").Wait();
+           // GetWebPageViaHttpClient("https://postman-echo.com/get?foo1=bar1&foo2=bar2").Wait();
+
+            do
+            {
+                GetWebPageViaHttpClient("https://postman-echo.com/get?foo1=bar1&foo2=bar2").Wait();
+            }
+            while (true);
 
             Console.WriteLine("Done.");
         }
