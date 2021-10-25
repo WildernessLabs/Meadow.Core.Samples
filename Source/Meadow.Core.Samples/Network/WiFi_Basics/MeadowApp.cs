@@ -29,11 +29,6 @@ namespace WiFi_Basics
         {
             Console.WriteLine("Initialize hardware...");
 
-            // initialize the wifi adpater
-            if (!Device.InitWiFiAdapter().Result) {
-                throw new Exception("Could not initialize the WiFi adapter.");
-            }
-
             // connected event test.
             Device.WiFiAdapter.WiFiConnected += WiFiAdapter_ConnectionCompleted;
 

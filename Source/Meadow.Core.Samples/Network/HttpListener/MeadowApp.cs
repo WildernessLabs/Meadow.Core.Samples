@@ -44,8 +44,6 @@ namespace MeadowApp
         public MeadowApp()
         {
             Console.WriteLine("Creating HttpListenerTest object.");
-
-            Device.InitWiFiAdapter().Wait();
             
             Console.WriteLine("Connecting to access point.");
             Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD).Wait();

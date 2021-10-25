@@ -1,13 +1,19 @@
-﻿# main device information
+﻿#===============================================================================
+# main device config
+
 Device:
     # Name of the device on the network.
     Name: MeadowF7V2_ConfigSample
 
-
+#===============================================================================
 # Control how the ESP coprocessor will start and operate.
+
 Coprocessor:
+
     # Should the ESP32 automatically attempt to connect to an access point at startup?
-    AutomaticallyStartNetwork: 0
+    # If set to true, wifi.yaml credentials must be stored in the device.
+
+    AutomaticallyStartNetwork: 1
 
     # Should the ESP32 automatically reconnect to the configured access point?
     AutomaticallyReconnect: 0
@@ -24,31 +30,29 @@ Coprocessor:
 
 # Network configuration.
 Network:
-    #
-    #    Automatically attempt to get the time at startup?
-    #
+
+    # Automatically attempt to get the time at startup?
     GetNetworkTimeAtStartup: 1
-    #
-    #    Time synchronisation period in seconds.
-    #
+
+    # Time synchronization period in seconds.
     NtpRefreshPeriod: 600
-    #
-    #    Name of the NTP servers.
-    #
+
+    # Name of the NTP servers.
     NtpServers:
         - 0.pool.ntp.org
         - 1.pool.ntp.org
         - 2.pool.ntp.org
         - 3.pool.ntp.org
-    #
-    #   IP addresses of the DNS servers.
-    #
+
+    # IP addresses of the DNS servers.
     DnsServers:
         - 1.1.1.1
         - 8.8.8.8
-#
+
+
+#===============================================================================
 # Internal debug options.
-#
+
 Debug:
     #
     #   Redirect trace output to UART1 (COM1)

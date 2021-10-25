@@ -5,7 +5,7 @@ using Meadow.Devices;
 
 namespace MeadowApp
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    public class MeadowApp : App<F7MicroV2, MeadowApp>
     {
         public MeadowApp()
         {
@@ -14,17 +14,27 @@ namespace MeadowApp
             Console.WriteLine($"Machine Name: {System.Environment.MachineName}");
 
             OutputDeviceInfo();
+
+            OutputDeviceConfigurationInfo();
         }
 
         void Initialize()
         {
-            Console.WriteLine("Initialize hardware...");
+            //Console.WriteLine("Coprocessor Initialized.");
+            if (Device.WiFiAdapter.IsConnected) {
+                Console.WriteLine("WiFi adapter already connected.");
+            } else {
+                Console.WriteLine("WiFi adapter not connected.");
 
+                Device.WiFiAdapter.WiFiConnected += (s, e) => {
+                    Console.WriteLine("WiFi adapter connected.");
+                };
+            }
         }
 
         void OutputDeviceInfo()
         {
-            F7Micro.DeviceInformation information = Device.GetDeviceInformation();
+            var information = Device.GetDeviceInformation();
 
             Console.WriteLine($"Device name: {information.DeviceName}");
             Console.WriteLine($"OS version: {information.OsVersion}");
@@ -37,6 +47,34 @@ namespace MeadowApp
             Console.WriteLine($"Build date: {information.BuildDate}");
             Console.WriteLine($"Coprocessor type: {information.CoprocessorType}");
             Console.WriteLine($"Coprocessor firmware version: {information.CoprocessorFirmwareVersion}");
+        }
+
+        void OutputDeviceConfigurationInfo()
+        {
+            try {
+
+                bool autmaticallStartNetwork = Device.WiFiAdapter.AutomaticallyStartNetwork;
+                Console.WriteLine($"Automatically connect to network: {autmaticallStartNetwork}");
+
+                bool automaticallyReconnect = Device.WiFiAdapter.AutomaticallyReconnect;
+                Console.WriteLine($"Automatically reconnect: {automaticallyReconnect}");
+
+                bool getTimeAtStartup = Device.WiFiAdapter.GetNetworkTimeAtStartup;
+                Console.WriteLine($"Get time at startup: {getTimeAtStartup}");
+                //Console.WriteLine($"NTP Server: {Device.WiFiAdapter.NtpServer}");
+
+                Console.WriteLine($"Default access point: {Device.WiFiAdapter.DefaultAcessPoint}");
+
+                uint maximumRetryCount = Device.WiFiAdapter.MaximumRetryCount;
+                Console.WriteLine($"Maximum retry count: {maximumRetryCount}");
+
+                //Console.WriteLine($"MAC address: {MacAddressString(Device.WiFiAdapter.MacAddress)}");
+                //Console.WriteLine($"Soft AP MAC address: {MacAddressString(Device.WiFiAdapter.ApMacAddress)}");
+
+            } catch (Exception e) {
+                Console.WriteLine(e.Message);
+            }
+
         }
     }
 }

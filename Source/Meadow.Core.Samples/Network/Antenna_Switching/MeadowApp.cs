@@ -32,11 +32,6 @@ namespace MeadowApp
         void Initialize()
         {
             Console.WriteLine("Initialize hardware...");
-
-            // initialize the wifi adpater
-            if (!Device.InitWiFiAdapter().Result) {
-                throw new Exception("Could not initialize the WiFi adapter.");
-            }
         }
 
         protected void ScanForAccessPoints()
