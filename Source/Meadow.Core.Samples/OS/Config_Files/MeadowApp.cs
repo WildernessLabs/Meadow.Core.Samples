@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Meadow;
 using Meadow.Devices;
 
@@ -13,6 +14,8 @@ namespace MeadowApp
 
             Console.WriteLine($"Machine Name: {System.Environment.MachineName}");
 
+            StartHeartbeat();
+
             OutputDeviceInfo();
 
             OutputDeviceConfigurationInfo();
@@ -20,7 +23,6 @@ namespace MeadowApp
 
         void Initialize()
         {
-            //Console.WriteLine("Coprocessor Initialized.");
             if (Device.WiFiAdapter.IsConnected) {
                 Console.WriteLine("WiFi adapter already connected.");
             } else {
@@ -75,6 +77,16 @@ namespace MeadowApp
                 Console.WriteLine(e.Message);
             }
 
+        }
+
+        protected void StartHeartbeat()
+        {
+            Task.Run(async () => {
+                while (true) {
+                    Console.WriteLine("Beep...");
+                    await Task.Delay(5000);
+                }
+            });
         }
     }
 }

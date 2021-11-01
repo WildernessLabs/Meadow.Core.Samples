@@ -1,4 +1,7 @@
-﻿#===============================================================================
+﻿# Acceptable values for true: true, 1, yes
+# Acceptable values for false: false, 0, no
+
+#===============================================================================
 # main device config
 
 Device:
@@ -13,20 +16,13 @@ Coprocessor:
     # Should the ESP32 automatically attempt to connect to an access point at startup?
     # If set to true, wifi.yaml credentials must be stored in the device.
 
-    AutomaticallyStartNetwork: 1
+    AutomaticallyStartNetwork: true
 
     # Should the ESP32 automatically reconnect to the configured access point?
-    AutomaticallyReconnect: 0
-    #AutomaticallyReconnect: 1
-    #AutomaticallyReconnect: yes
-    #AutomaticallyReconnect: no
-    #AutomaticallyReconnect: true
-    #AutomaticallyReconnect: false
+    AutomaticallyReconnect: true
 
     # Maximum number of retry attempts for connections etc. before an error code is returned.
     MaximumRetryCount: 7
-    #MaximumRetryCount: 3abc
-    #MaximumRetryCount:
 
 # Network configuration.
 Network:
@@ -48,18 +44,3 @@ Network:
     DnsServers:
         - 1.1.1.1
         - 8.8.8.8
-
-
-#===============================================================================
-# Internal debug options.
-
-Debug:
-    #
-    #   Redirect trace output to UART1 (COM1)
-    #
-    Uart1Use: trace
-    #
-    #   Set the level of information going to the trace output.
-    #   Valid values: 1-4
-    #
-    TraceLevel: 2
