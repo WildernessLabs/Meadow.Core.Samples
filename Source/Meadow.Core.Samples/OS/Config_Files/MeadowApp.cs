@@ -82,7 +82,7 @@ namespace MeadowApp
             Task.Run(async () => {
                 while (true) {
                     Console.WriteLine("Beep...");
-                    await Task.Delay(5000);
+                    await Task.Delay(10000);
                 }
             });
         }
