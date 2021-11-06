@@ -17,6 +17,7 @@ namespace MeadowApp
             StartHeartbeat();
 
             OutputDeviceInfo();
+            OutputMeadowOSInfo();
 
             OutputDeviceConfigurationInfo();
         }
@@ -36,42 +37,39 @@ namespace MeadowApp
 
         void OutputDeviceInfo()
         {
-            var information = Device.GetDeviceInformation();
+            Console.WriteLine($"Device name: {Device.Information.DeviceName}");
+            Console.WriteLine($"Processor serial number: {Device.Information.ProcessorSerialNumber}");
+            Console.WriteLine($"Processor ID: {Device.Information.ChipID}");
+            Console.WriteLine($"Model: {Device.Information.Model}");
+            Console.WriteLine($"Processor type: {Device.Information.ProcessorType}");
+            Console.WriteLine($"Product: {Device.Information.Model}");
+            Console.WriteLine($"Coprocessor type: {Device.Information.CoprocessorType}");
+            Console.WriteLine($"Coprocessor firmware version: {Device.Information.CoprocessorOSVersion}");
+        }
 
-            Console.WriteLine($"Device name: {information.DeviceName}");
-            Console.WriteLine($"OS version: {information.OsVersion}");
-            Console.WriteLine($"Microcontroller serial number: {information.SerialNumber}");
-            Console.WriteLine($"Microcontroller ID: {information.UniqueId}");
-            Console.WriteLine($"Model: {information.Model}");
-            Console.WriteLine($"Mono version: {information.MonoVersion}");
-            Console.WriteLine($"Processor type: {information.ProcessorType}");
-            Console.WriteLine($"Product: {information.Product}");
-            Console.WriteLine($"Build date: {information.BuildDate}");
-            Console.WriteLine($"Coprocessor type: {information.CoprocessorType}");
-            Console.WriteLine($"Coprocessor firmware version: {information.CoprocessorFirmwareVersion}");
+        void OutputMeadowOSInfo()
+        {
+            Console.WriteLine($"OS version: {MeadowOS.SystemInformation.OSVersion}");
+            Console.WriteLine($"Mono version: {MeadowOS.SystemInformation.MonoVersion}");
+            Console.WriteLine($"Build date: {MeadowOS.SystemInformation.OSBuildDate}");
         }
 
         void OutputDeviceConfigurationInfo()
         {
             try {
+                Console.WriteLine($"Automatically connect to network: {Device.WiFiAdapter.AutomaticallyStartNetwork}");
 
-                bool autmaticallStartNetwork = Device.WiFiAdapter.AutomaticallyStartNetwork;
-                Console.WriteLine($"Automatically connect to network: {autmaticallStartNetwork}");
+                Console.WriteLine($"Automatically reconnect: {Device.WiFiAdapter.AutomaticallyReconnect}");
 
-                bool automaticallyReconnect = Device.WiFiAdapter.AutomaticallyReconnect;
-                Console.WriteLine($"Automatically reconnect: {automaticallyReconnect}");
-
-                bool getTimeAtStartup = Device.WiFiAdapter.GetNetworkTimeAtStartup;
-                Console.WriteLine($"Get time at startup: {getTimeAtStartup}");
+                Console.WriteLine($"Get time at startup: {Device.WiFiAdapter.GetNetworkTimeAtStartup}");
                 //Console.WriteLine($"NTP Server: {Device.WiFiAdapter.NtpServer}");
 
                 Console.WriteLine($"Default access point: {Device.WiFiAdapter.DefaultAcessPoint}");
 
-                uint maximumRetryCount = Device.WiFiAdapter.MaximumRetryCount;
-                Console.WriteLine($"Maximum retry count: {maximumRetryCount}");
+                Console.WriteLine($"Maximum retry count: {Device.WiFiAdapter.MaximumRetryCount}");
 
-                //Console.WriteLine($"MAC address: {MacAddressString(Device.WiFiAdapter.MacAddress)}");
-                //Console.WriteLine($"Soft AP MAC address: {MacAddressString(Device.WiFiAdapter.ApMacAddress)}");
+                Console.WriteLine($"MAC address: {FormatMacAddressString(Device.WiFiAdapter.MacAddress)}");
+                Console.WriteLine($"Soft AP MAC address: {FormatMacAddressString(Device.WiFiAdapter.ApMacAddress)}");
 
             } catch (Exception e) {
                 Console.WriteLine(e.Message);
@@ -87,6 +85,19 @@ namespace MeadowApp
                     await Task.Delay(5000);
                 }
             });
+        }
+
+        protected string FormatMacAddressString(byte[] address)
+        {
+            string result = String.Empty;
+
+            for (int index = 0; index < address.Length; index++) {
+                result += address[index].ToString("X2");
+                if (index != (address.Length - 1)) {
+                    result += ":";
+                }
+            }
+            return (result);
         }
     }
 }
