@@ -18,6 +18,7 @@ namespace WiFi_Basics
             do
             {
                 GetWebPageViaHttpClient("https://postman-echo.com/get?foo1=bar1&foo2=bar2").Wait();
+                GC.Collect();
             }
             while (true);
 
@@ -27,11 +28,6 @@ namespace WiFi_Basics
         async Task Initialize()
         {
             Console.WriteLine("Initialize hardware...");
-
-            // initialize the wifi adpater
-            if (!Device.InitWiFiAdapter().Result) {
-                throw new Exception("Could not initialize the WiFi adapter.");
-            }
 
             // connected event test.
             Device.WiFiAdapter.WiFiConnected += WiFiAdapter_ConnectionCompleted;

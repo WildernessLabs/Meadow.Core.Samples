@@ -88,6 +88,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meadow.Foundation.Core", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GpioInterrogation", "IO\GpioInterrogation\GpioInterrogation.csproj", "{826A5F4E-63D6-4886-9602-F48515AE23F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Config_Files", "OS\Config_Files\Config_Files.csproj", "{EA81E5E9-78B0-41FF-BDCD-1E76897A8EEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -238,6 +240,10 @@ Global
 		{826A5F4E-63D6-4886-9602-F48515AE23F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{826A5F4E-63D6-4886-9602-F48515AE23F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{826A5F4E-63D6-4886-9602-F48515AE23F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA81E5E9-78B0-41FF-BDCD-1E76897A8EEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA81E5E9-78B0-41FF-BDCD-1E76897A8EEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA81E5E9-78B0-41FF-BDCD-1E76897A8EEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA81E5E9-78B0-41FF-BDCD-1E76897A8EEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -279,6 +285,7 @@ Global
 		{0282BC08-332E-4EF8-AC9A-B747ABF90E99} = {8D279C3D-43E8-4823-9D33-682231D1A48D}
 		{F3AB3863-7CAF-4C7F-9438-C5CB92E8250E} = {97617686-5ECA-434C-8434-D78F9F8B012F}
 		{826A5F4E-63D6-4886-9602-F48515AE23F5} = {234C2A00-F5E8-4E3D-899F-7EC3470B03E0}
+		{EA81E5E9-78B0-41FF-BDCD-1E76897A8EEF} = {8D279C3D-43E8-4823-9D33-682231D1A48D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B3E6AE55-DFFB-4B7B-8143-96D0D1AA8CD9}

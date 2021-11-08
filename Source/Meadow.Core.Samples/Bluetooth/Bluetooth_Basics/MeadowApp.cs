@@ -19,9 +19,6 @@ namespace MeadowApp
         {
             Console.WriteLine("Initialize hardware...");
             
-            // initializing the coprocessor
-            Device.InitCoprocessor();
-
             // initialize the bluetooth defnition tree
             Console.WriteLine("Starting the BLE server.");
             bleTreeDefinition = GetDefinition();
