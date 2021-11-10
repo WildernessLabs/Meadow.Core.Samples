@@ -18,7 +18,6 @@ namespace WiFi_Basics
             do
             {
                 GetWebPageViaHttpClient("https://postman-echo.com/get?foo1=bar1&foo2=bar2").Wait();
-                GC.Collect();
             }
             while (true);
 
