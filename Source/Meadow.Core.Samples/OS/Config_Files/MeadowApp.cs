@@ -1,8 +1,7 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
+using System;
+using System.Threading.Tasks;
 
 namespace MeadowApp
 {
@@ -12,7 +11,7 @@ namespace MeadowApp
         {
             Initialize();
 
-            Console.WriteLine($"Machine Name: {System.Environment.MachineName}");
+            Console.WriteLine($"Machine Name: {Environment.MachineName}");
 
             StartHeartbeat();
 
@@ -24,12 +23,15 @@ namespace MeadowApp
 
         void Initialize()
         {
-            if (Device.WiFiAdapter.IsConnected) {
+            if (Device.WiFiAdapter.IsConnected) 
+            {
                 Console.WriteLine("WiFi adapter already connected.");
-            } else {
+            }
+            else 
+            {
                 Console.WriteLine("WiFi adapter not connected.");
-
-                Device.WiFiAdapter.WiFiConnected += (s, e) => {
+                Device.WiFiAdapter.WiFiConnected += (s, e) => 
+                {
                     Console.WriteLine("WiFi adapter connected.");
                 };
             }
@@ -37,6 +39,7 @@ namespace MeadowApp
 
         void OutputDeviceInfo()
         {
+            Console.WriteLine($"=========================OutputDeviceInfo==============================");
             Console.WriteLine($"Device name: {Device.Information.DeviceName}");
             Console.WriteLine($"Processor serial number: {Device.Information.ProcessorSerialNumber}");
             Console.WriteLine($"Processor ID: {Device.Information.ChipID}");
@@ -45,43 +48,46 @@ namespace MeadowApp
             Console.WriteLine($"Product: {Device.Information.Model}");
             Console.WriteLine($"Coprocessor type: {Device.Information.CoprocessorType}");
             Console.WriteLine($"Coprocessor firmware version: {Device.Information.CoprocessorOSVersion}");
+            Console.WriteLine($"=======================================================================");
         }
 
         void OutputMeadowOSInfo()
         {
+            Console.WriteLine($"=========================OutputMeadowOSInfo============================");
             Console.WriteLine($"OS version: {MeadowOS.SystemInformation.OSVersion}");
             Console.WriteLine($"Mono version: {MeadowOS.SystemInformation.MonoVersion}");
             Console.WriteLine($"Build date: {MeadowOS.SystemInformation.OSBuildDate}");
+            Console.WriteLine($"=======================================================================");
         }
 
         void OutputDeviceConfigurationInfo()
         {
-            try {
+            try 
+            {
+                Console.WriteLine($"====================OutputDeviceConfigurationInfo======================");
                 Console.WriteLine($"Automatically connect to network: {Device.WiFiAdapter.AutomaticallyStartNetwork}");
-
                 Console.WriteLine($"Automatically reconnect: {Device.WiFiAdapter.AutomaticallyReconnect}");
-
                 Console.WriteLine($"Get time at startup: {Device.WiFiAdapter.GetNetworkTimeAtStartup}");
                 //Console.WriteLine($"NTP Server: {Device.WiFiAdapter.NtpServer}");
-
                 Console.WriteLine($"Default access point: {Device.WiFiAdapter.DefaultAcessPoint}");
-
                 Console.WriteLine($"Maximum retry count: {Device.WiFiAdapter.MaximumRetryCount}");
-
                 Console.WriteLine($"MAC address: {FormatMacAddressString(Device.WiFiAdapter.MacAddress)}");
                 Console.WriteLine($"Soft AP MAC address: {FormatMacAddressString(Device.WiFiAdapter.ApMacAddress)}");
-
-            } catch (Exception e) {
+                Console.WriteLine($"=======================================================================");
+            } 
+            catch (Exception e) 
+            {
                 Console.WriteLine(e.Message);
             }
-
         }
 
         protected void StartHeartbeat()
         {
-            Task.Run(async () => {
-                while (true) {
-                    Console.WriteLine("Beep...");
+            Task.Run(async () => 
+            {
+                while (true) 
+                {
+                    Console.WriteLine($"{DateTime.Now} {Device.WiFiAdapter.IpAddress}");
                     await Task.Delay(10000);
                 }
             });
@@ -89,11 +95,12 @@ namespace MeadowApp
 
         protected string FormatMacAddressString(byte[] address)
         {
-            string result = String.Empty;
-
-            for (int index = 0; index < address.Length; index++) {
+            string result = string.Empty;
+            for (int index = 0; index < address.Length; index++) 
+            {
                 result += address[index].ToString("X2");
-                if (index != (address.Length - 1)) {
+                if (index != (address.Length - 1)) 
+                {
                     result += ":";
                 }
             }
