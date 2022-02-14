@@ -17,7 +17,7 @@ namespace MeadowApp
             Console.WriteLine("Initialize hardware...");
 
             // enable the watchdog for 10s
-            MeadowOS.WatchdogEnable(10000);
+            MeadowOS.CurrentDevice.WatchdogEnable(new TimeSpan(10000));
             StartPettingWatchdog(9000);
         }
 
@@ -28,13 +28,13 @@ namespace MeadowApp
         void StartPettingWatchdog(int pettingInterval)
         {
             // just for good measure, let's reset the watchdog to begin with
-            MeadowOS.WatchdogReset();
+            MeadowOS.CurrentDevice.WatchdogReset();
             // start a thread that pets it
             Thread t = new Thread(() => {
                 while (true) {
                     Thread.Sleep(pettingInterval);
                     Console.WriteLine("Petting watchdog.");
-                    MeadowOS.WatchdogReset();
+                    MeadowOS.CurrentDevice.WatchdogReset();
                 }
             });
             t.Start();
