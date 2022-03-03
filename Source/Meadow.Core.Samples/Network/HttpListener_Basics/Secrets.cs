@@ -1,4 +1,4 @@
-﻿namespace HttpListener
+﻿namespace HttpListener_Basics
 {
     public class Secrets
     {
