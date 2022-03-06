@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using Meadow;
 
-namespace Config_Files
+namespace MeadowApp
 {
     class Program
     {

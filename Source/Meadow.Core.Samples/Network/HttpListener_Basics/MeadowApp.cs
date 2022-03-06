@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MeadowApp
+namespace HttpListener_Basics
 {
     public class MeadowApp : App<F7Micro, MeadowApp>
     {
