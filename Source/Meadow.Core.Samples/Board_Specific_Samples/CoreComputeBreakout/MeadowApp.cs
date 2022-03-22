@@ -134,7 +134,7 @@ namespace MeadowApp
                 Device.Pins.D19, // res
                 _logger);
 
-            _led = Device.CreateDigitalOutputPort(Device.Pins.LED1);
+            _led = Device.CreateDigitalOutputPort(Device.Pins.D20);
             
         }
     }

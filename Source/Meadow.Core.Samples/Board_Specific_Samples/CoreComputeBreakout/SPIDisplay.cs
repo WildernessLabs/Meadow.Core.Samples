@@ -15,7 +15,7 @@ namespace MeadowApp
         private IPin _reset;
 
         public SPIDisplay(IMeadowDevice device, ISpiBus bus, IPin chipSelect, IPin dc, IPin reset, Logger logger)
-            : base(logger)
+            : base(logger, RotationType._90Degrees)
         {
             _chipSelect = chipSelect;
             _dc = dc;

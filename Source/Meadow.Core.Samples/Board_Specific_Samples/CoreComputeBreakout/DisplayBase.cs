@@ -7,13 +7,15 @@ namespace MeadowApp
     public abstract class DisplayBase
     {
         private MicroGraphics _canvas;
+        private RotationType _rotation;
 
         protected Logger Logger { get; private set; }
         protected abstract IGraphicsDisplay Display { get; }
 
-        public DisplayBase (Logger logger)
+        public DisplayBase (Logger logger, RotationType rotation = RotationType.Default)
         {
             Logger = logger;
+            _rotation = rotation;
         }
 
         private void CheckCanvas()
@@ -23,6 +25,7 @@ namespace MeadowApp
                 _canvas = new MicroGraphics(Display);
                 _canvas.Clear(true);
                 _canvas.CurrentFont = new Font12x20();
+                _canvas.Rotation = _rotation;
             }
         }
 
