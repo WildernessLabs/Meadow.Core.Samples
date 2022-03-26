@@ -23,6 +23,52 @@ namespace MeadowApp
             _logger = logger;
         }
 
+        public static void PulsePwm(IPwmPort pwm, Action? beforeUp = null, Action? beforeDown = null)
+        {
+            beforeUp?.Invoke();
+
+            for (var i = 0; i < 100; i += 5)
+            {
+                pwm.DutyCycle = i / 100f;
+                Thread.Sleep(100);
+            }
+
+            beforeDown?.Invoke();
+
+            for (var i = 100; i > 0; i -= 5)
+            {
+                pwm.DutyCycle = i / 100f;
+                Thread.Sleep(100);
+            }
+        }
+
+        public async Task TestPulsePWMs(IF7CoreComputeMeadowDevice device, int iterations)
+        {
+            for (var i = 0; i < iterations; i++)
+            {
+                foreach (var pin in device.Pins)
+                {
+                    if (pin.Supports<IPwmChannelInfo>())
+                    {
+                        using (var pwm = device.CreatePwmPort(pin, dutyCycle: 0f))
+                        {
+                            pwm.Start();
+
+                            // do it twice to give the user the chance to probe
+                            for (int c = 0; c < 2; c++)
+                            {
+                                PulsePwm(
+                                    pwm,
+                                    () => _logger.Info($"Pin {pin.Name} increasing"),
+                                    () => _logger.Info($"Pin {pin.Name} decreasing")
+                                    );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         public async Task TestSPI5ControlPins(int iterations)
         {
             // this method is intended to allow testing the display control pins with a scope
@@ -68,30 +114,30 @@ namespace MeadowApp
         private Logger _logger;
         private SPIDisplay _spiDisplay;
         private I2CDisplay _i2cDisplay;
-        private IDigitalOutputPort _led;
+        private IPwmPort _led;
+        private Meadow.Foundation.Leds.PwmLed _pwm;
 
         public MeadowApp()
         {
             Initialize();
 
+            var test = new CcmPinTests(Device, _logger);
+
             _ = Task.Run(() => BlinkyProc());
             _ = Task.Run(() => SpiDisplayProc());
+            _ = Task.Run(() => test.TestPulsePWMs(Device, 10));
         }
 
         private void BlinkyProc()
         {
-            var state = false;
-
             _i2cDisplay.ShowText("LED", 0);
-           
+
             while (true)
             {
-                _logger.Info(state ? "ON" : "OFF");
-                _i2cDisplay.ShowText(state ? "ON" : "OFF", 1);
-
-                _led.State = state;
-                Thread.Sleep(5000);
-                state = !state;
+                CcmPinTests.PulsePwm(
+                    _led,
+                    () => _i2cDisplay.ShowText("Increase", 1),
+                    () => _i2cDisplay.ShowText("Decrease", 1));
             }
         }
 
@@ -134,8 +180,8 @@ namespace MeadowApp
                 Device.Pins.D19, // res
                 _logger);
 
-            _led = Device.CreateDigitalOutputPort(Device.Pins.D20);
-            
+            _led = Device.CreatePwmPort(Device.Pins.D20, dutyCycle: 0);
+            _led.Start();
         }
     }
 }
