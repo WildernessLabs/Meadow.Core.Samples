@@ -5,12 +5,13 @@ using Meadow;
 using Meadow.Devices;
 using Meadow.Foundation;
 using Meadow.Foundation.Leds;
+using Meadow.Units;
 
 namespace MeadowApp
 {
     // this sample illustrates how to use the `BeginInvokeOnMainThread()` method
     // to ensure that code gets queued to run on the main execution thread.
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         RgbPwmLed onboardLed;
 
@@ -42,7 +43,7 @@ namespace MeadowApp
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue,
-                3.3f, 3.3f, 3.3f,
+                new Voltage(3.3), new Voltage(3.3), new Voltage(3.3),
                 Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
         }
 
