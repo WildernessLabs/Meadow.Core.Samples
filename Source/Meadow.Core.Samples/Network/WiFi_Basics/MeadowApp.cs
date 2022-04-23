@@ -30,12 +30,12 @@ namespace WiFi_Basics
             Device.WiFiAdapter.WiFiConnected += WiFiAdapter_ConnectionCompleted;
 
             // enumerate the public WiFi channels
-            ScanForAccessPoints();
+            await ScanForAccessPoints();
 
             // connnect to the wifi network.
             Console.WriteLine($"Connecting to WiFi Network {Secrets.WIFI_NAME}");
 
-            var connectionResult = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD);
+            var connectionResult = await Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD, TimeSpan.FromSeconds(45));
 
             if (connectionResult.ConnectionStatus != ConnectionStatus.Success) 
             {
@@ -54,10 +54,10 @@ namespace WiFi_Basics
             Console.WriteLine("Connection request completed.");
         }
 
-        protected void ScanForAccessPoints()
+        protected async Task ScanForAccessPoints()
         {
             Console.WriteLine("Getting list of access points.");
-            var networks = Device.WiFiAdapter.Scan();
+            var networks = await Device.WiFiAdapter.Scan(TimeSpan.FromSeconds(60));
 
             if (networks.Count > 0) {
                 Console.WriteLine("|-------------------------------------------------------------|---------|");
