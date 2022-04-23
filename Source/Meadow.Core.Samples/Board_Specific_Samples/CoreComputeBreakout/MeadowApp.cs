@@ -126,6 +126,27 @@ namespace MeadowApp
             _ = Task.Run(() => BlinkyProc());
             _ = Task.Run(() => SpiDisplayProc());
             _ = Task.Run(() => test.TestPulsePWMs(Device, 10));
+/*
+            _ = Task.Run(() =>
+            {
+                _logger.Info("Start PWM5...");
+                var pwm5 = Device.CreatePwmPort(Device.Pins.D05, dutyCycle: 0);
+                _logger.Info("Start PWM6...");
+                var pwm6 = Device.CreatePwmPort(Device.Pins.D06, dutyCycle: 0);
+
+                pwm5.Start();
+                pwm6.Start();
+                while (true)
+                {
+                    _logger.Info("PWM5...");
+                    CcmPinTests.PulsePwm(pwm5);
+                    Thread.Sleep(1000);
+                    _logger.Info("PWM6...");
+                    CcmPinTests.PulsePwm(pwm6);
+                    Thread.Sleep(1000);
+                }
+            });
+*/
         }
 
         private void BlinkyProc()

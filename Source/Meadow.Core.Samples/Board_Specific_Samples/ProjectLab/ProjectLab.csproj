@@ -7,7 +7,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\Shared\DisplayBase.cs" Link="DisplayBase.cs" />
-    <Compile Include="..\Shared\I2CDisplay.cs" Link="I2CDisplay.cs" />
     <Compile Include="..\Shared\SPIDisplay.cs" Link="SPIDisplay.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -17,8 +16,7 @@
     <PackageReference Include="Meadow.Modbus" Version="0.25.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Meadow.Core\source\Meadow.F7\Meadow.F7.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Meadow.Core\source\Meadow.Core\Meadow.Core.csproj" />
     <ProjectReference Include="..\..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Core\Meadow.Foundation.Core.csproj" />
-    <ProjectReference Include="..\..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Sensors.Light.Tsl2591\Driver\Sensors.Light.Tsl2591\Sensors.Light.Tsl2591.csproj" />
   </ItemGroup>
 </Project>
