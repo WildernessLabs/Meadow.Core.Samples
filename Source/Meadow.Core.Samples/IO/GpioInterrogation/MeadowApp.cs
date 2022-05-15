@@ -8,7 +8,7 @@ using System.Text;
 
 namespace GpioInterrogation
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         public MeadowApp()
         {

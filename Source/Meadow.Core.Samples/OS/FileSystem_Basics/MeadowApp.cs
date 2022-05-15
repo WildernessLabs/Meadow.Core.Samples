@@ -6,7 +6,7 @@ using Meadow.Devices;
 
 namespace MeadowApp
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         public MeadowApp()
         {

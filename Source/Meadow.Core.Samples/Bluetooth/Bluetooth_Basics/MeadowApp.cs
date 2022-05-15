@@ -5,7 +5,7 @@ using Meadow.Gateways.Bluetooth;
 
 namespace MeadowApp
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         Definition bleTreeDefinition;
         CharacteristicBool onOffCharacteristic;

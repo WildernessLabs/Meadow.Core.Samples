@@ -8,7 +8,7 @@ namespace MeadowApp
     /// <summary>
     /// This sample prints the MCU temp to the console.
     /// </summary>
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         public MeadowApp()
         {

@@ -11,7 +11,7 @@ namespace MeadowApp
     /// <summary>
     /// To run these tests, create a loopback on COM4 by connecting D12 and D13.
     /// </summary>
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         ISerialPort classicSerialPort;
         Encoding currentTestEncoding = System.Text.Encoding.ASCII;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Basic_BiDirectonalPort
 {
-    class MeadowApp : App<F7Micro, MeadowApp>
+    class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         private IBiDirectionalPort _d04 = null;
         private IBiDirectionalPort _d05 = null;
