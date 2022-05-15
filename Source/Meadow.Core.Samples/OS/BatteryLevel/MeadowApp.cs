@@ -11,7 +11,7 @@ namespace MeadowApp
         {
             while (true) {
 
-                Console.WriteLine($"Battery Voltage: {Device.GetBatteryLevel().Volts:N2}V");
+                Console.WriteLine($"Battery Voltage: {Device.GetBatteryInfo().Voltage.Value.Volts:N2}V");
 
                 Thread.Sleep(3000);
             }

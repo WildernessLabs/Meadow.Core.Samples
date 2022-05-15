@@ -3,6 +3,7 @@ using Meadow.Devices;
 using Meadow.Gateway.WiFi;
 using Meadow.Gateways;
 using System;
+using System.Threading.Tasks;
 
 namespace MeadowApp
 {
@@ -34,10 +35,10 @@ namespace MeadowApp
             Console.WriteLine("Initialize hardware...");
         }
 
-        protected void ScanForAccessPoints()
+        protected async Task ScanForAccessPoints()
         {
             Console.WriteLine("Getting list of access points.");
-            var networks = Device.WiFiAdapter.Scan();
+            var networks = await Device.WiFiAdapter.Scan();
             if (networks.Count > 0) {
                 Console.WriteLine("|-------------------------------------------------------------|---------|");
                 Console.WriteLine("|         Network Name             | RSSI |       BSSID       | Channel |");
