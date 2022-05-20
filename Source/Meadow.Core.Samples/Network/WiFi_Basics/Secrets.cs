@@ -1,4 +1,4 @@
-﻿namespace WiFi_Basics
+﻿namespace MeadowApp
 {
     public class Secrets
     {

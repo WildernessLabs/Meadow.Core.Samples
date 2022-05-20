@@ -5,29 +5,14 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace WiFi_Basics
+namespace MeadowApp
 {
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp  : App<F7CoreComputeV1> , IApp
     {
-        public MeadowApp()
-        {
-            Initialize().Wait();
-
-            do
-            {
-                GetWebPageViaHttpClient("https://postman-echo.com/get?foo1=bar1&foo2=bar2").Wait();
-            }
-            while (true);
-
-            Console.WriteLine("Done.");
-        }
-
-        async Task Initialize()
-        {
-            Console.WriteLine("Initialize hardware...");
-
+        async Task IApp.Initialize()
+        { 
             // connected event test.
-            Device.WiFiAdapter.WiFiConnected += WiFiAdapter_ConnectionCompleted;
+            Device.WiFiAdapter.WiFiConnected += (sender, e) => Console.WriteLine("Connection request completed.");;
 
             // enumerate the public WiFi channels
             await ScanForAccessPoints();
@@ -49,12 +34,16 @@ namespace WiFi_Basics
             }
         }
 
-        private void WiFiAdapter_ConnectionCompleted(object sender, EventArgs e)
+        async Task IApp.Run()
         {
-            Console.WriteLine("Connection request completed.");
+            do
+            {
+                GetWebPageViaHttpClient("https://postman-echo.com/get?foo1=bar1&foo2=bar2").Wait();
+            }
+            while (true);
         }
 
-        protected async Task ScanForAccessPoints()
+        private async Task ScanForAccessPoints()
         {
             Console.WriteLine("Getting list of access points.");
             var networks = await Device.WiFiAdapter.Scan(TimeSpan.FromSeconds(60));
@@ -75,7 +64,8 @@ namespace WiFi_Basics
             }
         }
 
-        public async Task GetWebPageViaHttpClient(string uri)
+
+        private async Task GetWebPageViaHttpClient(string uri)
         {
             Console.WriteLine($"Requesting {uri} - {DateTime.Now}");
 
@@ -99,6 +89,12 @@ namespace WiFi_Basics
                     Console.WriteLine($"Request went sideways: {e.Message}");
                 }
             }
+        }
+
+        void IApp.Shutdown(out bool complete, Exception? e = null)
+        {
+            Console.WriteLine("Bye!");
+            complete = true;
         }
     }
 }
