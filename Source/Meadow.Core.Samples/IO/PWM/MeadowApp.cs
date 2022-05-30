@@ -7,7 +7,7 @@ using Meadow.Hardware;
 
 namespace Basic_PWM
 {
-    class MeadowApp : App<F7Micro, MeadowApp>
+    class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         public MeadowApp()
         {

@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace BasicI2CTest
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         public MeadowApp()
         {
@@ -93,7 +93,7 @@ namespace BasicI2CTest
 
                 Console.WriteLine($" Address: {addr}");
 
-                i2c.WriteData(addr, new byte[] { 0 });
+                i2c.Write(addr, new byte[] { 0 });
                 Thread.Sleep(2000);
             }
         }
@@ -125,7 +125,7 @@ namespace BasicI2CTest
 
         public void Wake()
         {
-            _bus.WriteData(Address, (byte)Registers.PowerManagement, 0);
+            _bus.Write(Address, new byte[]{ (byte)Registers.PowerManagement});
         }
 
         int c = 0;
@@ -136,8 +136,10 @@ namespace BasicI2CTest
             byte address = c++ % 10 == 0 ? (byte)(Address + 1) : Address;
 
             // cause occasional errors
-            var data = _bus.WriteReadData(address, 14, (byte)Registers.AccelerometerX);
-
+            _bus.Write(address, new byte[] { (byte)Registers.AccelerometerX });
+            var data = new byte[14];
+            _bus.Write(address, data);
+  
 //            Console.WriteLine($" Got {data.Length} bytes");
 //            Console.WriteLine($" {BitConverter.ToString(data)}");
 

@@ -14,7 +14,7 @@ namespace SPITest
         }
     }
 
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         private readonly IDigitalOutputPort _chipSelect;
         private readonly ISpiBus _spiBus;

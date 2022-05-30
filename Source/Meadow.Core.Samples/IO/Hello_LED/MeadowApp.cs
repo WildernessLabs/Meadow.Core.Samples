@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace HelloLED
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         IDigitalOutputPort _redLED;
         IDigitalOutputPort _blueLED;

@@ -9,7 +9,7 @@ using SQLite;
 
 namespace MeadowApp
 {
-    public unsafe class MeadowApp : App<F7Micro, MeadowApp>
+    public unsafe class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         //==== internals
         SQLiteConnection Database { get; set; }

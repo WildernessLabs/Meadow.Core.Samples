@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace Basic_Digital_Input
 {
-    class MeadowApp : App<F7Micro, MeadowApp>
+    class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         private List<IDigitalInputPort> inputs = new List<IDigitalInputPort>();
 

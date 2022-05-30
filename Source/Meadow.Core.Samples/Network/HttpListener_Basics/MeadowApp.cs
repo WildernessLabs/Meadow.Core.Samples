@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HttpListener_Basics
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         public static HttpListener listener;
         public IPAddress ipAddress;

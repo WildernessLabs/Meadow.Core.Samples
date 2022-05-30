@@ -11,7 +11,7 @@ namespace MeadowApp
     /// <summary>
     /// TODO: someone should really break these out into proper tests and whatnot.
     /// </summary>
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         ISerialMessagePort serialPort;
         string delimiterString = "$$$";

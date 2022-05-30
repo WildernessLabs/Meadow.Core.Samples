@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Basic_AnalogReads
 {
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         IAnalogInputPort analogIn;
 

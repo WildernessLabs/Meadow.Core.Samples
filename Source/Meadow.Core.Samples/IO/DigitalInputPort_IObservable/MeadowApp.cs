@@ -10,7 +10,7 @@ namespace DigitalInputPort_IObservable_Sample
     /// a PushButton connected to D02, with the circuit terminating on the 3.3V rail, so that
     /// when the button is pressed, the input is raised high.
     /// </summary>
-    public class MeadowApp : App<F7Micro, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2, MeadowApp>
     {
         IDigitalInputPort input;
 
