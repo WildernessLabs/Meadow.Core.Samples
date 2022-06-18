@@ -3,26 +3,61 @@ using System.Threading;
 using System.Threading.Tasks;
 using Meadow;
 using Meadow.Devices;
+using Meadow.Foundation;
+using Meadow.Foundation.Leds;
 using Meadow.Hardware;
 
 namespace Basic_PWM
 {
-    class MeadowApp : App<F7FeatherV2, MeadowApp>
+    class MeadowApp : App<F7FeatherV1>
     {
         public MeadowApp()
         {
             Console.WriteLine("+PWMApp");
-
-            try
-            {
-                PwmWithGpio();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
         }
 
+        public override Task Initialize() 
+        {
+            Console.WriteLine($"Device {(Device == null ? "NULL" : "NOT NULL")}");
+            Console.WriteLine($"Creating LED");
+
+            var onboardLed = new RgbPwmLed(device: Device,
+                            redPwmPin: Device.Pins.OnboardLedRed,
+                            greenPwmPin: Device.Pins.OnboardLedGreen,
+                            bluePwmPin: Device.Pins.OnboardLedBlue,
+                            Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
+
+            Console.WriteLine($"Creating PWMs");
+            var coopLightsPwm = Device.CreatePwmPort(Device.Pins.D04, frequency: 1000);
+            // var coopLights = new PwmLed(this.coopLightsPwm, TypicalForwardVoltage.Green);
+
+            var buttonLightPwm = Device.CreatePwmPort(Device.Pins.D03, frequency: 1000);
+            // var buttonLight = new PwmLed(this.buttonLightPwm, TypicalForwardVoltage.Blue);
+
+            Console.WriteLine($"Button input");
+            var pushButton = Device.CreateDigitalInputPort(Device.Pins.D02, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp, debounceDuration: 50, glitchDuration: 25);
+            pushButton.Changed += (s, e) =>
+            {
+                Console.WriteLine($"Button");
+            };
+
+            Console.WriteLine($"Start...");
+            coopLightsPwm.Start();
+            buttonLightPwm.Start();
+
+            onboardLed.StartPulse(Color.Orange, 0.5F, 0.1F);
+
+            return Task.CompletedTask;
+        }
+
+        public override async Task Run()
+        {
+            Console.WriteLine($"MeadowApp.Run()");
+            while (true)
+            {
+                await Task.Delay(5000);
+            }
+        }
 
         private void PwmWithGpio()
         {
