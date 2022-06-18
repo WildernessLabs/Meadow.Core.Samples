@@ -90,6 +90,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Units", "..\..\..\Me
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Contracts", "..\..\..\Meadow.Contracts\Source\Meadow.Contracts\Meadow.Contracts.csproj", "{9225A8A4-725D-450B-A551-9A3464F89585}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Logging", "..\..\..\Meadow.Logging\lib\Meadow.Logging.csproj", "{E22DD9CD-10DF-461C-8FFF-4474DE440F20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -240,6 +242,10 @@ Global
 		{9225A8A4-725D-450B-A551-9A3464F89585}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9225A8A4-725D-450B-A551-9A3464F89585}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9225A8A4-725D-450B-A551-9A3464F89585}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E22DD9CD-10DF-461C-8FFF-4474DE440F20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E22DD9CD-10DF-461C-8FFF-4474DE440F20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E22DD9CD-10DF-461C-8FFF-4474DE440F20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E22DD9CD-10DF-461C-8FFF-4474DE440F20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -281,6 +287,7 @@ Global
 		{EA81E5E9-78B0-41FF-BDCD-1E76897A8EEF} = {8D279C3D-43E8-4823-9D33-682231D1A48D}
 		{18E7BE9C-FC9D-48A5-B209-1A18E01B07DA} = {97617686-5ECA-434C-8434-D78F9F8B012F}
 		{9225A8A4-725D-450B-A551-9A3464F89585} = {97617686-5ECA-434C-8434-D78F9F8B012F}
+		{E22DD9CD-10DF-461C-8FFF-4474DE440F20} = {97617686-5ECA-434C-8434-D78F9F8B012F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B3E6AE55-DFFB-4B7B-8143-96D0D1AA8CD9}

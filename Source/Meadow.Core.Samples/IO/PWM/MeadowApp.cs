@@ -13,13 +13,13 @@ namespace Basic_PWM
     {
         public MeadowApp()
         {
-            Console.WriteLine("+PWMApp");
+            Resolver.Log.Debug("+PWMApp");
         }
 
         public override Task Initialize() 
         {
-            Console.WriteLine($"Device {(Device == null ? "NULL" : "NOT NULL")}");
-            Console.WriteLine($"Creating LED");
+            Resolver.Log.Debug($"Device {(Device == null ? "NULL" : "NOT NULL")}");
+            Resolver.Log.Info($"Creating LED");
 
             var onboardLed = new RgbPwmLed(device: Device,
                             redPwmPin: Device.Pins.OnboardLedRed,
@@ -27,21 +27,21 @@ namespace Basic_PWM
                             bluePwmPin: Device.Pins.OnboardLedBlue,
                             Meadow.Peripherals.Leds.IRgbLed.CommonType.CommonAnode);
 
-            Console.WriteLine($"Creating PWMs");
+            Resolver.Log.Info($"Creating PWMs");
             var coopLightsPwm = Device.CreatePwmPort(Device.Pins.D04, frequency: 1000);
             // var coopLights = new PwmLed(this.coopLightsPwm, TypicalForwardVoltage.Green);
 
             var buttonLightPwm = Device.CreatePwmPort(Device.Pins.D03, frequency: 1000);
             // var buttonLight = new PwmLed(this.buttonLightPwm, TypicalForwardVoltage.Blue);
 
-            Console.WriteLine($"Button input");
+            Resolver.Log.Info($"Button input");
             var pushButton = Device.CreateDigitalInputPort(Device.Pins.D02, InterruptMode.EdgeBoth, ResistorMode.InternalPullUp, debounceDuration: 50, glitchDuration: 25);
             pushButton.Changed += (s, e) =>
             {
-                Console.WriteLine($"Button");
+                Resolver.Log.Info($"Button");
             };
 
-            Console.WriteLine($"Start...");
+            Resolver.Log.Info($"Start...");
             coopLightsPwm.Start();
             buttonLightPwm.Start();
 
@@ -52,7 +52,7 @@ namespace Basic_PWM
 
         public override async Task Run()
         {
-            Console.WriteLine($"MeadowApp.Run()");
+            Resolver.Log.Debug($"MeadowApp.Run()");
             while (true)
             {
                 await Task.Delay(5000);
