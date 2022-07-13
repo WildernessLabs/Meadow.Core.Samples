@@ -1,36 +1,43 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using Meadow;
 using Meadow.Devices;
 using Meadow.Hardware;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace F7_Micro_Board_Diagnostics
 {
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
-        public MeadowApp()
+        public override Task Initialize()
         {
             // Simple Digital IO
             Tuple<bool, List<PortTestResult>> digitalIOResults = TestDigitalIO();
             Debug.WriteLine("Simple Digital IO Test Results: " + (digitalIOResults.Item1 ? "PASS" : "FAIL"));
-            if (!digitalIOResults.Item1) {
-                foreach (var r in digitalIOResults.Item2) {
+            if (!digitalIOResults.Item1)
+            {
+                foreach (var r in digitalIOResults.Item2)
+                {
                     Debug.WriteLineIf(!r.Result, "Port failure on pin: " + r.PortName);
                 }
             }
+
+            return Task.CompletedTask;
         }
 
-        protected bool TestNetwork() { return false; }
+        bool TestNetwork() { return false; }
 
-        protected bool TestBluetooth() { return false; }
+        bool TestBluetooth() { return false; }
+
+        bool TestAnalogIO() { return false; }
 
         /// <summary>
         /// Tests the digital IO ports by performing write/reads on paired ports
         /// and seeing if nothing is shorted.
         /// </summary>
         /// <returns>Whether or not the digital IO passed.</returns>
-        protected Tuple<bool, List<PortTestResult>> TestDigitalIO()
+        Tuple<bool, List<PortTestResult>> TestDigitalIO()
         {
             List<PortTestResult> portTestResults = new List<PortTestResult>();
             bool success = true;
@@ -68,14 +75,19 @@ namespace F7_Micro_Board_Diagnostics
             };
 
             // Test all pins:
-            for (int i = 0; i < testDigitalPorts.Count; i++) {
+            for (int i = 0; i < testDigitalPorts.Count; i++)
+            {
 
                 // turn all pins low except for the one that's driving a high signal
-                foreach (var port in testDigitalPorts) {
+                foreach (var port in testDigitalPorts)
+                {
                     // turn them all input and pulled down, unless it's the high test pin
-                    if (port == testDigitalPorts[i]) {
+                    if (port == testDigitalPorts[i])
+                    {
                         port.Direction = PortDirectionType.Input;
-                    } else {
+                    }
+                    else
+                    {
                         port.Direction = PortDirectionType.Output;
                         port.State = true;
                     }
@@ -84,35 +96,44 @@ namespace F7_Micro_Board_Diagnostics
                 // get a reference to the paired endpoint pin (the pin on the 
                 // other side of the high test pin).
                 IBiDirectionalPort pairedEndpointPort;
-                if (i < 8) {
+                if (i < 8)
+                {
                     pairedEndpointPort = testPairs[i].Item2;
-                } else {
+                }
+                else
+                {
                     pairedEndpointPort = testPairs[i].Item1;
                 }
 
                 // loop through all the ports and check to see if they're reading 
                 // low except for the other end of the high pin.
                 bool portSuccess = true;
-                foreach (var port in testDigitalPorts) {
+                foreach (var port in testDigitalPorts)
+                {
 
                     // if we're not the high port, or the paired port
-                    if (port != testDigitalPorts[i] && port != pairedEndpointPort) {
-                        if (port.State) {
+                    if (port != testDigitalPorts[i] && port != pairedEndpointPort)
+                    {
+                        if (port.State)
+                        {
                             // FAILURE: if this port is high, something is wrong.
                             success = portSuccess = false;
                             portTestResults.Add(new PortTestResult("", false)); // TODO: Name
                             Debug.WriteLine("Port failure on pin: " + port.Pin.Name + ", channel: " + port.Channel.Name + "; should be LOW, but is HIGH. Short detected.");
                         }
                     } // if it's the port on the other 
-                    else if (port != testDigitalPorts[i] && port == pairedEndpointPort) {
-                        if (!port.State) {
+                    else if (port != testDigitalPorts[i] && port == pairedEndpointPort)
+                    {
+                        if (!port.State)
+                        {
                             success = portSuccess = false;
                             portTestResults.Add(new PortTestResult("", false)); // TODO: Name
                             Debug.WriteLine("Port failure on pin: " + port.Pin.Name + ", channel: " + port.Channel.Name + ";  [name] pair should be HIGH, but it's LOW. Endpoint port read failure.");
                         }
                     }
 
-                    if (portSuccess) {
+                    if (portSuccess)
+                    {
                         Debug.WriteLine("port " + port.Pin.Name + ", channel: " + port.Channel.Name + " test success.");
                     }
                 }
@@ -121,9 +142,5 @@ namespace F7_Micro_Board_Diagnostics
             // report results.
             return new Tuple<bool, List<PortTestResult>>(success, portTestResults);
         }
-
-
-        protected bool TestAnalogIO() { return false; }
-
     }
 }

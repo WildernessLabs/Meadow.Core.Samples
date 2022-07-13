@@ -1,32 +1,31 @@
-﻿using System;
-using System.Threading;
-using System.Collections.Generic;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Hardware;
-using System.Diagnostics;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Walking_DigitalOutputs
 {
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         IList<IDigitalOutputPort> _outs = new List<IDigitalOutputPort>();
 
-        public MeadowApp()
+        public override async Task Run()
         {
-            while (true) {
-
+            while (true)
+            {
                 // create all our digital output ports
-                this.ConfigureOutputs();
-                // turn them on/off
-                this.WalkOutputs();
-                // tear down
-                this.DisposePorts();
-            }
+                ConfigureOutputs();
 
+                // turn them on/off
+                await WalkOutputs();
+
+                // tear down
+                DisposePorts();
+            }
         }
 
-        // creates output ports on all pins
         protected void ConfigureOutputs()
         {
             Console.Write("Creating ports...");
@@ -63,28 +62,29 @@ namespace Walking_DigitalOutputs
             Console.WriteLine("ok.");
         }
 
-        // tears down all the ports. for validation only.
-        protected void DisposePorts()
+        async Task WalkOutputs()
+        {
+            // turn each one on for a bit.
+            foreach (var port in _outs)
+            {
+                Console.Write($"{port.Pin.Name} ");
+                port.State = true;
+                await Task.Delay(250);
+                port.State = false;
+            }
+        }
+
+        void DisposePorts()
         {
             Console.Write("Disposing ports...");
 
-            foreach (var port in _outs) {
+            foreach (var port in _outs)
+            {
                 port.Dispose();
             }
             _outs.Clear();
 
             Console.WriteLine("ok.");
-        }
-
-        protected void WalkOutputs()
-        {
-            // turn each one on for a bit.
-            foreach (var port in _outs) {
-                Console.Write($"{port.Pin.Name} ");
-                port.State = true;
-                Thread.Sleep(250);
-                port.State = false;
-            }
         }
     }
 }

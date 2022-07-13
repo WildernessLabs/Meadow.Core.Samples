@@ -1,11 +1,10 @@
-﻿using System;
-using System.Text;
-using System.Threading;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Hardware;
+using System;
+using System.Threading.Tasks;
 
-namespace SPITest
+namespace SPI
 {
     public class SampleSpi : SpiPeripheral
     {
@@ -14,26 +13,30 @@ namespace SPITest
         }
     }
 
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
-        private readonly IDigitalOutputPort _chipSelect;
-        private readonly ISpiBus _spiBus;
+        private IDigitalOutputPort _chipSelect;
+        private ISpiBus _spiBus;
         private SampleSpi _peripheral;
 
-        public MeadowApp()
+        public override Task Initialize()
         {
             Console.WriteLine($"SPI TEST");
 
             _chipSelect = Device.CreateDigitalOutputPort(Device.Pins.D04);
             _spiBus = Device.CreateSpiBus();
             _peripheral = new SampleSpi(_spiBus, _chipSelect);
+
+            return Task.CompletedTask;
         }
 
-        public void Run()
+        public override Task Run()
         {
             var result = _peripheral.ReadRegister(0x42);
 
             Console.WriteLine($"Read result: {result}");
+
+            return Task.CompletedTask;
         }
     }
 }

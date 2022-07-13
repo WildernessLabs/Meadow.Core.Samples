@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HttpListener_Basics
 {
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         public static HttpListener listener;
         public IPAddress ipAddress;
@@ -28,11 +28,16 @@ namespace HttpListener_Basics
             "  </body>" +
             "</html>";
 
-        protected string Url {
-            get {
-                if (ipAddress != null) {
+        protected string Url
+        {
+            get
+            {
+                if (ipAddress != null)
+                {
                     return $"http://{ipAddress}:{port}/";
-                } else {
+                }
+                else
+                {
                     return $"http://127.0.0.1:{port}/";
                 }
             }
@@ -41,19 +46,27 @@ namespace HttpListener_Basics
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public MeadowApp()
+        public override Task Initialize()
         {
             Console.WriteLine("Creating HttpListenerTest object.");
-            
+
             Console.WriteLine("Connecting to access point.");
             Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD).Wait();
-            Console.WriteLine("WiFi connection completed.");
-            this.ipAddress = Device.WiFiAdapter.IpAddress;
 
-            StartServer();
+            Console.WriteLine("WiFi connection completed.");
+            ipAddress = Device.WiFiAdapter.IpAddress;
+
+            return Task.CompletedTask;
         }
 
-        private void WiFiAdapter_WiFiConnected(object sender, EventArgs e)
+        public override Task Run()
+        {
+            StartServer();
+
+            return Task.CompletedTask;
+        }
+
+        void WiFiAdapter_WiFiConnected(object sender, EventArgs e)
         {
             Console.WriteLine("WiFiAdapter_WiFiConnected: connected to access point.");
         }
@@ -62,9 +75,11 @@ namespace HttpListener_Basics
         {
             bool runServer = true;
 
-            await Task.Run(async () => {
+            await Task.Run(async () =>
+            {
                 // While a user hasn't visited the `shutdown` url, keep on handling requests
-                while (runServer) {
+                while (runServer)
+                {
                     // Will wait here until we hear from a connection
                     HttpListenerContext ctx = await listener.GetContextAsync();
 
@@ -81,13 +96,15 @@ namespace HttpListener_Basics
                     Console.WriteLine();
 
                     // If `shutdown` url requested w/ POST, then shutdown the server after serving the page
-                    if ((req.HttpMethod == "POST") && (req.Url.AbsolutePath == "/shutdown")) {
+                    if ((req.HttpMethod == "POST") && (req.Url.AbsolutePath == "/shutdown"))
+                    {
                         Console.WriteLine("Shutdown requested");
                         runServer = false;
                     }
 
                     // Make sure we don't increment the page views counter if `favicon.ico` is requested
-                    if (req.Url.AbsolutePath != "/favicon.ico") {
+                    if (req.Url.AbsolutePath != "/favicon.ico")
+                    {
                         pageViews += 1;
                     }
 

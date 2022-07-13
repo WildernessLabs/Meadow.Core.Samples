@@ -2,30 +2,31 @@
 using Meadow.Devices;
 using Meadow.Hardware;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace Basic_Threading
+namespace Threading_Basics
 {
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         IDigitalOutputPort out1;
         IDigitalOutputPort out2;
 
-        public MeadowApp()
+        public override Task Initialize()
         {
             out1 = Device.CreateDigitalOutputPort(Device.Pins.D00);
             out2 = Device.CreateDigitalOutputPort(Device.Pins.D01);
 
             out1.State = true;
 
-            StartAThread();
-
-            Thread.Sleep(Timeout.Infinite);
+            return Task.CompletedTask;
         }
 
-        public void StartAThread()
+        public override Task Run()
         {
-            Thread th = new Thread(() => {
-                while (true) {
+            Thread th = new Thread(() =>
+            {
+                while (true)
+                {
                     out2.State = true;
                     Thread.Sleep(250);
                     out2.State = false;
@@ -33,6 +34,8 @@ namespace Basic_Threading
                 }
             });
             th.Start();
+
+            return Task.CompletedTask;
         }
     }
 }

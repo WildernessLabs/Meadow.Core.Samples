@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Basic_Tasks
 {
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         IDigitalOutputPort out1;
         IDigitalOutputPort out2;

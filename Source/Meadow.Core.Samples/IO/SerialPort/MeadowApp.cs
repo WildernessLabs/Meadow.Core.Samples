@@ -6,48 +6,42 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MeadowApp
+namespace SerialPort
 {
     /// <summary>
     /// To run these tests, create a loopback on COM4 by connecting D12 and D13.
     /// </summary>
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         ISerialPort classicSerialPort;
-        Encoding currentTestEncoding = System.Text.Encoding.ASCII;
+        Encoding currentTestEncoding = Encoding.ASCII;
 
-        public MeadowApp()
+        public override Task Initialize()
         {
-            Console.WriteLine("SimpleSerial_Test");
-            Initialize();
+            // instantiate our serial port
+            classicSerialPort = Device.CreateSerialPort(Device.SerialPortNames.Com1, 115200);
+            //classicSerialPort = Device.CreateSerialPort(Device.SerialPortNames.Com4, 9600);
+            Console.WriteLine("\tCreated");
 
-            Console.WriteLine("LongMessageTest - currently, not absolutely sure this works. Console.WriteLine might be clipping output.");
-            Console.WriteLine("Also, test it with unicode encoding and things go sideways, are we losing a byte?? ");
-            LongMessageTest().Wait();
+            // open the serial port
+            classicSerialPort.Open();
+            Console.WriteLine("\tOpened");
 
+            return Task.CompletedTask;
+        }
+
+        public override async Task Run()
+        {
             Console.WriteLine("BUGBUG: this test fails under specific conditions. See test for info.");
             SimpleReadWriteTest();
             Console.WriteLine("Simple read/write testing completed.");
 
-            SerialEventTest().Wait();
+            await SerialEventTest();
             Console.WriteLine("Serial event testing completed.");
-        }
 
-        void Initialize()
-        {
-            this.InitSerial(Device.SerialPortNames.Com1, 115200);
-            //this.InitSerial(Device.SerialPortNames.Com4, 9600);
-        }
-
-        void InitSerial(SerialPortName portName, int baud)
-        {
-            // instantiate our serial port
-            this.classicSerialPort = Device.CreateSerialPort(portName, baud);
-            Console.WriteLine("\tCreated");
-
-            // open the serial port
-            this.classicSerialPort.Open();
-            Console.WriteLine("\tOpened");
+            Console.WriteLine("LongMessageTest - currently, not absolutely sure this works. Console.WriteLine might be clipping output.");
+            Console.WriteLine("Also, test it with unicode encoding and things go sideways, are we losing a byte?? ");
+            await LongMessageTest();
         }
 
         /// <summary>
@@ -63,9 +57,11 @@ namespace MeadowApp
 
             // run the test a few times
             int dataLength = 0;
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 10; i++)
+            {
                 Console.WriteLine("Writing data...");
-                /*dataLength =*/ this.classicSerialPort.Write(currentTestEncoding.GetBytes($"{ count * i } PRINT Hello Meadow!"));
+                /*dataLength =*/
+                classicSerialPort.Write(currentTestEncoding.GetBytes($"{count * i} PRINT Hello Meadow!"));
 
                 // give some time for the electrons to electronify
                 // TODO/HACK/BUGBUG: reduce this to 100ms and weird stuff happens;
@@ -84,8 +80,8 @@ namespace MeadowApp
                 Thread.Sleep(300);
 
                 // empty it out
-                dataLength = this.classicSerialPort.BytesToRead;
-                this.classicSerialPort.Read(buffer, 0, dataLength);
+                dataLength = classicSerialPort.BytesToRead;
+                classicSerialPort.Read(buffer, 0, dataLength);
 
                 Console.WriteLine($"Serial data: {ParseToString(buffer, dataLength, currentTestEncoding)}");
 
@@ -100,26 +96,27 @@ namespace MeadowApp
             Console.WriteLine("SerialEventTest");
 
             currentTestEncoding = Encoding.Unicode;
-            this.classicSerialPort.DataReceived += ProcessData;
+            classicSerialPort.DataReceived += ProcessData;
 
             // send some messages
-            await Task.Run(async () => {
+            await Task.Run(async () =>
+            {
                 Console.WriteLine("Sending 8 messages of profundity.");
-                this.classicSerialPort.Write(currentTestEncoding.GetBytes("Ticking away the moments that make up a dull day,"));
+                classicSerialPort.Write(currentTestEncoding.GetBytes("Ticking away the moments that make up a dull day,"));
                 await Task.Delay(100);
-                this.classicSerialPort.Write(currentTestEncoding.GetBytes("fritter and waste the hours in an offhand way."));
+                classicSerialPort.Write(currentTestEncoding.GetBytes("fritter and waste the hours in an offhand way."));
                 await Task.Delay(100);
-                this.classicSerialPort.Write(currentTestEncoding.GetBytes("Kicking around on a piece of ground in your home town,"));
+                classicSerialPort.Write(currentTestEncoding.GetBytes("Kicking around on a piece of ground in your home town,"));
                 await Task.Delay(100);
-                this.classicSerialPort.Write(currentTestEncoding.GetBytes("Waiting for someone or something to show you the way."));
+                classicSerialPort.Write(currentTestEncoding.GetBytes("Waiting for someone or something to show you the way."));
                 await Task.Delay(100);
-                this.classicSerialPort.Write(currentTestEncoding.GetBytes("Tired of lying in the sunshine, staying home to watch the rain,"));
+                classicSerialPort.Write(currentTestEncoding.GetBytes("Tired of lying in the sunshine, staying home to watch the rain,"));
                 await Task.Delay(100);
-                this.classicSerialPort.Write(currentTestEncoding.GetBytes("you are young and life is long and there is time to kill today."));
+                classicSerialPort.Write(currentTestEncoding.GetBytes("you are young and life is long and there is time to kill today."));
                 await Task.Delay(100);
-                this.classicSerialPort.Write(currentTestEncoding.GetBytes("And then one day you find ten years have got behind you,"));
+                classicSerialPort.Write(currentTestEncoding.GetBytes("And then one day you find ten years have got behind you,"));
                 await Task.Delay(100);
-                this.classicSerialPort.Write(currentTestEncoding.GetBytes("No one told you when to run, you missed the starting gun."));
+                classicSerialPort.Write(currentTestEncoding.GetBytes("No one told you when to run, you missed the starting gun."));
                 await Task.Delay(100);
             });
 
@@ -127,7 +124,7 @@ namespace MeadowApp
             Thread.Sleep(500);
 
             //tear-down
-            this.classicSerialPort.DataReceived -= ProcessData;
+            classicSerialPort.DataReceived -= ProcessData;
         }
 
         // the underlying OS provider only allows 255b messages to be sent on
@@ -157,18 +154,19 @@ Thought I'd something more to say.";
 
             currentTestEncoding = Encoding.ASCII;
 
-            this.classicSerialPort.DataReceived += ProcessData;
+            classicSerialPort.DataReceived += ProcessData;
 
-            await Task.Run(() => {
-                int written = this.classicSerialPort.Write(currentTestEncoding.GetBytes(longMessage));
+            await Task.Run(() =>
+            {
+                int written = classicSerialPort.Write(currentTestEncoding.GetBytes(longMessage));
                 Console.WriteLine($"Wrote {written} bytes");
             });
-            
+
             //weak ass Hack to wait for them all to process
             Thread.Sleep(8000);
 
             //tear-down
-            this.classicSerialPort.DataReceived -= ProcessData;
+            classicSerialPort.DataReceived -= ProcessData;
         }
 
         // anonymous method declaration so we can unwire later.
@@ -179,7 +177,8 @@ Thought I'd something more to say.";
             int bytesToRead = classicSerialPort.BytesToRead > buffer.Length
                                 ? buffer.Length
                                 : classicSerialPort.BytesToRead;
-            while (true) {
+            while (true)
+            {
                 int readCount = classicSerialPort.Read(buffer, 0, bytesToRead);
                 Console.Write(ParseToString(buffer, readCount, currentTestEncoding));
                 // if we got all the data, break the while loop, otherwise, keep going.
@@ -199,11 +198,6 @@ Thought I'd something more to say.";
         {
             Span<byte> actualData = buffer.AsSpan<byte>().Slice(0, length);
             return encoding.GetString(actualData);
-        }
-
-        void AsyncReadWaitTest()
-        {
-
         }
     }
 }

@@ -2,12 +2,13 @@
 using Meadow.Devices;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace MeadowApp
+namespace BatteryLevel
 {
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
-        public MeadowApp()
+        public override Task Run()
         {
             while (true) {
 

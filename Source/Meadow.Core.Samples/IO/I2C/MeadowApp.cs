@@ -3,39 +3,38 @@ using Meadow.Devices;
 using Meadow.Hardware;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace BasicI2CTest
+namespace I2C
 {
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
-        public MeadowApp()
-        {
-            Console.WriteLine("+I2CApp");
+        II2cBus i2c;
+        GY521 gyro;
 
-            SpeedChangeTest();
-        }
-
-        private void SpeedChangeTest()
+        public override Task Initialize()
         {
             Console.WriteLine("+GY521 Speed Change Test");
 
-            var i2c = Device.CreateI2cBus();
-
-            var gyro = new GY521(i2c);
-
-            Console.WriteLine(" Wake");
+            i2c = Device.CreateI2cBus();
+            gyro = new GY521(i2c);
             gyro.Wake();
 
+            return Task.CompletedTask;
+        }
+
+        public override Task Run()
+        {
             var count = 0;
 
             while (true)
             {
                 try
                 {
-                    Console.WriteLine($" Reading @{i2c.Frequency.Kilohertz} kHz...");
+                    Console.WriteLine($"Reading @{i2c.Frequency.Kilohertz} kHz...");
                     gyro.Refresh();
 
-                    Console.WriteLine($" ({gyro.AccelerationX:X4},{gyro.AccelerationY:X4},{gyro.AccelerationZ:X4}) ({gyro.GyroX:X4},{gyro.GyroY:X4},{gyro.GyroZ:X4}) {gyro.Temperature}");
+                    Console.WriteLine($"({gyro.AccelerationX:X4},{gyro.AccelerationY:X4},{gyro.AccelerationZ:X4}) ({gyro.GyroX:X4},{gyro.GyroY:X4},{gyro.GyroZ:X4}) {gyro.Temperature}");
 
                     switch (count++ % 4)
                     {
@@ -53,13 +52,15 @@ namespace BasicI2CTest
                             break;
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    Console.WriteLine($" Error: {ex.Message}");
+                    Console.WriteLine($"Error: {ex.Message}");
                 }
 
                 Thread.Sleep(2000);
             }
+
+            return Task.CompletedTask;
         }
 
         private void GY521Test()
@@ -70,15 +71,15 @@ namespace BasicI2CTest
 
             var gyro = new GY521(i2c);
 
-            Console.WriteLine(" Wake");
+            Console.WriteLine("Wake");
             gyro.Wake();
 
             while (true)
             {
-                Console.WriteLine(" Reading...");
+                Console.WriteLine("Reading...");
                 gyro.Refresh();
 
-                Console.WriteLine($" ({gyro.AccelerationX:X4},{gyro.AccelerationY:X4},{gyro.AccelerationZ:X4}) ({gyro.GyroX:X4},{gyro.GyroY:X4},{gyro.GyroZ:X4}) {gyro.Temperature}");
+                Console.WriteLine($"({gyro.AccelerationX:X4},{gyro.AccelerationY:X4},{gyro.AccelerationZ:X4}) ({gyro.GyroX:X4},{gyro.GyroY:X4},{gyro.GyroZ:X4}) {gyro.Temperature}");
 
                 Thread.Sleep(2000);
             }
@@ -91,7 +92,7 @@ namespace BasicI2CTest
             {
                 if (++addr >= 127) addr = 1;
 
-                Console.WriteLine($" Address: {addr}");
+                Console.WriteLine($"Address: {addr}");
 
                 i2c.Write(addr, new byte[] { 0 });
                 Thread.Sleep(2000);
