@@ -23,7 +23,7 @@ namespace I2C
             return Task.CompletedTask;
         }
 
-        public override Task Run()
+        public override async Task Run()
         {
             var count = 0;
 
@@ -57,13 +57,11 @@ namespace I2C
                     Console.WriteLine($"Error: {ex.Message}");
                 }
 
-                Thread.Sleep(2000);
+                await Task.Delay(2000);
             }
-
-            return Task.CompletedTask;
         }
 
-        private void GY521Test()
+        async Task GY521Test()
         {
             var i2c = Device.CreateI2cBus();
 
@@ -81,11 +79,11 @@ namespace I2C
 
                 Console.WriteLine($"({gyro.AccelerationX:X4},{gyro.AccelerationY:X4},{gyro.AccelerationZ:X4}) ({gyro.GyroX:X4},{gyro.GyroY:X4},{gyro.GyroZ:X4}) {gyro.Temperature}");
 
-                Thread.Sleep(2000);
+                await Task.Delay(2000);
             }
         }
 
-        private void BusScan(II2cBus i2c)
+        async Task BusScan(II2cBus i2c)
         {
             byte addr = 0;
             while (true)
@@ -95,7 +93,7 @@ namespace I2C
                 Console.WriteLine($"Address: {addr}");
 
                 i2c.Write(addr, new byte[] { 0 });
-                Thread.Sleep(2000);
+                await Task.Delay(2000);
             }
         }
     }

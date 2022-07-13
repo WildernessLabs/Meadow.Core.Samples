@@ -4,7 +4,6 @@ using Meadow.Hardware;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Walking_DigitalOutputs
@@ -14,7 +13,7 @@ namespace Walking_DigitalOutputs
         IList<IDigitalOutputPort> _outs = new List<IDigitalOutputPort>();
         IList<string> _outChans = new List<string>();
 
-        public override Task Run()
+        public override async Task Run()
         {
             while (true)
             {
@@ -22,7 +21,7 @@ namespace Walking_DigitalOutputs
                 // create all our digital output ports
                 ConfigureOutputs();
                 // turn them on/off
-                WalkOutputs();
+                await WalkOutputs();
                 // tear down
                 DisposePorts();
             }
@@ -56,13 +55,13 @@ namespace Walking_DigitalOutputs
             }
         }
 
-        void WalkOutputs()
+        async Task WalkOutputs()
         {
             // turn each one on for a bit.
             foreach (var port in _outs)
             {
                 port.State = true;
-                Thread.Sleep(250);
+                await Task.Delay(250);
                 port.State = false;
             }
         }

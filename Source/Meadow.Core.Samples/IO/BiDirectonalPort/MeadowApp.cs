@@ -40,7 +40,7 @@ namespace BiDirectonalPort
             return Task.CompletedTask;
         }
 
-        public override Task Run()
+        public override async Task Run()
         {
             var state = true;
             var count = 0;
@@ -75,7 +75,7 @@ namespace BiDirectonalPort
                     TeardownIO();
                 }
 
-                Thread.Sleep(2000);
+                await Task.Delay(2000);
             }
         }
 

@@ -23,7 +23,7 @@ namespace Hello_LED
             return Task.CompletedTask;
         }
 
-        public override Task Run()
+        public override async Task Run()
         {
             var state = false;
             var stateCount = 0;
@@ -35,14 +35,12 @@ namespace Hello_LED
                 Console.WriteLine($" Count: {++stateCount}, State: {state}");
 
                 _redLED.State = state;
-                Thread.Sleep(200);
+                await Task.Delay(200);
                 _greenLED.State = state;
-                Thread.Sleep(200);
+                await Task.Delay(200);
                 _blueLED.State = state;
-                Thread.Sleep(200);
+                await Task.Delay(200);
             }
-
-            return Task.CompletedTask;
         }
     }
 }

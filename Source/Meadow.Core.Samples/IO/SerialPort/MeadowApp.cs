@@ -47,7 +47,7 @@ namespace SerialPort
         /// <summary>
         /// Tests basic reading of serial in which the Write.Length == Read.Count
         /// </summary>
-        void SimpleReadWriteTest()
+        async Task SimpleReadWriteTest()
         {
             int count = 10;
             currentTestEncoding = Encoding.Unicode;
@@ -77,7 +77,7 @@ namespace SerialPort
                 // ...
                 // how is it possible that the first line is there twice, even
                 // though we're clearing it out??
-                Thread.Sleep(300);
+                await Task.Delay(300);
 
                 // empty it out
                 dataLength = classicSerialPort.BytesToRead;
@@ -85,7 +85,7 @@ namespace SerialPort
 
                 Console.WriteLine($"Serial data: {ParseToString(buffer, dataLength, currentTestEncoding)}");
 
-                Thread.Sleep(300);
+                await Task.Delay(300);
             }
         }
 
@@ -121,7 +121,7 @@ namespace SerialPort
             });
 
             //weak ass Hack to wait for them all to process
-            Thread.Sleep(500);
+            await Task.Delay(500);
 
             //tear-down
             classicSerialPort.DataReceived -= ProcessData;
@@ -163,7 +163,7 @@ Thought I'd something more to say.";
             });
 
             //weak ass Hack to wait for them all to process
-            Thread.Sleep(8000);
+            await Task.Delay(8000);
 
             //tear-down
             classicSerialPort.DataReceived -= ProcessData;

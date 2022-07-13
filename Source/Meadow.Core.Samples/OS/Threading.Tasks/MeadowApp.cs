@@ -3,27 +3,28 @@ using Meadow.Devices;
 using Meadow.Hardware;
 using System.Threading.Tasks;
 
-namespace Basic_Tasks
+namespace Tasks_Basics
 {
     public class MeadowApp : App<F7FeatherV2>
     {
         IDigitalOutputPort out1;
         IDigitalOutputPort out2;
 
-        public MeadowApp()
+        public override Task Initialize()
         {
             out1 = Device.CreateDigitalOutputPort(Device.Pins.D00);
             out2 = Device.CreateDigitalOutputPort(Device.Pins.D01);
 
             out1.State = true;
 
-            StartATask();
+            return Task.CompletedTask;
         }
 
-        public void StartATask()
+        public override Task Run()
         {
             Task t = new Task(async () => {
-                while (true) {
+                while (true)
+                {
                     out2.State = true;
                     await Task.Delay(250);
                     out2.State = false;
@@ -31,6 +32,8 @@ namespace Basic_Tasks
                 }
             });
             t.Start();
+
+            return Task.CompletedTask;
         }
     }
 }

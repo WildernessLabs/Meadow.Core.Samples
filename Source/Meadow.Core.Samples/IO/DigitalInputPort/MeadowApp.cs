@@ -44,7 +44,7 @@ namespace DigitalInputPort
             return Task.CompletedTask;
         }
 
-        public override Task Run()
+        public override async Task Run()
         {
             // Display the current input states
             // The general idea here is that you have 1 floating, 1 pulled high, and 1 pulled low.
@@ -61,10 +61,8 @@ namespace DigitalInputPort
                 Console.WriteLine(line1);
                 Console.WriteLine(line2 + "\n");
 
-                Thread.Sleep(2000);
+                await Task.Delay(2000);
             }
-
-            return Task.CompletedTask;
         }
 
         private void OnStateChangedHandler(object sender, DigitalPortResult e)

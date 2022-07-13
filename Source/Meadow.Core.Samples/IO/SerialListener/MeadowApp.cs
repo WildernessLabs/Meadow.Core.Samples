@@ -25,7 +25,7 @@ namespace SerialListener
             return Task.CompletedTask;
         }
 
-        public override Task Run()
+        public override async Task Run()
         {
             byte[] buffer = new byte[1024];
             int bytesToRead;
@@ -45,10 +45,9 @@ namespace SerialListener
                 {
                     Console.WriteLine(ParseToString(buffer, dataLength, Encoding.ASCII));
                 }
-                Thread.Sleep(500);
-            }
 
-            return Task.CompletedTask;
+                await Task.Delay(500);
+            }
         }
 
         /// <summary>

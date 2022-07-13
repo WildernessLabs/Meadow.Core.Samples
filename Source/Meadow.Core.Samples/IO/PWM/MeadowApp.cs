@@ -22,22 +22,22 @@ namespace PWM
             return Task.CompletedTask;
         }
 
-        public override Task Run()
+        public override async Task Run()
         {
             try
             {
-                Task.Run(async () =>
+                await Task.Run(() =>
                 {
                     var c = 0;
 
                     while (true)
                     {
                         d03.State = !d03.State;
-                        await Task.Delay(1000);
+                        Thread.Sleep(1000);
                     }
                 });
 
-                Thread.Sleep(5000);
+                await Task.Delay(5000);
 
                 pwm04.Start();
             }
@@ -45,8 +45,6 @@ namespace PWM
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }
-
-            return Task.CompletedTask;
         }
 
         private void MultiplePwms()
@@ -60,7 +58,7 @@ namespace PWM
             pwmC.Start();
         }
 
-        private void TimeScaleChecks(IPwmPort pwm)
+        async Task TimeScaleChecks(IPwmPort pwm)
         {
             var delta = 100;
 
@@ -72,24 +70,24 @@ namespace PWM
                 pwm.TimeScale = TimeScale.Seconds;
                 pwm.Period = 0.02f;
                 Console.WriteLine($"Freq: {pwm.Frequency.Hertz}  Period: {(int)pwm.Period} {pwm.TimeScale}");
-                Thread.Sleep(2000);
+                await Task.Delay(2000);
 
                 pwm.TimeScale = TimeScale.Milliseconds;
                 Console.WriteLine($"Freq: {pwm.Frequency.Hertz}  Period: {(int)pwm.Period} {pwm.TimeScale}");
-                Thread.Sleep(2000);
+                await Task.Delay(2000);
                 pwm.Period = 50f;
                 Console.WriteLine($"Freq: {pwm.Frequency.Hertz}  Period: {(int)pwm.Period} {pwm.TimeScale}");
-                Thread.Sleep(2000);
+                await Task.Delay(2000);
 
                 pwm.TimeScale = TimeScale.Microseconds;
                 Console.WriteLine($"Freq: {pwm.Frequency.Hertz}  Period: {(int)pwm.Period} {pwm.TimeScale}");
                 pwm.Period = 80f;
                 Console.WriteLine($"Freq: {pwm.Frequency.Hertz}  Period: {(int)pwm.Period} {pwm.TimeScale}");
-                Thread.Sleep(2000);
+                await Task.Delay(2000);
             }
         }
 
-        private void FrequencyChecks(IPwmPort pwm)
+        async Task FrequencyChecks(IPwmPort pwm)
         {
             Frequency delta = new Frequency(100);
 
@@ -98,7 +96,7 @@ namespace PWM
             while (true)
             {
                 Console.WriteLine($"Freq: {pwm.Frequency}  Period: {pwm.Period} {pwm.TimeScale}");
-                Thread.Sleep(5000);
+                await Task.Delay(5000);
 
                 pwm.Frequency += delta;
                 if (pwm.Frequency <= new Frequency(100) || pwm.Frequency >= new Frequency(1000))
@@ -108,7 +106,7 @@ namespace PWM
             }
         }
 
-        private void DutyCycleChecks(IPwmPort pwm)
+        async Task DutyCycleChecks(IPwmPort pwm)
         {
             var delta = 0.10000f;
 
@@ -117,7 +115,7 @@ namespace PWM
             while (true)
             {
                 Console.WriteLine($"Duty: {pwm.DutyCycle}  Duration: {pwm.Duration} {pwm.TimeScale}");
-                Thread.Sleep(2000);
+                await Task.Delay(2000);
 
                 var temp = Math.Round(pwm.DutyCycle + delta, 1);
                 pwm.DutyCycle = (float)temp;
@@ -129,7 +127,7 @@ namespace PWM
             }
         }
 
-        private void DurationChecks(IPwmPort pwm)
+        async Task DurationChecks(IPwmPort pwm)
         {
             var delta = 1f;
             pwm.TimeScale = TimeScale.Milliseconds;
@@ -138,7 +136,7 @@ namespace PWM
             while (true)
             {
                 Console.WriteLine($"Duty: {pwm.DutyCycle}  Duration: {pwm.Duration} {pwm.TimeScale}");
-                Thread.Sleep(2000);
+                await Task.Delay(2000);
 
                 var temp = Math.Round(pwm.Duration + delta, 0);
                 pwm.Duration = (float)temp;

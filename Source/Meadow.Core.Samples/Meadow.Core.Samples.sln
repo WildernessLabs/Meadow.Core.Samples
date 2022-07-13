@@ -34,7 +34,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RealTimeClock", "OS\RealTim
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threading_Basics", "OS\Threading\Threading_Basics.csproj", "{502797E9-BF7D-460F-8467-AE8646E64BBB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Threading.Tasks", "OS\Threading.Tasks\Threading.Tasks.csproj", "{67BD4E4C-9EB2-49CE-B071-D114CF77253A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tasks_Basics", "OS\Threading.Tasks\Tasks_Basics.csproj", "{67BD4E4C-9EB2-49CE-B071-D114CF77253A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "F7_Micro", "F7_Micro", "{470D41EF-4884-4D8A-9E38-C5FC727023D0}"
 EndProject
