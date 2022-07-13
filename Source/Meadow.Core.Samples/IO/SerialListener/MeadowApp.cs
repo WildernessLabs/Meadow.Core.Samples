@@ -4,60 +4,50 @@ using Meadow.Hardware;
 using System;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace MeadowApp
+namespace SerialListener
 {
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         ISerialPort classicSerialPort;
 
-        public MeadowApp()
-        {
-            Console.WriteLine("Basic_SerialListener");
-            Initialize();
-
-            ListenToSerial();
-
-        }
-
-        void Initialize()
-        {
-            this.InitSerial(Device.SerialPortNames.Com4, 9600);
-        }
-
-        void InitSerial(SerialPortName portName, int baud)
+        public override Task Initialize()
         {
             // instantiate our serial port
-            this.classicSerialPort = Device.CreateSerialPort(portName, baud);
+            classicSerialPort = Device.CreateSerialPort(Device.SerialPortNames.Com4, 9600);
             Console.WriteLine("\tCreated");
 
             // open the serial port
-            this.classicSerialPort.Open();
+            classicSerialPort.Open();
             Console.WriteLine("\tOpened");
+
+            return Task.CompletedTask;
         }
 
-        /// <summary>
-        /// just a diagnostic method that polls the serial and outputs anything
-        /// in the buffer.
-        /// </summary>
-        void ListenToSerial()
+        public override async Task Run()
         {
             byte[] buffer = new byte[1024];
             int bytesToRead;
 
-            while (true) {
+            // polls the serial and outputs anything
+            // in the buffer.
+            while (true)
+            {
                 bytesToRead = classicSerialPort.BytesToRead;
-                if (bytesToRead > buffer.Length) {
+                if (bytesToRead > buffer.Length)
+                {
                     bytesToRead = buffer.Length;
                 }
                 int dataLength = classicSerialPort.Read(buffer, 0, bytesToRead);
 
-                if (dataLength > 0) {
+                if (dataLength > 0)
+                {
                     Console.WriteLine(ParseToString(buffer, dataLength, Encoding.ASCII));
                 }
-                Thread.Sleep(500);
-            }
 
+                await Task.Delay(500);
+            }
         }
 
         /// <summary>
@@ -66,7 +56,6 @@ namespace MeadowApp
         /// </summary>
         /// <param name="buffer"></param>
         /// <param name="length"></param>
-        /// <returns></returns>
         protected string ParseToString(byte[] buffer, int length, Encoding encoding)
         {
             Span<byte> actualData = buffer.AsSpan<byte>().Slice(0, length);

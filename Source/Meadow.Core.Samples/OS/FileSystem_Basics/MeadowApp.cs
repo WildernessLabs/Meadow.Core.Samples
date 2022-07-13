@@ -1,14 +1,14 @@
-﻿using System;
-using System.IO;
-using System.Threading;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
-namespace MeadowApp
+namespace FileSystem_Basics
 {
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
-        public MeadowApp()
+        public override Task Run()
         {
             Console.WriteLine("Meadow File System Tests");
             // list out the named directories available at MeadowOS.FileSystem.[x]
@@ -28,6 +28,8 @@ namespace MeadowApp
             Tree(MeadowOS.FileSystem.UserFileSystemRoot, true);
 
             Console.WriteLine("Testing complete");
+
+            return Task.CompletedTask;
         }
 
         void EnumerateNamedDirectories()
@@ -40,37 +42,46 @@ namespace MeadowApp
             Console.WriteLine($"\t MeadowOS.FileSystem.TempDirectory: {MeadowOS.FileSystem.TempDirectory}");
         }
 
-        private void CreateFile(string path, string filename)
+        void CreateFile(string path, string filename)
         {
             Console.WriteLine($"Creating '{path}/{filename}'...");
 
-            if (!Directory.Exists(path)) {
+            if (!Directory.Exists(path))
+            {
                 Console.WriteLine("Directory doesn't exist, creating.");
                 Directory.CreateDirectory(path);
             }
 
-            try {
-                using (var fs = File.CreateText(Path.Combine(path,filename))) {
+            try
+            {
+                using (var fs = File.CreateText(Path.Combine(path, filename)))
+                {
                     fs.WriteLine("Hello Meadow File!");
                 }
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.Message);
             }
         }
 
-        protected void FileStatus(string path)
+        void FileStatus(string path)
         {
             Console.Write($"FileStatus() File: {Path.GetFileName(path)} ");
-            try {
-                using (var stream = File.Open(path, FileMode.Open, FileAccess.Read)) {
+            try
+            {
+                using (var stream = File.Open(path, FileMode.Open, FileAccess.Read))
+                {
                     Console.WriteLine($"Size: {stream.Length,-8}");
                 }
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.Message);
             }
         }
 
-        protected void Tree(string root, bool showSize = false)
+        void Tree(string root, bool showSize = false)
         {
             var fileCount = 0;
             var folderCount = 0;
@@ -84,23 +95,32 @@ namespace MeadowApp
             {
                 string[] files = null;
 
-                try {
+                try
+                {
                     files = Directory.GetFiles(folder);
                     Console.WriteLine($"{GetPrefix(depth, last && files.Length == 0)}{Path.GetFileName(folder)}");
-                } catch {
+                }
+                catch
+                {
                     Console.WriteLine($"{GetPrefix(depth, last)}{Path.GetFileName(folder)}");
                     Console.WriteLine($"{GetPrefix(depth + 1, last)}<cannot list files>");
                 }
-                if (files != null) {
-                    foreach (var file in files) {
+                if (files != null)
+                {
+                    foreach (var file in files)
+                    {
                         var prefix = GetPrefix(depth + 1, last);
-                        if (showSize) {
+                        if (showSize)
+                        {
                             FileInfo fi = null;
-                            try {
+                            try
+                            {
                                 fi = new FileInfo(file);
                                 prefix += $"[{fi.Length,8}]  ";
 
-                            } catch {
+                            }
+                            catch
+                            {
                                 prefix += $"[   error]  ";
                             }
                         }
@@ -110,17 +130,25 @@ namespace MeadowApp
                 }
 
                 string[] dirs = null;
-                try {
+                try
+                {
                     dirs = Directory.GetDirectories(folder);
-                } catch {
-                    if (files == null || files.Length == 0) {
+                }
+                catch
+                {
+                    if (files == null || files.Length == 0)
+                    {
                         Console.WriteLine($"{GetPrefix(depth + 1, last)}<cannot list sub-directories>");
-                    } else {
+                    }
+                    else
+                    {
                         Console.WriteLine($"{GetPrefix(depth + 1)}<cannot list sub-directories>");
                     }
                 }
-                if (dirs != null) {
-                    for (var i = 0; i < dirs.Length; i++) {
+                if (dirs != null)
+                {
+                    for (var i = 0; i < dirs.Length; i++)
+                    {
                         ShowFolder(dirs[i], depth + 1, i == dirs.Length - 1);
                         folderCount++;
                     }
@@ -130,12 +158,18 @@ namespace MeadowApp
                 {
                     var p = string.Empty;
 
-                    for (var i = 0; i < d; i++) {
-                        if (i == d - 1) {
+                    for (var i = 0; i < d; i++)
+                    {
+                        if (i == d - 1)
+                        {
                             p += "+--";
-                        } else if (isLast && i == d - 2) {
+                        }
+                        else if (isLast && i == d - 2)
+                        {
                             p += "   ";
-                        } else {
+                        }
+                        else
+                        {
                             p += "|  ";
                         }
                     }
@@ -145,23 +179,25 @@ namespace MeadowApp
             }
         }
 
-        protected void DirectoryListTest(string path)
+        void DirectoryListTest(string path)
         {
             Console.WriteLine($"Enumerating path '{path}'");
 
             var dirs = Directory.GetDirectories(path);
             Console.WriteLine($" Found {dirs.Length} Directories {((dirs.Length > 0) ? ":" : string.Empty)}");
-            foreach (var d in dirs) {
+            foreach (var d in dirs)
+            {
                 Console.WriteLine($"   {d}");
             }
             var files = Directory.GetFiles(path);
             Console.WriteLine($" Found {files.Length} Files {((files.Length > 0) ? ":" : string.Empty)}");
-            foreach (var f in files) {
+            foreach (var f in files)
+            {
                 Console.WriteLine($"   {f}");
             }
         }
 
-        protected void DirectoryListTest2()
+        void DirectoryListTest2()
         {
             Console.WriteLine("Enumerating logical drives...");
 
@@ -169,7 +205,8 @@ namespace MeadowApp
 
             Console.WriteLine($" Found {drives.Length} logical drives");
 
-            foreach (var d in drives) {
+            foreach (var d in drives)
+            {
                 Console.WriteLine($"  DRIVE '{d}'");
 
                 ShowFolder(d, 3);
@@ -180,23 +217,28 @@ namespace MeadowApp
                     name = string.IsNullOrEmpty(name) ? "/" : name;
                     Console.WriteLine($"{new string(' ', indent)}+ {name}");
 
-                    foreach (var fse in Directory.GetFileSystemEntries(path)) {
+                    foreach (var fse in Directory.GetFileSystemEntries(path))
+                    {
                         Console.WriteLine($"{new string(' ', indent + 3)}fse {fse}");
                     }
 
-                    foreach (var dir in Directory.GetDirectories(d)) {
+                    foreach (var dir in Directory.GetDirectories(d))
+                    {
                         ShowFolder(dir, indent + 1);
                     }
 
-                    foreach (var f in Directory.GetFiles(path)) {
+                    foreach (var f in Directory.GetFiles(path))
+                    {
                         Console.WriteLine($"{new string(' ', indent + 3)}f{f}");
 
                         var fi = new FileInfo(f);
-                        if (fi.Exists) {
+                        if (fi.Exists)
+                        {
                             Console.WriteLine($"{new string(' ', indent + 4)} Exists as file");
                         }
                         var di = new DirectoryInfo(f);
-                        if (fi.Exists) {
+                        if (fi.Exists)
+                        {
                             Console.WriteLine($"{new string(' ', indent + 4)} Exists as directory");
                         }
                     }
@@ -204,7 +246,8 @@ namespace MeadowApp
             }
 
             Console.WriteLine("Opening file as a dir...");
-            foreach (var f in Directory.GetFiles("/meadow0")) {
+            foreach (var f in Directory.GetFiles("/meadow0"))
+            {
                 Console.WriteLine($"f {f}");
             }
         }

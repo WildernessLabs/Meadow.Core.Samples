@@ -5,20 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace Basic_Digital_Input
+namespace DigitalInputPort
 {
-    class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         private List<IDigitalInputPort> inputs = new List<IDigitalInputPort>();
 
-        public MeadowApp()
-        {
-            ConfigureInputs();
-            ShowStates();
-        }
-
-        private void ConfigureInputs()
+        public override Task Initialize()
         {
             // we'll create 3 inputs, with each of the available resistor modes
             var d5 = Device.CreateDigitalInputPort(Device.Pins.D05, resistorMode: ResistorMode.Disabled);
@@ -33,33 +28,23 @@ namespace Basic_Digital_Input
             d4.DebounceDuration = debounceDuration;
             d4.Changed += OnStateChangedHandler;
             inputs.Add(d4);
+
             // since we're looking for falling, pull it up
             var d3 = Device.CreateDigitalInputPort(Device.Pins.D03, InterruptMode.EdgeFalling, ResistorMode.InternalPullUp);
             d3.DebounceDuration = debounceDuration;
             d3.Changed += OnStateChangedHandler;
             inputs.Add(d3);
+
             // since we're looking for risinging, pull it down
             var d2 = Device.CreateDigitalInputPort(Device.Pins.D02, InterruptMode.EdgeRising, ResistorMode.InternalPullDown);
             d2.DebounceDuration = debounceDuration;
             d2.Changed += OnStateChangedHandler;
             inputs.Add(d2);
+
+            return Task.CompletedTask;
         }
 
-        private void OnStateChangedHandler(object sender, DigitalPortResult e)
-        {
-            var port = sender as IDigitalInputPort;
-
-            if (port == null)
-            {
-                Console.WriteLine($"sender is a {port.GetType().Name}");
-            }
-            else
-            {
-                Console.WriteLine($"{port.Pin.Name} state changed to {e.New.State}");
-            }
-        }
-
-        public void ShowStates()
+        public override async Task Run()
         {
             // Display the current input states
             // The general idea here is that you have 1 floating, 1 pulled high, and 1 pulled low.
@@ -76,7 +61,21 @@ namespace Basic_Digital_Input
                 Console.WriteLine(line1);
                 Console.WriteLine(line2 + "\n");
 
-                Thread.Sleep(2000);
+                await Task.Delay(2000);
+            }
+        }
+
+        private void OnStateChangedHandler(object sender, DigitalPortResult e)
+        {
+            var port = sender as IDigitalInputPort;
+
+            if (port == null)
+            {
+                Console.WriteLine($"sender is a {port.GetType().Name}");
+            }
+            else
+            {
+                Console.WriteLine($"{port.Pin.Name} state changed to {e.New.State}");
             }
         }
     }

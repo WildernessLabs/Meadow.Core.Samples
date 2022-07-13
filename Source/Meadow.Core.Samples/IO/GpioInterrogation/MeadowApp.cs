@@ -1,21 +1,21 @@
-﻿#nullable enable
-
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Hardware;
 using System;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GpioInterrogation
 {
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
-        public MeadowApp()
+        public override Task Run()
         {
             // uncomment to build out a table of pins functions
             StringBuilder table = new StringBuilder();
             table.Append(BuildHeader());
-            foreach (var pin in Device.Pins.AllPins) {
+            foreach (var pin in Device.Pins.AllPins)
+            {
                 table.Append(BuildRow(pin));
             }
             Console.WriteLine(table.ToString());
@@ -26,15 +26,17 @@ namespace GpioInterrogation
             //        Console.WriteLine($"Contains a {channel.GetType()} channel called: {channel.Name}.");
             //    }
             //}
+
+            return Task.CompletedTask;
         }
 
-        protected string BuildHeader()
+        private string BuildHeader()
         {
             return "| Meadow Pin Name | MCU Pin Name | Digital Channel | Analog Channel | PWM Timer Channel | Interrupt Group | \r\n" +
                    "|-----------------|--------------|-----------------|----------------|-------------------|-----------------| \r\n";
         }
 
-        protected string BuildRow(IPin pin)
+        private string BuildRow(IPin pin)
         {
             StringBuilder stringBuilder = new StringBuilder("| ");
 

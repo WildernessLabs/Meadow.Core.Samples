@@ -3,64 +3,54 @@ using Meadow.Devices;
 using Meadow.Hardware;
 using Meadow.Units;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 
-namespace Basic_AnalogReads
+namespace AnalogInputPort
 {
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         IAnalogInputPort analogIn;
 
-        public MeadowApp()
-        {
-            Console.WriteLine("Starting App");
-
-            // configure our analog port
-            Initialize();
-
-            //==== Do a one-off read
-            PerformOneRead().Wait();
-
-            //==== Start updating
-            analogIn.StartUpdating(TimeSpan.FromSeconds(1));
-        }
-
-        void Initialize()
+        public override Task Initialize()
         {
             Console.WriteLine("Initializing hardware...");
 
-            //==== create our analog input port
             analogIn = Device.CreateAnalogInputPort(Device.Pins.A00);
 
-            //==== Classic .NET Events
-            analogIn.Updated += (s, result) => {
+            analogIn.Updated += (s, result) =>
+            {
                 Console.WriteLine($"Analog event, new voltage: {result.New.Volts:N2}V, old: {result.Old?.Volts:N2}V");
             };
 
-            //==== Filterable Observable
             var observer = IAnalogInputPort.CreateObserver(
-                handler: result => {
+                handler: result =>
+                {
                     Console.WriteLine($"Analog observer triggered; new: {result.New.Volts:n2}V, old: {result.Old?.Volts:n2}V");
                 },
                 // filter is optional. in this case, we're only notifying if the
                 // voltage changes by at least `0.1V`.
-                filter: result => {
-                    if (result.Old is { } oldValue) {
+                filter: result =>
+                {
+                    if (result.Old is { } oldValue)
+                    {
                         return (result.New - oldValue).Abs().Volts > 0.1;
-                    } else { return false; }
+                    }
+                    else { return false; }
                 }
             );
             analogIn.Subscribe(observer);
 
             Console.WriteLine("Hardware initialized.");
+
+            return base.Initialize();
         }
 
-        protected async Task PerformOneRead()
+        public override async Task Run()
         {
-            // Analog port returns a `Voltage` unit
             Voltage voltageReading = await analogIn.Read();
             Console.WriteLine($"Voltages: {voltageReading.Volts:N3}");
+
+            analogIn.StartUpdating(TimeSpan.FromSeconds(1));
         }
     }
 }

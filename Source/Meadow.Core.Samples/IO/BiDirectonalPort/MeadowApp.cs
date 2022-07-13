@@ -5,24 +5,15 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Basic_BiDirectonalPort
+namespace BiDirectonalPort
 {
-    class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         private IBiDirectionalPort _d04 = null;
         private IBiDirectionalPort _d05 = null;
         private IBiDirectionalPort _d06 = null;
 
-        public MeadowApp()
-        {
-            var name = this.GetType().Name;
-            Console.WriteLine(name);
-            Console.WriteLine(new string('-', name.Length));
-
-            RunApp();
-        }
-
-        private void SetupIO()
+        public override Task Initialize()
         {
             Console.Write("Creating ports...");
             // _d04 = Device.CreateBiDirectionalPort(Device.Pins.D04);
@@ -36,7 +27,7 @@ namespace Basic_BiDirectonalPort
             _d06 = Device.CreateBiDirectionalPort(
                 Device.Pins.D10,
                 resistorMode: ResistorMode.Disabled,
-                initialDirection: PortDirectionType.Input, 
+                initialDirection: PortDirectionType.Input,
                 interruptMode: InterruptMode.EdgeFalling,
                 glitchDuration: 20,
                 outputType: OutputType.OpenDrain
@@ -45,6 +36,47 @@ namespace Basic_BiDirectonalPort
             _d06.Changed += OnD06Changed;
 
             Console.WriteLine("ok");
+
+            return Task.CompletedTask;
+        }
+
+        public override async Task Run()
+        {
+            var state = true;
+            var count = 0;
+
+            while (true)
+            {
+                // _d04 starts as input
+                Console.WriteLine($"---- Start ----");
+                Console.WriteLine($"D04 --> D05 reads {(state ? "high" : "low")}");
+                // set output
+                _d04.State = state;     // D04 to output and set true
+                // read input
+                var check = _d05.State; // Read D05 remains input
+                Console.WriteLine($"  D05 is {(check ? "high" : "low")} should match previous");
+
+                state = !state;
+
+                Console.WriteLine($"---- Reverse ----");
+                // now reverse
+                Console.WriteLine($"D04 <-- D05 writes {(state ? "high" : "low")}");
+                // set output
+                _d05.State = state;   // D05 to output set false
+                // read input
+                check = _d04.State;   // Read D04 changes to input
+                Console.WriteLine($"  D04 is {(check ? "high" : "low")} should match previous");
+
+                state = !state;
+
+                if (++count % 10 == 0)
+                {
+                    // verifies Dispose is working
+                    TeardownIO();
+                }
+
+                await Task.Delay(2000);
+            }
         }
 
         private async void OnD06Changed(object sender, DigitalPortResult args)
@@ -80,51 +112,6 @@ namespace Basic_BiDirectonalPort
             _d06.Dispose();
             _d06 = null;
             Console.WriteLine("ok");
-        }
-
-        public void RunApp()
-        {
-            var state = true;
-            var count = 0;
-
-            while (true)
-            {
-                if(_d04 == null)
-                {
-                    SetupIO();
-                }
-
-                // _d04 starts as input
-                Console.WriteLine($"---- Start ----");
-                Console.WriteLine($"D04 --> D05 reads {(state ? "high" : "low")}");
-                // set output
-                _d04.State = state;     // D04 to output and set true
-                // read input
-                var check = _d05.State; // Read D05 remains input
-                Console.WriteLine($"  D05 is {(check ? "high" : "low")} should match previous");
-
-                state = !state;
-
-                Console.WriteLine($"---- Reverse ----");
-                // now reverse
-                Console.WriteLine($"D04 <-- D05 writes {(state ? "high" : "low")}");
-                // set output
-                _d05.State = state;   // D05 to output set false
-                // read input
-                check = _d04.State;   // Read D04 changes to input
-                Console.WriteLine($"  D04 is {(check ? "high" : "low")} should match previous");
-
-                state = !state;
-
-                if(++count %10 == 0)
-                {
-                    // verifies Dispose is working
-                    TeardownIO();
-                }
-
-                Thread.Sleep(2000);
-            }
-
         }
     }
 }

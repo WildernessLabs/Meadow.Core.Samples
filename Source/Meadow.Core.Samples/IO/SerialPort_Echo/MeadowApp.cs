@@ -1,21 +1,17 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Hardware;
 using System;
 using System.Text;
-using System.Threading;
+using System.Threading.Tasks;
 
-namespace SerialEcho
+namespace SerialPort_Echo
 {
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
-        public MeadowApp()
-        {
-            Console.WriteLine("+SerialEcho");
+        ISerialPort port;
 
-            Run();
-        }
-
-        void Run()
+        public override Task Initialize()
         {
             Console.WriteLine("Using 'Com1'...");
             var port = Device.CreateSerialPort(Device.SerialPortNames.Com1, 115200);
@@ -30,6 +26,11 @@ namespace SerialEcho
                 Console.WriteLine("\tFailed to Open");
             }
 
+            return Task.CompletedTask;
+        }
+
+        public override async Task Run()
+        {
             var buffer = new byte[1024];
 
             while (true)
@@ -49,7 +50,7 @@ namespace SerialEcho
                     Console.WriteLine($"Read {read} bytes: {BitConverter.ToString(buffer, 0, read)}");
                 }
 
-                Thread.Sleep(2000);
+                await Task.Delay(2000);
             }
         }
     }
