@@ -29,7 +29,9 @@ namespace BiDirectonalPort
                 resistorMode: ResistorMode.Disabled,
                 initialDirection: PortDirectionType.Input,
                 interruptMode: InterruptMode.EdgeFalling,
-                glitchDuration: 20,
+                glitchDuration: TimeSpan.FromMilliseconds(20),
+                debounceDuration: TimeSpan.FromMilliseconds(20),
+                initialState: false,
                 outputType: OutputType.OpenDrain
                 );
 
