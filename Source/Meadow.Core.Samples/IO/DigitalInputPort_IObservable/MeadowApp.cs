@@ -22,7 +22,7 @@ namespace DigitalInputPort_Basics
             //==== create an input port on D02. 
             input = Device.CreateDigitalInputPort(
                 Device.Pins.D02, InterruptMode.EdgeBoth, ResistorMode.InternalPullDown,
-                20, 10);
+                TimeSpan.FromMilliseconds(20), TimeSpan.FromMilliseconds(10));
 
             //==== Classic .NET Events
             input.Changed += (object sender, DigitalPortResult result) => 

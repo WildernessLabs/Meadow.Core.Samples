@@ -23,7 +23,7 @@ namespace DigitalInputPort
             var d7 = Device.CreateDigitalInputPort(Device.Pins.D07, resistorMode: ResistorMode.InternalPullDown);
             inputs.Add(d7);
 
-            double debounceDuration = 500;
+            TimeSpan debounceDuration = TimeSpan.FromMilliseconds(500);
             var d4 = Device.CreateDigitalInputPort(Device.Pins.D04, InterruptMode.EdgeBoth, ResistorMode.Disabled);
             d4.DebounceDuration = debounceDuration;
             d4.Changed += OnStateChangedHandler;
