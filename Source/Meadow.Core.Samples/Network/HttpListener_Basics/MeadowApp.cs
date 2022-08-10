@@ -1,5 +1,6 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Hardware;
 using System;
 using System.Net;
 using System.Text;
@@ -32,7 +33,7 @@ namespace HttpListener_Basics
         {
             get
             {
-                if (ipAddress != null)
+                if(ipAddress != null)
                 {
                     return $"http://{ipAddress}:{port}/";
                 }
@@ -50,11 +51,13 @@ namespace HttpListener_Basics
         {
             Console.WriteLine("Creating HttpListenerTest object.");
 
+            var wifi = Device.NetworkAdapters.Primary<IWiFiNetworkAdapter>();
+
             Console.WriteLine("Connecting to access point.");
-            Device.WiFiAdapter.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD).Wait();
+            wifi.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD).Wait();
 
             Console.WriteLine("WiFi connection completed.");
-            ipAddress = Device.WiFiAdapter.IpAddress;
+            ipAddress = wifi.IpAddress;
 
             return Task.CompletedTask;
         }
@@ -78,7 +81,7 @@ namespace HttpListener_Basics
             await Task.Run(async () =>
             {
                 // While a user hasn't visited the `shutdown` url, keep on handling requests
-                while (runServer)
+                while(runServer)
                 {
                     // Will wait here until we hear from a connection
                     HttpListenerContext ctx = await listener.GetContextAsync();
@@ -96,14 +99,14 @@ namespace HttpListener_Basics
                     Console.WriteLine();
 
                     // If `shutdown` url requested w/ POST, then shutdown the server after serving the page
-                    if ((req.HttpMethod == "POST") && (req.Url.AbsolutePath == "/shutdown"))
+                    if((req.HttpMethod == "POST") && (req.Url.AbsolutePath == "/shutdown"))
                     {
                         Console.WriteLine("Shutdown requested");
                         runServer = false;
                     }
 
                     // Make sure we don't increment the page views counter if `favicon.ico` is requested
-                    if (req.Url.AbsolutePath != "/favicon.ico")
+                    if(req.Url.AbsolutePath != "/favicon.ico")
                     {
                         pageViews += 1;
                     }
