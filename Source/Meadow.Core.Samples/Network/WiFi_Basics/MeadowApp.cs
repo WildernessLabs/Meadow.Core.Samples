@@ -22,7 +22,7 @@ namespace WiFi_Basics
             // enumerate the public WiFi channels
             await ScanForAccessPoints(wifi);
 
-            // connnect to the wifi network.
+            // connect to the wifi network.
             Console.WriteLine($"Connecting to WiFi Network {Secrets.WIFI_NAME}");
 
             var connectionResult = await wifi.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD, TimeSpan.FromSeconds(45));
@@ -33,9 +33,7 @@ namespace WiFi_Basics
             }
             else
             {
-                Console.WriteLine($"IP Address: {wifi.IpAddress}");
-                Console.WriteLine($"Subnet mask: {wifi.SubnetMask}");
-                Console.WriteLine($"Gateway: {wifi.Gateway}");
+                DisplayNetworkInformation();
             }
 
             do
@@ -69,6 +67,56 @@ namespace WiFi_Basics
             else
             {
                 Console.WriteLine($"No access points detected.");
+            }
+        }
+
+        public void DisplayNetworkInformation()
+        {
+            NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
+            if (adapters.Length == 0)
+            {
+                Console.WriteLine("No adapters available.");
+            }
+            foreach (NetworkInterface adapter in adapters)
+            {
+                IPInterfaceProperties properties = adapter.GetIPProperties();
+                Console.WriteLine();
+                Console.WriteLine(adapter.Description);
+                Console.WriteLine(String.Empty.PadLeft(adapter.Description.Length, '='));
+                Console.WriteLine($"  Adapter name: {adapter.Name}");
+                Console.WriteLine($"  Interface type .......................... : {adapter.NetworkInterfaceType}");
+                Console.WriteLine($"  Physical Address ........................ : {adapter.GetPhysicalAddress().ToString()}");
+                Console.WriteLine($"  Operational status ...................... : {adapter.OperationalStatus}");
+                string versions = String.Empty;
+                if (adapter.Supports(NetworkInterfaceComponent.IPv4))
+                {
+                    versions = "IPv4";
+                }
+                if (adapter.Supports(NetworkInterfaceComponent.IPv6))
+                {
+                    if (versions.Length > 0)
+                    {
+                        versions += " ";
+                    }
+                    versions += "IPv6";
+                }
+                Console.WriteLine($"  IP version .............................. : {versions}");
+                if (adapter.Supports(NetworkInterfaceComponent.IPv4))
+                {
+                    IPv4InterfaceProperties ipv4 = properties.GetIPv4Properties();
+                    Console.WriteLine("  MTU ..................................... : {0}", ipv4.Mtu);
+                }
+                if ((adapter.NetworkInterfaceType == NetworkInterfaceType.Wireless80211) || (adapter.NetworkInterfaceType == NetworkInterfaceType.Ethernet))
+                {
+                    foreach (UnicastIPAddressInformation ip in adapter.GetIPProperties().UnicastAddresses)
+                    {
+                        if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                        {
+                            Console.WriteLine($"  IP address .............................. : {ip.Address.ToString()}");
+                            Console.WriteLine($"  Subnet mask ............................. : {ip.IPv4Mask.ToString()}");
+                        }
+                    }
+                }
             }
         }
 
