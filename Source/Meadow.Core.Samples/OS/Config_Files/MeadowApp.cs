@@ -1,5 +1,6 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Hardware;
 using System;
 using System.Threading.Tasks;
 
@@ -7,16 +8,20 @@ namespace Config_Files
 {
     public class MeadowApp : App<F7FeatherV2>
     {
+        INetworkAdapter wifi;
+        private bool isF7PlatformOs;
+
         public override Task Initialize()
         {
-            if (Device.WiFiAdapter.IsConnected)
+            wifi = Device.NetworkAdapters.Primary<IWiFiNetworkAdapter>();
+            if (wifi.IsConnected)
             {
                 Console.WriteLine("WiFi adapter already connected.");
             }
             else
             {
                 Console.WriteLine("WiFi adapter not connected.");
-                Device.WiFiAdapter.WiFiConnected += (s, e) =>
+                wifi.NetworkConnected += (s, e) =>
                 {
                     Console.WriteLine("WiFi adapter connected.");
                 };
@@ -64,16 +69,21 @@ namespace Config_Files
         {
             try
             {
-                Console.WriteLine($"====================OutputDeviceConfigurationInfo======================");
-                Console.WriteLine($"Automatically connect to network: {Device.WiFiAdapter.AutomaticallyStartNetwork}");
-                Console.WriteLine($"Automatically reconnect: {Device.WiFiAdapter.AutomaticallyReconnect}");
-                Console.WriteLine($"Get time at startup: {Device.WiFiAdapter.GetNetworkTimeAtStartup}");
-                //Console.WriteLine($"NTP Server: {Device.WiFiAdapter.NtpServer}");
-                Console.WriteLine($"Default access point: {Device.WiFiAdapter.DefaultAcessPoint}");
-                Console.WriteLine($"Maximum retry count: {Device.WiFiAdapter.MaximumRetryCount}");
-                Console.WriteLine($"MAC address: {FormatMacAddressString(Device.WiFiAdapter.MacAddress)}");
-                Console.WriteLine($"Soft AP MAC address: {FormatMacAddressString(Device.WiFiAdapter.ApMacAddress)}");
-                Console.WriteLine($"=======================================================================");
+                var isF7PlatformOS = Device.PlatformOS is F7PlatformOS;
+                var esp32Wifi = wifi as Esp32Coprocessor;
+                if (isF7PlatformOS && esp32Wifi != null)
+                {
+                    Console.WriteLine($"====================OutputDeviceConfigurationInfo======================");
+                    Console.WriteLine($"Automatically connect to network: {(Device.NetworkAdapters.Primary<IWiFiNetworkAdapter>() as Esp32Coprocessor)?.AutoConnect}");
+                    Console.WriteLine($"Automatically reconnect: {esp32Wifi.AutoReconnect}");
+                    Console.WriteLine($"Get time at startup: {F7PlatformOS.GetBoolean(IPlatformOS.ConfigurationValues.AutomaticallyStartNetwork)}");
+                    //Console.WriteLine($"NTP Server: {Device.WiFiAdapter.NtpServer}");
+                    Console.WriteLine($"Default access point: {esp32Wifi.DefaultSsid}");
+                    Console.WriteLine($"Maximum retry count: {esp32Wifi.MaximumRetryCount}");
+                    Console.WriteLine($"MAC address: {FormatMacAddressString(esp32Wifi.MacAddress.GetAddressBytes())}");
+                    Console.WriteLine($"Soft AP MAC address: {FormatMacAddressString(esp32Wifi.ApMacAddress.GetAddressBytes())}");
+                    Console.WriteLine($"=======================================================================");
+                }
             }
             catch (Exception e)
             {
@@ -87,7 +97,7 @@ namespace Config_Files
             {
                 while (true)
                 {
-                    Console.WriteLine($"{DateTime.Now} {Device.WiFiAdapter.IpAddress}");
+                    Console.WriteLine($"{DateTime.Now} {wifi.IpAddress}");
                     await Task.Delay(10000);
                 }
             });
