@@ -4,6 +4,7 @@ using Meadow.Gateway.WiFi;
 using Meadow.Hardware;
 using System;
 using System.Net.Http;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 
 namespace WiFi_Basics
