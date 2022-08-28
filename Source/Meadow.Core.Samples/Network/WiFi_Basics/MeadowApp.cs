@@ -1,4 +1,4 @@
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Gateway.WiFi;
 using Meadow.Hardware;
@@ -39,7 +39,7 @@ namespace WiFi_Basics
 
             do
             {
-                GetWebPageViaHttpClient("https://postman-echo.com/get?foo1=bar1&foo2=bar2").Wait();
+                await GetWebPageViaHttpClient("https://postman-echo.com/get?foo1=bar1&foo2=bar2");
             }
             while(true);
         }
