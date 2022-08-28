@@ -6,19 +6,15 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="app.config.yaml" />
-    <None Remove="wifi.config.yaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="app.config.yaml">
+    <None Include="app.config.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wifi.config.yaml">
+    </None>
+    <None Include="wifi.config.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="meadow.config.yaml">
+    </None>
+    <None Include="meadow.config.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\Meadow.Core\source\Meadow.F7\Meadow.F7.csproj" />
