@@ -1,4 +1,4 @@
-﻿using Meadow;
+using Meadow;
 using Meadow.Devices;
 using Meadow.Gateway.WiFi;
 using Meadow.Hardware;
@@ -44,7 +44,7 @@ namespace WiFi_Basics
             while(true);
         }
 
-        void WiFiAdapter_NetworkConnected(object sender, EventArgs e)
+        void WiFiAdapter_NetworkConnected(INetworkAdapter networkAdapter, NetworkConnectionEventArgs e)
         {
             Console.WriteLine("Connection request completed.");
         }
