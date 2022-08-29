@@ -24,6 +24,7 @@ jobs:
         repository: WildernessLabs/Meadow.Core
         path: Meadow.Core
         ref: develop
+        token: ${{ secrets.CI_ACCESS_TOKEN }} 
         
     - name: Checkout Meadow.Contracts
       uses: actions/checkout@v3
