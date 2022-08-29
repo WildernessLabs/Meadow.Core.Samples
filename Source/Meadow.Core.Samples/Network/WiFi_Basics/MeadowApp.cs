@@ -60,7 +60,7 @@ namespace WiFi_Basics
                 Console.WriteLine("|         Network Name             | RSSI |       BSSID       | Channel |");
                 Console.WriteLine("|-------------------------------------------------------------|---------|");
 
-                foreach(WifiNetwork accessPoint in networks)
+                foreach (WifiNetwork accessPoint in networks)
                 {
                     Console.WriteLine($"| {accessPoint.Ssid,-32} | {accessPoint.SignalDbStrength,4} | {accessPoint.Bssid,17} |   {accessPoint.ChannelCenterFrequency,3}   |");
                 }
