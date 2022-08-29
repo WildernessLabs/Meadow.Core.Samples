@@ -29,6 +29,7 @@ jobs:
       with:
         repository: WildernessLabs/Meadow.Foundation
         path: Meadow.Foundation
+        ref: develop
         
     - name: Checkout Meadow.Core
       uses: actions/checkout@v3
