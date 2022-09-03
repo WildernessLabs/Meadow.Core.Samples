@@ -6,7 +6,7 @@ using System;
 using System.Threading.Tasks;
 namespace Antenna_Switching
 {
-    public class MeadowApp : App<F7FeatherV2>
+    public class MeadowApp : App<F7FeatherV1>
     {
         public override Task Initialize()
         {
