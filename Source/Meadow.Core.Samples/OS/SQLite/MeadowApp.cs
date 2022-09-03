@@ -73,13 +73,13 @@ namespace SQLite_Sample
             Database.CreateTable<SensorModel>();
         }
 
-        async Task InsertDummyData()
+        void InsertDummyData()
         {
             for (int i = 0; i < InsertCount; i++)
             {
                 Console.WriteLine($"Inserting row {i + 1}...");
                 Database.Insert(new SensorModel { Timestamp = DateTime.Now, Value = SensorValue });
-                await Task.Delay(100);
+                Thread.Sleep(100);
                 SensorValue += 1.23;
             }
         }
