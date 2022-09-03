@@ -14,7 +14,7 @@ namespace SerialPort_Echo
         public override Task Initialize()
         {
             Console.WriteLine("Using 'Com1'...");
-            var port = Device.CreateSerialPort(Device.SerialPortNames.Com1, 115200);
+            port = Device.CreateSerialPort(Device.SerialPortNames.Com1, 115200);
             Console.WriteLine("\tCreated");
             port.Open();
             if (port.IsOpen)
