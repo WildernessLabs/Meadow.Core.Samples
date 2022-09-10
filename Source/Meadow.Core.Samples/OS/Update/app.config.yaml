@@ -1,0 +1,14 @@
+﻿{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Trace"
+    }
+  },
+  "Lifecycle": {
+    "ResetOnAppFailure": false
+  },
+  "Update": {
+    "UpdateServer": "192.168.1.133",
+    "Enabled": true
+  }
+}
