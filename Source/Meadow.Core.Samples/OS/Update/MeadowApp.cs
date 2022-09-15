@@ -1,8 +1,11 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Hardware;
+using MQTTnet;
+using MQTTnet.Client;
 using System;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Threading;
 using System.Threading.Tasks;
@@ -47,11 +50,65 @@ namespace Update_Sample
             {
                 Resolver.Log.Info("Network connected!");
 
+                Task.Run(() => DirectMqttTest());
                 //                Task.Run(() => ServerPingProc());
             };
 
             Resolver.Log.Info("Connecting to the network...");
-            await wifi.Connect("{my ssid}", "{my passphrase}");
+            await wifi.Connect("BOBS_YOUR_UNCLE", "1234567890");
+        }
+
+        private async Task DirectMqttTest()
+        {
+            while (!await IsInternetAvailable())
+            {
+                await Task.Delay(TimeSpan.FromSeconds(5));
+            }
+
+            Resolver.Log.Info("Running MQTT test...");
+
+            var opts = new MqttClientOptionsBuilder()
+                            .WithClientId("Test_Client")
+                            .WithTcpServer("20.253.228.77", 1883)
+                            //.WithCleanSession()
+                            .Build();
+
+            var factory = new MqttFactory();
+            var client = factory.CreateMqttClient();
+
+            client.ConnectedAsync += (f) =>
+            {
+                Resolver.Log.Info("MQTT connected");
+                return Task.CompletedTask;
+            };
+
+            try
+            {
+                await client.ConnectAsync(opts);
+            }
+            catch (Exception ex)
+            {
+                Resolver.Log.Debug($"MQTT exception: {ex.Message}");
+            }
+        }
+
+        public async Task<bool> IsInternetAvailable()
+        {
+            try
+            {
+                Resolver.Log.Info("Querying google.com...");
+
+                var client = new HttpClient();
+                var response = await client.GetStringAsync("http://google.com");
+                Resolver.Log.Debug($"Google responded with: {response}");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Resolver.Log.Debug($"Error checking internet connection: {ex.Message}");
+            }
+
+            return false;
         }
 
         private async Task ServerPingProc()
