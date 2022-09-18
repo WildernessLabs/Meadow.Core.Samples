@@ -1,5 +1,6 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Hardware;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,10 +9,14 @@ namespace Watchdog
 {
     public class MeadowApp : App<F7FeatherV2>
     {
+        private IDigitalOutputPort led;
+
         public override Task Initialize()
         {
             Resolver.Log.Info("===== Meadow Power Management Sample =====");
             Resolver.Log.Info($"{Device.Information.Platform} OS v.{Device.Information.OSVersion}");
+
+            led = Device.CreateDigitalOutputPort(Device.Pins.OnboardLedBlue, false);
 
             Device.PlatformOS.BeforeSleep += () =>
             {
@@ -42,7 +47,10 @@ namespace Watchdog
             {
                 Resolver.Log.Info($"Time is now: {DateTime.UtcNow:HH:mm:ss}");
 
-                await Task.Delay(TimeSpan.FromSeconds(1));
+                led.State = true;
+                await Task.Delay(TimeSpan.FromMilliseconds(500));
+                led.State = false;
+                await Task.Delay(TimeSpan.FromMilliseconds(500));
 
                 // then we'll sleep for 5 seconds
                 if (i == 9)
