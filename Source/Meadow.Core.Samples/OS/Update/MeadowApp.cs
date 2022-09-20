@@ -3,11 +3,12 @@ using Meadow.Devices;
 using Meadow.Hardware;
 using MQTTnet;
 using MQTTnet.Client;
+using MQTTnet.Client.Connecting;
+using MQTTnet.Client.Options;
 using System;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Net.NetworkInformation;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Update_Sample
@@ -42,7 +43,7 @@ namespace Update_Sample
             return Task.CompletedTask;
         }
 
-        public override async Task Run(CancellationToken cancellationToken)
+        public override async Task Run()
         {
             var wifi = Resolver.Device.NetworkAdapters.Primary<IWiFiNetworkAdapter>();
 
@@ -50,7 +51,7 @@ namespace Update_Sample
             {
                 Resolver.Log.Info("Network connected!");
 
-                Task.Run(() => DirectMqttTest());
+                //Task.Run(() => DirectMqttTest());
                 //                Task.Run(() => ServerPingProc());
             };
 
@@ -76,11 +77,10 @@ namespace Update_Sample
             var factory = new MqttFactory();
             var client = factory.CreateMqttClient();
 
-            client.ConnectedAsync += (f) =>
+            client.ConnectedHandler = new MqttClientConnectedHandlerDelegate((f) =>
             {
                 Resolver.Log.Info("MQTT connected");
-                return Task.CompletedTask;
-            };
+            });
 
             try
             {
