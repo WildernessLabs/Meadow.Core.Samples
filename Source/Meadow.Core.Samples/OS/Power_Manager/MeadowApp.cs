@@ -9,14 +9,16 @@ namespace Watchdog
 {
     public class MeadowApp : App<F7FeatherV2>
     {
-        private IDigitalOutputPort led;
+        private IDigitalOutputPort blue;
+        private IDigitalOutputPort red;
 
         public override Task Initialize()
         {
             Resolver.Log.Info("===== Meadow Power Management Sample =====");
             Resolver.Log.Info($"{Device.Information.Platform} OS v.{Device.Information.OSVersion}");
 
-            led = Device.CreateDigitalOutputPort(Device.Pins.OnboardLedBlue, false);
+            blue = Device.CreateDigitalOutputPort(Device.Pins.OnboardLedBlue, false);
+            red = Device.CreateDigitalOutputPort(Device.Pins.OnboardLedRed, false);
 
             Device.PlatformOS.BeforeSleep += () =>
             {
@@ -42,6 +44,9 @@ namespace Watchdog
 
         public override async Task Run()
         {
+            // blink blue pre-sleep
+            var led = blue;
+
             // we'll run a loop for 10 seconds, outputting the time
             for (var i = 0; i < 13; i++)
             {
@@ -56,6 +61,9 @@ namespace Watchdog
                 if (i == 9)
                 {
                     Device.PlatformOS.Sleep(TimeSpan.FromSeconds(5));
+
+                    // swap to blink red for post-sleep
+                    led = red;
                 }
 
                 // when we wake we'll output a couple more ticks
