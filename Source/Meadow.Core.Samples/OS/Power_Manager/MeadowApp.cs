@@ -29,6 +29,8 @@ namespace Watchdog
 
             Device.PlatformOS.AfterWake += () =>
             {
+                // Don't use the console for a while after wake due to a bug that will crash the OS
+                Thread.Sleep(3000);
                 Resolver.Log.Info("Device has returned from Sleep mode");
             };
 
@@ -47,7 +49,7 @@ namespace Watchdog
             // blink blue pre-sleep
             var led = blue;
 
-            // we'll run a loop for 10 seconds, outputting the time
+            // we'll run a loop for a while, outputting the time
             for (var i = 0; i < 13; i++)
             {
                 Resolver.Log.Info($"Time is now: {DateTime.UtcNow:HH:mm:ss}");
@@ -58,15 +60,18 @@ namespace Watchdog
                 await Task.Delay(TimeSpan.FromMilliseconds(500));
 
                 // then we'll sleep for 5 seconds
-                if (i == 9)
+                if (i == 6)
                 {
                     Device.PlatformOS.Sleep(TimeSpan.FromSeconds(5));
 
                     // swap to blink red for post-sleep
                     led = red;
+
+                    // Don't use the console for a while after wake due to a bug that will crash the OS
+                    Thread.Sleep(3000);
                 }
 
-                // when we wake we'll output a couple more ticks
+                // when we wake we'll output a few more ticks
             }
 
             // finally we'll reset the device
