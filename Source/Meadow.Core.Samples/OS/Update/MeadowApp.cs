@@ -17,6 +17,8 @@ namespace Update_Sample
     {
         private Stopwatch _stopWatch;
 
+        private IDigitalOutputPort green;
+
         public override Task Initialize()
         {
             Resolver.UpdateService.OnUpdateAvailable += (s, e) =>
@@ -40,6 +42,8 @@ namespace Update_Sample
                 Resolver.UpdateService.ApplyUpdate(e);
             };
 
+            green = Device.CreateDigitalOutputPort(Device.Pins.OnboardLedGreen);
+
             return Task.CompletedTask;
         }
 
@@ -49,7 +53,9 @@ namespace Update_Sample
 
             wifi.NetworkConnected += (s, e) =>
             {
-                Resolver.Log.Info("Network connected!");
+                Resolver.Log.Info($"Network connected! (IP is {wifi.IpAddress})");
+
+                //                green.State = true;
 
                 //Task.Run(() => DirectMqttTest());
                 //                Task.Run(() => ServerPingProc());
@@ -57,6 +63,13 @@ namespace Update_Sample
 
             Resolver.Log.Info("Connecting to the network...");
             await wifi.Connect("BOBS_YOUR_UNCLE", "1234567890");
+
+            while (true)
+            {
+                green.State = !green.State;
+                await Task.Delay(1000);
+            }
+
         }
 
         private async Task DirectMqttTest()
