@@ -22,7 +22,7 @@ namespace Config_Files
 
             wifi = Device.NetworkAdapters.Primary<IWiFiNetworkAdapter>();
 
-            if(wifi.IsConnected)
+            if (wifi.IsConnected)
             {
                 Resolver.Log.Info("WiFi adapter already connected.");
             }
@@ -57,7 +57,7 @@ namespace Config_Files
             Resolver.Log.Info($"=========================OutputDeviceInfo==============================");
             Resolver.Log.Info($"Device name: {Device.Information.DeviceName}");
             Resolver.Log.Info($"Processor serial number: {Device.Information.ProcessorSerialNumber}");
-            Resolver.Log.Info($"Processor ID: {Device.Information.ChipID}");
+            Resolver.Log.Info($"Processor ID: {Device.Information.UniqueID}");
             Resolver.Log.Info($"Model: {Device.Information.Model}");
             Resolver.Log.Info($"Processor type: {Device.Information.ProcessorType}");
             Resolver.Log.Info($"Product: {Device.Information.Model}");
@@ -93,7 +93,7 @@ namespace Config_Files
                 Resolver.Log.Info($"MAC address: {wifi.MacAddress}");
                 Resolver.Log.Info($"=======================================================================");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Resolver.Log.Error(e.Message);
             }
@@ -108,14 +108,14 @@ namespace Config_Files
                 Resolver.Log.Trace($"Heartbeat Task Started");
                 var countToReset = 1;
 
-                while(true)
+                while (true)
                 {
                     Resolver.Log.Debug($"Count to reset: {countToReset}");
                     Resolver.Log.Info($"{DateTime.Now} {wifi.IpAddress}");
                     await Task.Delay(TimeSpan.FromSeconds(10));
 
                     Resolver.Log.Trace($"Testing for throw");
-                    if(--countToReset <= 0) throw new Exception("Testing restart...");
+                    if (--countToReset <= 0) throw new Exception("Testing restart...");
 
                 }
             });
@@ -124,10 +124,10 @@ namespace Config_Files
         protected string FormatMacAddressString(byte[] address)
         {
             string result = string.Empty;
-            for(int index = 0; index < address.Length; index++)
+            for (int index = 0; index < address.Length; index++)
             {
                 result += address[index].ToString("X2");
-                if(index != (address.Length - 1))
+                if (index != (address.Length - 1))
                 {
                     result += ":";
                 }

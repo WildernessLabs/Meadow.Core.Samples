@@ -36,7 +36,7 @@ namespace Watchdog
 
             Device.PlatformOS.BeforeReset += () =>
             {
-                //                Resolver.Log.Info("Device is about to Reset");
+                Resolver.Log.Info("Device is about to Reset");
                 // actual serial output is asynchronous, so we need to delay a little to see the output
                 Thread.Sleep(500);
             };
