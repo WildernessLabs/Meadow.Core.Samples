@@ -2,34 +2,31 @@
 using Meadow.Devices;
 using Meadow.Hardware;
 using System;
+using System.Threading.Tasks;
 
-namespace DigitalInputPort_IObservable_Sample
+namespace DigitalInputPort_Basics
 {
     /// <summary>
     /// This sample illustrates using the IFilterableObserver pattern. To wire up, add
     /// a PushButton connected to D02, with the circuit terminating on the 3.3V rail, so that
     /// when the button is pressed, the input is raised high.
     /// </summary>
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         IDigitalInputPort input;
 
-        public MeadowApp()
-        {
-            Initialize();
-        }
-
-        void Initialize()
+        public override Task Initialize()
         {
             Console.WriteLine("Initializing hardware...");
 
             //==== create an input port on D02. 
             input = Device.CreateDigitalInputPort(
                 Device.Pins.D02, InterruptMode.EdgeBoth, ResistorMode.InternalPullDown,
-                20, 10);
+                TimeSpan.FromMilliseconds(20), TimeSpan.FromMilliseconds(10));
 
             //==== Classic .NET Events
-            input.Changed += (object sender, DigitalPortResult result) => {
+            input.Changed += (object sender, DigitalPortResult result) => 
+            {
                 Console.WriteLine($"Old school event raised; Time: {result.New.Time}, Value: {result.New.State}");
             };
 
@@ -39,7 +36,8 @@ namespace DigitalInputPort_IObservable_Sample
             // in this case, we filter on events by time, and only notify if the new event is > 1 second from
             // the last event.
             var observer = IDigitalInputPort.CreateObserver(
-                handler: result => {
+                handler: result => 
+                {
                     Console.WriteLine($"Observer filter satisfied, time: {result.New.Time.ToShortTimeString()}");
                 },
                 // Optional filter paramter, showing a 1 second filter, i.e., only notify
@@ -55,6 +53,8 @@ namespace DigitalInputPort_IObservable_Sample
             input.Subscribe(observer);
 
             Console.WriteLine("Hardware initialized.");
+
+            return Task.CompletedTask;
         }
     }
 }

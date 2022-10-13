@@ -3,46 +3,43 @@ using Meadow.Devices;
 using Meadow.Hardware;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace HelloLED
+namespace Hello_LED
 {
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         IDigitalOutputPort _redLED;
         IDigitalOutputPort _blueLED;
         IDigitalOutputPort _greenLED;
 
-        public MeadowApp()
-        {
-            Console.WriteLine("Hello!");
-            CreateOutputs();
-            ShowLights();
-        }
-
-        public void CreateOutputs()
+        public override Task Initialize()
         {
             Console.WriteLine("Creating Outputs");
             _redLED = Device.CreateDigitalOutputPort(Device.Pins.OnboardLedRed);
             _blueLED = Device.CreateDigitalOutputPort(Device.Pins.OnboardLedBlue);
             _greenLED = Device.CreateDigitalOutputPort(Device.Pins.OnboardLedGreen);
+
+            return Task.CompletedTask;
         }
 
-        public void ShowLights()
+        public override async Task Run()
         {
             var state = false;
             var stateCount = 0;
 
-            while (true) {
+            while (true)
+            {
                 state = !state;
 
                 Console.WriteLine($" Count: {++stateCount}, State: {state}");
 
                 _redLED.State = state;
-                Thread.Sleep(200);
+                await Task.Delay(200);
                 _greenLED.State = state;
-                Thread.Sleep(200);
+                await Task.Delay(200);
                 _blueLED.State = state;
-                Thread.Sleep(200);
+                await Task.Delay(200);
             }
         }
     }

@@ -1,42 +1,43 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Meadow;
 using Meadow.Devices;
 using Meadow.Gateways.Bluetooth;
 
-namespace MeadowApp
+namespace Bluetooth_Basics
 {
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         Definition bleTreeDefinition;
         CharacteristicBool onOffCharacteristic;
 
-        public MeadowApp()
-        {
-            Initialize();
-        }
-
-        void Initialize()
+        public override Task Initialize()
         {
             Console.WriteLine("Initialize hardware...");
-            
+
             // initialize the bluetooth defnition tree
             Console.WriteLine("Starting the BLE server.");
             bleTreeDefinition = GetDefinition();
             Device.BluetoothAdapter.StartBluetoothServer(bleTreeDefinition);
 
             // wire up some notifications on set
-            foreach (var characteristic in bleTreeDefinition.Services[0].Characteristics) {
-                characteristic.ValueSet += (c, d) => {
+            foreach (var characteristic in bleTreeDefinition.Services[0].Characteristics)
+            {
+                characteristic.ValueSet += (c, d) =>
+                {
                     Console.WriteLine($"HEY, I JUST GOT THIS BLE DATA for Characteristic '{c.Name}' of type {d.GetType().Name}: {d}");
                 };
             }
 
             // addressing individual characteristics:
-            onOffCharacteristic.ValueSet += (c,d) => {
-                Console.WriteLine($"{ c.Name }: {d}");
+            onOffCharacteristic.ValueSet += (c, d) =>
+            {
+                Console.WriteLine($"{c.Name}: {d}");
             };
 
             Console.WriteLine("Hardware initialized.");
+
+            return Task.CompletedTask;
         }
 
         protected Definition GetDefinition()

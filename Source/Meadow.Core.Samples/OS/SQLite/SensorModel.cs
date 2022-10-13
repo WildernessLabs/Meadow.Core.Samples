@@ -1,7 +1,7 @@
 ﻿using System;
 using SQLite;
 
-namespace MeadowApp
+namespace SQLite_Sample
 {
     [Table("SensorReadings")]
     public class SensorModel

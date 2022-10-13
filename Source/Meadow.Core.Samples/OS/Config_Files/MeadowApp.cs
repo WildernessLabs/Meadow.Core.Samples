@@ -3,38 +3,38 @@ using Meadow.Devices;
 using System;
 using System.Threading.Tasks;
 
-namespace MeadowApp
+namespace Config_Files
 {
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
-        public MeadowApp()
+        public override Task Initialize()
         {
-            Initialize();
+            if (Device.WiFiAdapter.IsConnected)
+            {
+                Console.WriteLine("WiFi adapter already connected.");
+            }
+            else
+            {
+                Console.WriteLine("WiFi adapter not connected.");
+                Device.WiFiAdapter.WiFiConnected += (s, e) =>
+                {
+                    Console.WriteLine("WiFi adapter connected.");
+                };
+            }
 
-            Console.WriteLine($"Machine Name: {Environment.MachineName}");
+            return Task.CompletedTask;
+        }
 
+        public override Task Run()
+        {
             StartHeartbeat();
 
             OutputDeviceInfo();
             OutputMeadowOSInfo();
 
             OutputDeviceConfigurationInfo();
-        }
 
-        void Initialize()
-        {
-            if (Device.WiFiAdapter.IsConnected) 
-            {
-                Console.WriteLine("WiFi adapter already connected.");
-            }
-            else 
-            {
-                Console.WriteLine("WiFi adapter not connected.");
-                Device.WiFiAdapter.WiFiConnected += (s, e) => 
-                {
-                    Console.WriteLine("WiFi adapter connected.");
-                };
-            }
+            return Task.CompletedTask;
         }
 
         void OutputDeviceInfo()
@@ -62,7 +62,7 @@ namespace MeadowApp
 
         void OutputDeviceConfigurationInfo()
         {
-            try 
+            try
             {
                 Console.WriteLine($"====================OutputDeviceConfigurationInfo======================");
                 Console.WriteLine($"Automatically connect to network: {Device.WiFiAdapter.AutomaticallyStartNetwork}");
@@ -74,8 +74,8 @@ namespace MeadowApp
                 Console.WriteLine($"MAC address: {FormatMacAddressString(Device.WiFiAdapter.MacAddress)}");
                 Console.WriteLine($"Soft AP MAC address: {FormatMacAddressString(Device.WiFiAdapter.ApMacAddress)}");
                 Console.WriteLine($"=======================================================================");
-            } 
-            catch (Exception e) 
+            }
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
@@ -83,9 +83,9 @@ namespace MeadowApp
 
         protected void StartHeartbeat()
         {
-            Task.Run(async () => 
+            Task.Run(async () =>
             {
-                while (true) 
+                while (true)
                 {
                     Console.WriteLine($"{DateTime.Now} {Device.WiFiAdapter.IpAddress}");
                     await Task.Delay(10000);
@@ -96,10 +96,10 @@ namespace MeadowApp
         protected string FormatMacAddressString(byte[] address)
         {
             string result = string.Empty;
-            for (int index = 0; index < address.Length; index++) 
+            for (int index = 0; index < address.Length; index++)
             {
                 result += address[index].ToString("X2");
-                if (index != (address.Length - 1)) 
+                if (index != (address.Length - 1))
                 {
                     result += ":";
                 }

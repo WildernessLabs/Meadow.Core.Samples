@@ -4,22 +4,22 @@ using Meadow.Hardware;
 using System;
 using System.Linq;
 using System.Text;
-using System.Threading;
+using System.Threading.Tasks;
 
-namespace MeadowApp
+namespace SerialMessagePort
 {
     /// <summary>
     /// TODO: someone should really break these out into proper tests and whatnot.
     /// </summary>
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
         ISerialMessagePort serialPort;
         string delimiterString = "$$$";
         byte[] delimiterBytes;
         Encoding encoding = Encoding.UTF8;
         SerialPortName serialPortName;
-        
-        public MeadowApp()
+
+        public override Task Initialize()
         {
             serialPortName = Device.SerialPortNames.Com1;
 
@@ -31,10 +31,15 @@ namespace MeadowApp
             Console.WriteLine($"Using '{serialPortName.FriendlyName}'...");
             Console.WriteLine($"delimiter:{delimiterString}");
 
-            //TestDoubleMessageWithSuffix();
+            return Task.CompletedTask;
+        }
 
-            TestSuffixDelimiter();
-            //TestPrefixDelimiter();
+        public override async Task Run()
+        {
+            //await TestDoubleMessageWithSuffix();
+
+            await TestSuffixDelimiter();
+            //await TestPrefixDelimiter();
 
             //TestSuffixDelimeterAndBufferLengthForNulls();
         }
@@ -42,34 +47,36 @@ namespace MeadowApp
         /// <summary>
         /// Tests suffix/terminator delimited message reception.
         /// </summary>
-        protected void TestSuffixDelimiter()
+        async Task TestSuffixDelimiter()
         {
             // TEST PARAM
             // whether or not to return the message with the tokens in it
             bool preseveDelimiter = true;
 
             // instantiate our serial port
-            this.serialPort = Device.CreateSerialMessagePort(
+            serialPort = Device.CreateSerialMessagePort(
                 serialPortName, delimiterBytes, preseveDelimiter, baudRate: 115200);
             Console.WriteLine("\tCreated");
 
             // open the serial port
-            this.serialPort.Open();
+            serialPort.Open();
             Console.WriteLine("\tOpened");
 
             // wire up message received handler
-            this.serialPort.MessageReceived += SerialPort_MessageReceived;
+            serialPort.MessageReceived += SerialPort_MessageReceived;
 
             // write to the port.
-            while (true) {
-                foreach (var sentence in BuildVariableLengthTestSentences()) {
+            while (true) 
+            {
+                foreach (var sentence in BuildVariableLengthTestSentences()) 
+                {
                     //var dataToWrite = Encoding.ASCII.GetBytes($"{sentence}{DelimiterToken}");
                     var dataToWrite = Encoding.ASCII.GetBytes($"{sentence}").Concat(delimiterBytes).ToArray();
                     //var dataToWrite = Encoding.ASCII.GetBytes($"{sentence}") + delimiter;
-                    var written = this.serialPort.Write(dataToWrite);
+                    var written = serialPort.Write(dataToWrite);
                     Console.WriteLine($"\nWrote {written} bytes");
                     // sleep
-                    Thread.Sleep(2000);
+                    await Task.Delay(2000);
                 }
             }
         }
@@ -77,92 +84,91 @@ namespace MeadowApp
         /// <summary>
         /// Test for https://github.com/WildernessLabs/Meadow_Issues/issues/102
         /// </summary>
-        protected void TestSuffixDelimeterAndBufferLengthForNulls()
+        void TestSuffixDelimeterAndBufferLengthForNulls()
         {
             // instantiate our serial port
-            this.serialPort = Device.CreateSerialMessagePort(
+            serialPort = Device.CreateSerialMessagePort(
                 serialPortName, Encoding.UTF8.GetBytes("\r\n"), false, baudRate: 115200);
             Console.WriteLine("\tCreated");
 
             // open the serial port
-            this.serialPort.Open();
+            serialPort.Open();
             Console.WriteLine("\tOpened");
 
             // wire up message received handler
-            this.serialPort.MessageReceived += (object sender, SerialMessageData e) => {
+            serialPort.MessageReceived += (object sender, SerialMessageData e) => 
+            {
                 Console.WriteLine($"Message Lenght: {e.Message.Length}");
-                if (e.Message.Length == 11) {
+                if (e.Message.Length == 11) 
+                {
                     Console.WriteLine("Things are groovy.");
-                } else {
+                } 
+                else 
+                {
                     Console.WriteLine("Things are not so groovy.");
                 }
-
             };
 
             var dataToWrite = Encoding.ASCII.GetBytes($"TestMessage\r\n");
-            var written = this.serialPort.Write(dataToWrite);
+            var written = serialPort.Write(dataToWrite);
             Console.WriteLine($"\nWrote {written} bytes");
-
         }
 
-        protected void TestDoubleMessageWithSuffix()
+        async Task TestDoubleMessageWithSuffix()
         {
             // TEST PARAM
             // whether or not to return the message with the tokens in it
             bool preseveDelimiter = false;
 
             // instantiate our serial port
-            this.serialPort = Device.CreateSerialMessagePort(
+            serialPort = Device.CreateSerialMessagePort(
                 serialPortName, delimiterBytes, preseveDelimiter, baudRate:115200);
             Console.WriteLine("\tCreated");
 
             // open the serial port
-            this.serialPort.Open();
+            serialPort.Open();
             Console.WriteLine("\tOpened");
 
             // wire up message received handler
-            this.serialPort.MessageReceived += SerialPort_MessageReceived;
+            serialPort.MessageReceived += SerialPort_MessageReceived;
 
 
             var dataToWrite = Encoding.ASCII.GetBytes($"{GetDoubleInOne()}").Concat(delimiterBytes).ToArray();
-            var written = this.serialPort.Write(dataToWrite);
+            var written = serialPort.Write(dataToWrite);
             Console.WriteLine($"\nWrote {written} bytes");
             // sleep
-            Thread.Sleep(2000);
-
+            await Task.Delay(2000);
         }
 
-
-        protected void TestPrefixDelimiter()
+        async Task TestPrefixDelimiter()
         {
             // TEST PARAM
             // whether or not to return the message with the tokens in it
             bool preseveDelimiter = false;
 
             // instantiate our serial port
-            this.serialPort = Device.CreateSerialMessagePort(
+            serialPort = Device.CreateSerialMessagePort(
                 serialPortName, delimiterBytes, preseveDelimiter, 27, baudRate: 115200);
             Console.WriteLine("\tCreated");
 
             // open the serial port
-            this.serialPort.Open();
+            serialPort.Open();
             Console.WriteLine("\tOpened");
 
             // wire up message received handler
-            this.serialPort.MessageReceived += SerialPort_MessageReceived;
+            serialPort.MessageReceived += SerialPort_MessageReceived;
 
             // write to the port.
             while (true) {
                 foreach (var sentence in BuildFixedLengthTestSentences()) {
                     //var dataToWrite = Encoding.ASCII.GetBytes($"{sentence}{DelimiterToken}");
                     var dataToWrite = delimiterBytes.Concat(Encoding.ASCII.GetBytes($"{sentence}")).ToArray();
-                    var written = this.serialPort.Write(dataToWrite);
+                    var written = serialPort.Write(dataToWrite);
                     Console.WriteLine($"\nWrote {written} bytes");
                     // sleep
-                    Thread.Sleep(2000);
+                    await Task.Delay(2000);
                 }
             }
-
         }
 
 
@@ -171,8 +177,10 @@ namespace MeadowApp
             Console.WriteLine($"Msg recvd: {e.GetMessageString(Encoding.ASCII)}\n");
         }
 
-        protected string[] BuildFixedLengthTestSentences() {
-            return new string[] {
+        protected string[] BuildFixedLengthTestSentences() 
+        {
+            return new string[] 
+            {
                 "1234567890_abcdefghijklmnop",
                 "quad erat demonstrandum foo",
                 "eat your meat or no pudding",
@@ -186,15 +194,17 @@ namespace MeadowApp
             return $"TrickyDouble.{delimiterString}DoubleMessageTest";
         }
 
-        protected string[] BuildVariableLengthTestSentences() {
-            return new string[] {
-            "Hello Meadow!",
-            $"TrickyDouble.{delimiterString}DoubleMessageTest",
-            "Ground control to Major Tom.",
-            "Those evil-natured robots, they're programmed to destroy us",
-            "Life, it seems, will fade away. Drifting further every day. Getting lost within myself, nothing matters, no one else.",
-            "It's gonna be a bright, bright, sun-shiny day!",
-            @"Ticking away the moments that make up a dull day
+        protected string[] BuildVariableLengthTestSentences() 
+        {
+            return new string[] 
+            {
+                "Hello Meadow!",
+                $"TrickyDouble.{delimiterString}DoubleMessageTest",
+                "Ground control to Major Tom.",
+                "Those evil-natured robots, they're programmed to destroy us",
+                "Life, it seems, will fade away. Drifting further every day. Getting lost within myself, nothing matters, no one else.",
+                "It's gonna be a bright, bright, sun-shiny day!",
+                @"Ticking away the moments that make up a dull day
 Fritter and waste the hours in an offhand way.
 Kicking around on a piece of ground in your home town
 Waiting for someone or something to show you the way.
@@ -211,7 +221,7 @@ Plans that either come to naught or half a page of scribbled lines
 Hanging on in quiet desperation is the English way
 The time is gone, the song is over,
 Thought I'd something more to say."
-                };
+            };
         }
     }
 }

@@ -2,23 +2,21 @@
 using Meadow.Devices;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace MeadowApp
+namespace Watchdog
 {
-    public class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
-        public MeadowApp()
-        {
-            Initialize();
-        }
-
-        void Initialize()
+        public override Task Initialize()
         {
             Console.WriteLine("Initialize hardware...");
 
             // enable the watchdog for 10s
-            MeadowOS.CurrentDevice.WatchdogEnable(new TimeSpan(10000));
+            Device.WatchdogEnable(TimeSpan.FromSeconds(10));
             StartPettingWatchdog(9000);
+
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -28,13 +26,15 @@ namespace MeadowApp
         void StartPettingWatchdog(int pettingInterval)
         {
             // just for good measure, let's reset the watchdog to begin with
-            MeadowOS.CurrentDevice.WatchdogReset();
+            Device.WatchdogReset();
             // start a thread that pets it
-            Thread t = new Thread(() => {
-                while (true) {
+            Thread t = new Thread(() =>
+            {
+                while (true)
+                {
                     Thread.Sleep(pettingInterval);
                     Console.WriteLine("Petting watchdog.");
-                    MeadowOS.CurrentDevice.WatchdogReset();
+                    Device.WatchdogReset();
                 }
             });
             t.Start();

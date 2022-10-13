@@ -4,18 +4,42 @@ using System.Threading.Tasks;
 using Meadow;
 using Meadow.Devices;
 using Meadow.Hardware;
+using Meadow.Units;
 
-namespace Basic_PWM
+namespace PWM
 {
-    class MeadowApp : App<F7FeatherV2, MeadowApp>
+    public class MeadowApp : App<F7FeatherV2>
     {
-        public MeadowApp()
-        {
-            Console.WriteLine("+PWMApp");
+        IPwmPort pwm04;
+        IDigitalOutputPort d03;
 
+        public override Task Initialize()
+        {
+            pwm04 = Device.CreatePwmPort(Device.Pins.D04, new Meadow.Units.Frequency(500), 0.5f);
+
+            d03 = Device.CreateDigitalOutputPort(Device.Pins.D03);
+
+            return Task.CompletedTask;
+        }
+
+        public override async Task Run()
+        {
             try
             {
-                PwmWithGpio();
+                await Task.Run(() =>
+                {
+                    var c = 0;
+
+                    while (true)
+                    {
+                        d03.State = !d03.State;
+                        Thread.Sleep(1000);
+                    }
+                });
+
+                await Task.Delay(5000);
+
+                pwm04.Start();
             }
             catch (Exception ex)
             {
@@ -23,99 +47,75 @@ namespace Basic_PWM
             }
         }
 
-
-        private void PwmWithGpio()
-        {
-            var pwm04 = Device.CreatePwmPort(Device.Pins.D04, 2, 0.5f);
-
-            var d03 = Device.CreateDigitalOutputPort(Device.Pins.D03);
-
-            Task.Run(async () =>
-            {
-                var c = 0;
-
-                while (true)
-                {
-                    d03.State = !d03.State;
-                    await Task.Delay(1000);
-                }
-            });
-
-            Thread.Sleep(5000);
-
-            pwm04.Start();
-        }
-
         private void MultiplePwms()
         {
-            var f = 100;
-            Console.WriteLine($"DeviceCreatePwmPort {f} Hz");
-
-            var pwmA = Device.CreatePwmPort(Device.Pins.D11, f, 0.5f);
-            var pwmB = Device.CreatePwmPort(Device.Pins.D12, 200, 0.5f);
-            var pwmC = Device.CreatePwmPort(Device.Pins.D13, 400, 0.25f);
+            var pwmA = Device.CreatePwmPort(Device.Pins.D11, new Frequency(100), 0.5f);
+            var pwmB = Device.CreatePwmPort(Device.Pins.D12, new Frequency(200), 0.5f);
+            var pwmC = Device.CreatePwmPort(Device.Pins.D13, new Frequency(400), 0.25f);
 
             pwmA.Start();
             pwmB.Start();
             pwmC.Start();
         }
 
-        private void TimeScaleChecks(IPwmPort pwm)
+        async Task TimeScaleChecks(IPwmPort pwm)
         {
             var delta = 100;
 
-            pwm.Frequency = 50f;
+            pwm.Frequency = new Meadow.Units.Frequency(50f);
 
             pwm.Start();
             while (true)
             {
                 pwm.TimeScale = TimeScale.Seconds;
                 pwm.Period = 0.02f;
-                Console.WriteLine($"Freq: {(int)pwm.Frequency}  Period: {(int)pwm.Period} {pwm.TimeScale}");
-                Thread.Sleep(2000);
+                Console.WriteLine($"Freq: {pwm.Frequency.Hertz}  Period: {(int)pwm.Period} {pwm.TimeScale}");
+                await Task.Delay(2000);
 
                 pwm.TimeScale = TimeScale.Milliseconds;
-                Console.WriteLine($"Freq: {(int)pwm.Frequency}  Period: {(int)pwm.Period} {pwm.TimeScale}");
-                Thread.Sleep(2000);
+                Console.WriteLine($"Freq: {pwm.Frequency.Hertz}  Period: {(int)pwm.Period} {pwm.TimeScale}");
+                await Task.Delay(2000);
                 pwm.Period = 50f;
-                Console.WriteLine($"Freq: {(int)pwm.Frequency}  Period: {(int)pwm.Period} {pwm.TimeScale}");
-                Thread.Sleep(2000);
+                Console.WriteLine($"Freq: {pwm.Frequency.Hertz}  Period: {(int)pwm.Period} {pwm.TimeScale}");
+                await Task.Delay(2000);
 
                 pwm.TimeScale = TimeScale.Microseconds;
-                Console.WriteLine($"Freq: {(int)pwm.Frequency}  Period: {(int)pwm.Period} {pwm.TimeScale}");
+                Console.WriteLine($"Freq: {pwm.Frequency.Hertz}  Period: {(int)pwm.Period} {pwm.TimeScale}");
                 pwm.Period = 80f;
-                Console.WriteLine($"Freq: {(int)pwm.Frequency}  Period: {(int)pwm.Period} {pwm.TimeScale}");
-                Thread.Sleep(2000);
+                Console.WriteLine($"Freq: {pwm.Frequency.Hertz}  Period: {(int)pwm.Period} {pwm.TimeScale}");
+                await Task.Delay(2000);
             }
         }
 
-        private void FrequencyChecks(IPwmPort pwm)
+        async Task FrequencyChecks(IPwmPort pwm)
         {
-            var delta = 100;
+            Frequency delta = new Frequency(100);
 
             pwm.Start();
+
             while (true)
-            {                
+            {
                 Console.WriteLine($"Freq: {pwm.Frequency}  Period: {pwm.Period} {pwm.TimeScale}");
-                Thread.Sleep(5000);
+                await Task.Delay(5000);
 
                 pwm.Frequency += delta;
-                if (pwm.Frequency <= 100 || pwm.Frequency >= 1000)
+                if (pwm.Frequency <= new Frequency(100) || pwm.Frequency >= new Frequency(1000))
                 {
                     delta *= -1;
                 }
             }
         }
 
-        private void DutyCycleChecks(IPwmPort pwm)
+        async Task DutyCycleChecks(IPwmPort pwm)
         {
             var delta = 0.10000f;
 
             pwm.Start();
+
             while (true)
             {
                 Console.WriteLine($"Duty: {pwm.DutyCycle}  Duration: {pwm.Duration} {pwm.TimeScale}");
-                Thread.Sleep(2000);
+                await Task.Delay(2000);
 
                 var temp = Math.Round(pwm.DutyCycle + delta, 1);
                 pwm.DutyCycle = (float)temp;
@@ -127,7 +127,7 @@ namespace Basic_PWM
             }
         }
 
-        private void DurationChecks(IPwmPort pwm)
+        async Task DurationChecks(IPwmPort pwm)
         {
             var delta = 1f;
             pwm.TimeScale = TimeScale.Milliseconds;
@@ -136,7 +136,7 @@ namespace Basic_PWM
             while (true)
             {
                 Console.WriteLine($"Duty: {pwm.DutyCycle}  Duration: {pwm.Duration} {pwm.TimeScale}");
-                Thread.Sleep(2000);
+                await Task.Delay(2000);
 
                 var temp = Math.Round(pwm.Duration + delta, 0);
                 pwm.Duration = (float)temp;
