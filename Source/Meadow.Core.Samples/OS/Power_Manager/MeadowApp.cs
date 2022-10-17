@@ -11,6 +11,7 @@ namespace Watchdog
     {
         private IDigitalOutputPort blue;
         private IDigitalOutputPort red;
+        private IDigitalOutputPort green;
 
         public override Task Initialize()
         {
@@ -19,9 +20,18 @@ namespace Watchdog
 
             blue = Device.CreateDigitalOutputPort(Device.Pins.OnboardLedBlue, false);
             red = Device.CreateDigitalOutputPort(Device.Pins.OnboardLedRed, false);
+            green = Device.CreateDigitalOutputPort(Device.Pins.OnboardLedGreen, false);
 
             Device.PlatformOS.BeforeSleep += () =>
             {
+                for (var i = 0; i < 3; i++)
+                {
+                    green.State = red.State = blue.State = true;
+                    Thread.Sleep(1000);
+                    green.State = red.State = blue.State = false;
+                    Thread.Sleep(1000);
+                }
+
                 Resolver.Log.Info("Device is about to enter Sleep mode");
                 // actual serial output is asynchronous, so we need to delay a little to see the output
                 Thread.Sleep(500);
@@ -29,14 +39,28 @@ namespace Watchdog
 
             Device.PlatformOS.AfterWake += () =>
             {
-                // Don't use the console for a while after wake due to a bug that will crash the OS
-                Thread.Sleep(3000);
+                green.State = true;
+                red.State = blue.State = false;
+                Thread.Sleep(1000);
+                red.State = true;
+                green.State = blue.State = false;
+                Thread.Sleep(1000);
+                blue.State = true;
+                red.State = green.State = false;
+                Thread.Sleep(1000);
+                green.State = red.State = blue.State = false;
+
                 Resolver.Log.Info("Device has returned from Sleep mode");
             };
 
             Device.PlatformOS.BeforeReset += () =>
             {
                 Resolver.Log.Info("Device is about to Reset");
+
+                green.State = true;
+                red.State = true;
+                blue.State = true;
+
                 // actual serial output is asynchronous, so we need to delay a little to see the output
                 Thread.Sleep(500);
             };
