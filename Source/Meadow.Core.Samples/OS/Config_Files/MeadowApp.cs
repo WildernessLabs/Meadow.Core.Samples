@@ -1,5 +1,6 @@
 ﻿using Meadow;
 using Meadow.Devices;
+using Meadow.Hardware;
 using System;
 using System.Threading.Tasks;
 
@@ -7,18 +8,30 @@ namespace Config_Files
 {
     public class MeadowApp : App<F7FeatherV2>
     {
+        private IWiFiNetworkAdapter wifi;
+
         public override Task Initialize()
         {
-            if (Device.WiFiAdapter.IsConnected)
+            Resolver.Log.Info($"Log level: {Resolver.Log.Loglevel}");
+
+            Resolver.Log.Trace($"Trace Message");
+            Resolver.Log.Debug($"Debug Message");
+            Resolver.Log.Info($"Info Message");
+            Resolver.Log.Warn($"Warn Message");
+            Resolver.Log.Error($"Error Message");
+
+            wifi = Device.NetworkAdapters.Primary<IWiFiNetworkAdapter>();
+
+            if (wifi.IsConnected)
             {
-                Console.WriteLine("WiFi adapter already connected.");
+                Resolver.Log.Info("WiFi adapter already connected.");
             }
             else
             {
-                Console.WriteLine("WiFi adapter not connected.");
-                Device.WiFiAdapter.WiFiConnected += (s, e) =>
+                Resolver.Log.Info("WiFi adapter not connected.");
+                wifi.NetworkConnected += (s, e) =>
                 {
-                    Console.WriteLine("WiFi adapter connected.");
+                    Resolver.Log.Info("WiFi adapter connected.");
                 };
             }
 
@@ -27,9 +40,11 @@ namespace Config_Files
 
         public override Task Run()
         {
+            Resolver.Log.Debug($"+Run");
             StartHeartbeat();
 
             OutputDeviceInfo();
+            OutputNtpInfo();
             OutputMeadowOSInfo();
 
             OutputDeviceConfigurationInfo();
@@ -39,56 +54,69 @@ namespace Config_Files
 
         void OutputDeviceInfo()
         {
-            Console.WriteLine($"=========================OutputDeviceInfo==============================");
-            Console.WriteLine($"Device name: {Device.Information.DeviceName}");
-            Console.WriteLine($"Processor serial number: {Device.Information.ProcessorSerialNumber}");
-            Console.WriteLine($"Processor ID: {Device.Information.ChipID}");
-            Console.WriteLine($"Model: {Device.Information.Model}");
-            Console.WriteLine($"Processor type: {Device.Information.ProcessorType}");
-            Console.WriteLine($"Product: {Device.Information.Model}");
-            Console.WriteLine($"Coprocessor type: {Device.Information.CoprocessorType}");
-            Console.WriteLine($"Coprocessor firmware version: {Device.Information.CoprocessorOSVersion}");
-            Console.WriteLine($"=======================================================================");
+            Resolver.Log.Info($"=========================OutputDeviceInfo==============================");
+            Resolver.Log.Info($"Device name: {Device.Information.DeviceName}");
+            Resolver.Log.Info($"Processor serial number: {Device.Information.ProcessorSerialNumber}");
+            Resolver.Log.Info($"Processor ID: {Device.Information.UniqueID}");
+            Resolver.Log.Info($"Model: {Device.Information.Model}");
+            Resolver.Log.Info($"Processor type: {Device.Information.ProcessorType}");
+            Resolver.Log.Info($"Product: {Device.Information.Model}");
+            Resolver.Log.Info($"Coprocessor type: {Device.Information.CoprocessorType}");
+            Resolver.Log.Info($"Coprocessor firmware version: {Device.Information.CoprocessorOSVersion}");
+            Resolver.Log.Info($"=======================================================================");
+        }
+
+        void OutputNtpInfo()
+        {
+            Resolver.Log.Info($"=========================OutputMeadowOSInfo============================");
+            Resolver.Log.Info($"NTP Client Enabled: {Device.PlatformOS.NtpClient.Enabled}");
+            Resolver.Log.Info($"=======================================================================");
         }
 
         void OutputMeadowOSInfo()
         {
-            Console.WriteLine($"=========================OutputMeadowOSInfo============================");
-            Console.WriteLine($"OS version: {MeadowOS.SystemInformation.OSVersion}");
-            Console.WriteLine($"Mono version: {MeadowOS.SystemInformation.MonoVersion}");
-            Console.WriteLine($"Build date: {MeadowOS.SystemInformation.OSBuildDate}");
-            Console.WriteLine($"=======================================================================");
+            Resolver.Log.Info($"=========================OutputMeadowOSInfo============================");
+            Resolver.Log.Info($"OS version: {MeadowOS.SystemInformation.OSVersion}");
+            Resolver.Log.Info($"Mono version: {MeadowOS.SystemInformation.MonoVersion}");
+            Resolver.Log.Info($"Build date: {MeadowOS.SystemInformation.OSBuildDate}");
+            Resolver.Log.Info($"=======================================================================");
         }
 
         void OutputDeviceConfigurationInfo()
         {
             try
             {
-                Console.WriteLine($"====================OutputDeviceConfigurationInfo======================");
-                Console.WriteLine($"Automatically connect to network: {Device.WiFiAdapter.AutomaticallyStartNetwork}");
-                Console.WriteLine($"Automatically reconnect: {Device.WiFiAdapter.AutomaticallyReconnect}");
-                Console.WriteLine($"Get time at startup: {Device.WiFiAdapter.GetNetworkTimeAtStartup}");
-                //Console.WriteLine($"NTP Server: {Device.WiFiAdapter.NtpServer}");
-                Console.WriteLine($"Default access point: {Device.WiFiAdapter.DefaultAcessPoint}");
-                Console.WriteLine($"Maximum retry count: {Device.WiFiAdapter.MaximumRetryCount}");
-                Console.WriteLine($"MAC address: {FormatMacAddressString(Device.WiFiAdapter.MacAddress)}");
-                Console.WriteLine($"Soft AP MAC address: {FormatMacAddressString(Device.WiFiAdapter.ApMacAddress)}");
-                Console.WriteLine($"=======================================================================");
+                Resolver.Log.Info($"====================OutputDeviceConfigurationInfo======================");
+                Resolver.Log.Info($"Automatically connect to network: {wifi.AutoConnect}");
+                Resolver.Log.Info($"Automatically reconnect: {wifi.AutoReconnect}");
+                Resolver.Log.Info($"Default access point: {wifi.DefaultSsid}");
+                Resolver.Log.Info($"MAC address: {wifi.MacAddress}");
+                Resolver.Log.Info($"=======================================================================");
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Resolver.Log.Error(e.Message);
             }
         }
 
         protected void StartHeartbeat()
         {
+            Resolver.Log.Debug($"+StartHeartbeat");
+
             Task.Run(async () =>
             {
+                Resolver.Log.Trace($"Heartbeat Task Started");
+                var countToReset = 1;
+
                 while (true)
                 {
-                    Console.WriteLine($"{DateTime.Now} {Device.WiFiAdapter.IpAddress}");
-                    await Task.Delay(10000);
+                    Resolver.Log.Debug($"Count to reset: {countToReset}");
+                    Resolver.Log.Info($"{DateTime.Now} {wifi.IpAddress}");
+                    await Task.Delay(TimeSpan.FromSeconds(10));
+
+                    Resolver.Log.Trace($"Testing for throw");
+                    if (--countToReset <= 0) throw new Exception("Testing restart...");
+
                 }
             });
         }
