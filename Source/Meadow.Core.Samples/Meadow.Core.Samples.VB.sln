@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Network", "Network", "{E0C20F61-6FB7-42B2-BA5F-CA2BBB98D59B}"
+EndProject
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "WiFi_Basics", "Network\WiFi_Basics\VB\WiFi_Basics.vbproj", "{0176C614-FD01-4D18-B40E-26184878C95B}"
+EndProject
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "BlinkyVB", "Blinky\BlinkyVB\BlinkyVB.vbproj", "{91BECB37-E2BC-4593-800D-E7C394D69B00}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blinky", "Blinky", "{397F3C30-7610-4CD1-B6BC-E493FCB5F7C7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0176C614-FD01-4D18-B40E-26184878C95B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0176C614-FD01-4D18-B40E-26184878C95B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0176C614-FD01-4D18-B40E-26184878C95B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0176C614-FD01-4D18-B40E-26184878C95B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0176C614-FD01-4D18-B40E-26184878C95B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0176C614-FD01-4D18-B40E-26184878C95B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{91BECB37-E2BC-4593-800D-E7C394D69B00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91BECB37-E2BC-4593-800D-E7C394D69B00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91BECB37-E2BC-4593-800D-E7C394D69B00}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{91BECB37-E2BC-4593-800D-E7C394D69B00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91BECB37-E2BC-4593-800D-E7C394D69B00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91BECB37-E2BC-4593-800D-E7C394D69B00}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0176C614-FD01-4D18-B40E-26184878C95B} = {E0C20F61-6FB7-42B2-BA5F-CA2BBB98D59B}
+		{91BECB37-E2BC-4593-800D-E7C394D69B00} = {397F3C30-7610-4CD1-B6BC-E493FCB5F7C7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6D66302A-C860-466E-98ED-72A3A42C4983}
+	EndGlobalSection
+EndGlobal
