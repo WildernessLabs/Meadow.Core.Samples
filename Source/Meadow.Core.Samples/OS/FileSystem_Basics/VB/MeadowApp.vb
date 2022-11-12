@@ -38,11 +38,11 @@ Public Class MeadowApp
 
     Public Sub EnumerateNamedDirectories()
         Console.WriteLine("The following named directories are available:")
-        Console.WriteLine($"\t MeadowOS.FileSystem.UserFileSystemRoot: {MeadowOS.FileSystem.UserFileSystemRoot}")
-        Console.WriteLine($"\t MeadowOS.FileSystem.CacheDirectory: {MeadowOS.FileSystem.CacheDirectory}")
-        Console.WriteLine($"\t MeadowOS.FileSystem.DataDirectory: {MeadowOS.FileSystem.DataDirectory}")
-        Console.WriteLine($"\t MeadowOS.FileSystem.DocumentsDirectory: {MeadowOS.FileSystem.DocumentsDirectory}")
-        Console.WriteLine($"\t MeadowOS.FileSystem.TempDirectory: {MeadowOS.FileSystem.TempDirectory}")
+        Console.WriteLine($"{vbTab} MeadowOS.FileSystem.UserFileSystemRoot: {MeadowOS.FileSystem.UserFileSystemRoot}")
+        Console.WriteLine($"{vbTab} MeadowOS.FileSystem.CacheDirectory: {MeadowOS.FileSystem.CacheDirectory}")
+        Console.WriteLine($"{vbTab} MeadowOS.FileSystem.DataDirectory: {MeadowOS.FileSystem.DataDirectory}")
+        Console.WriteLine($"{vbTab} MeadowOS.FileSystem.DocumentsDirectory: {MeadowOS.FileSystem.DocumentsDirectory}")
+        Console.WriteLine($"{vbTab} MeadowOS.FileSystem.TempDirectory: {MeadowOS.FileSystem.TempDirectory}")
     End Sub
 
     Public Sub CreateFile(path As String, filename As String)
@@ -121,7 +121,8 @@ Public Class MeadowApp
             End If
         End Try
         If (dirs IsNot Nothing) Then
-            For i As Integer = 1 To dirs.Length
+            For i As Integer = 1 To dirs.Length - 1
+                Console.WriteLine(i)
                 ShowFolder(dirs(i), depth + 1, folderCount, fileCount, showSize, i = dirs.Length - 1)
                 folderCount += 1
             Next i

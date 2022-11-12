@@ -1,2 +1,2 @@
 ﻿MonoControl:
-    Options: --jit
+    Options: --jit --debug
