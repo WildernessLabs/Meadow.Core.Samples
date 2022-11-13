@@ -74,7 +74,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.F7", "..\..\..\Meado
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Core", "..\..\..\Meadow.Core\source\Meadow.Core\Meadow.Core.csproj", "{4D4C491A-7E4E-42B5-8A08-D611C0A9944D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLite_Sample", "OS\SQLite\SQLite_Sample.csproj", "{03B6B389-CC11-44CC-94CE-6C60EF78C871}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLite_Sample", "OS\SQLite\CS\SQLite_Sample.csproj", "{03B6B389-CC11-44CC-94CE-6C60EF78C871}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeginInvokeOnMainThread", "OS\BeginInvokeOnMainThread\BeginInvokeOnMainThread.csproj", "{0282BC08-332E-4EF8-AC9A-B747ABF90E99}"
 EndProject
