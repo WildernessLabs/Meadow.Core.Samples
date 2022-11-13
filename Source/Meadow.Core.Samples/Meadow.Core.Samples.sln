@@ -64,7 +64,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bluetooth", "Bluetooth", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "McuTemp", "OS\McuTemp\McuTemp.csproj", "{85681433-FB37-4A95-AC8B-B5B84803BD0E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bluetooth_Basics", "Bluetooth\Bluetooth_Basics\Bluetooth_Basics.csproj", "{1BAC6FDB-3273-4C6B-9DB2-034D36FC021F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bluetooth_Basics", "Bluetooth\Bluetooth_Basics\CS\Bluetooth_Basics.csproj", "{1BAC6FDB-3273-4C6B-9DB2-034D36FC021F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileSystem_Basics", "OS\FileSystem_Basics\CS\FileSystem_Basics.csproj", "{2E9E1A0B-2472-4A41-92E5-556D621D07DC}"
 EndProject

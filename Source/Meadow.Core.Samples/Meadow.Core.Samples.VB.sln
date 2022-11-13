@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OS", "OS", "{3E1783B3-DB96-
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "FileSystem_Basics", "OS\FileSystem_Basics\VB\FileSystem_Basics.vbproj", "{3C12779E-D3DF-4B81-9B68-0C6ECB3DD6BE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bluetooth", "Bluetooth", "{D754290F-ED90-4EFF-B90C-BF64B0092E34}"
+EndProject
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "Bluetooth_Basics", "Bluetooth\Bluetooth_Basics\VB\Bluetooth_Basics.vbproj", "{6ED49F60-5425-4D32-89B6-5983301347D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,12 @@ Global
 		{3C12779E-D3DF-4B81-9B68-0C6ECB3DD6BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C12779E-D3DF-4B81-9B68-0C6ECB3DD6BE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3C12779E-D3DF-4B81-9B68-0C6ECB3DD6BE}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{6ED49F60-5425-4D32-89B6-5983301347D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ED49F60-5425-4D32-89B6-5983301347D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ED49F60-5425-4D32-89B6-5983301347D4}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{6ED49F60-5425-4D32-89B6-5983301347D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ED49F60-5425-4D32-89B6-5983301347D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6ED49F60-5425-4D32-89B6-5983301347D4}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +57,7 @@ Global
 		{0176C614-FD01-4D18-B40E-26184878C95B} = {E0C20F61-6FB7-42B2-BA5F-CA2BBB98D59B}
 		{91BECB37-E2BC-4593-800D-E7C394D69B00} = {397F3C30-7610-4CD1-B6BC-E493FCB5F7C7}
 		{3C12779E-D3DF-4B81-9B68-0C6ECB3DD6BE} = {3E1783B3-DB96-4EEE-A58F-463D48E10287}
+		{6ED49F60-5425-4D32-89B6-5983301347D4} = {D754290F-ED90-4EFF-B90C-BF64B0092E34}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6D66302A-C860-466E-98ED-72A3A42C4983}
