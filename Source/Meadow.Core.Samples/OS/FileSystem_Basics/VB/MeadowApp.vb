@@ -11,8 +11,6 @@ Public Class MeadowApp
     'Change F7FeatherV2 to F7FeatherV1 for V1.x boards'
     Inherits App(Of F7FeatherV2)
 
-    Private onboardLed As RgbPwmLed
-
     Public Overrides Function Run() As Task
         Console.WriteLine("Meadow File System Tests")
         ' list out the named directories available at MeadowOS.FileSystem.[x]
