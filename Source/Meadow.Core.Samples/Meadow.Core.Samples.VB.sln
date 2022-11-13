@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bluetooth", "Bluetooth", "{
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "Bluetooth_Basics", "Bluetooth\Bluetooth_Basics\VB\Bluetooth_Basics.vbproj", "{6ED49F60-5425-4D32-89B6-5983301347D4}"
 EndProject
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "SQLite_Sample", "OS\SQLite\VB\SQLite_Sample.vbproj", "{7DA089FA-1311-426B-9336-0CC1395F273E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,12 @@ Global
 		{6ED49F60-5425-4D32-89B6-5983301347D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6ED49F60-5425-4D32-89B6-5983301347D4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6ED49F60-5425-4D32-89B6-5983301347D4}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{7DA089FA-1311-426B-9336-0CC1395F273E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DA089FA-1311-426B-9336-0CC1395F273E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DA089FA-1311-426B-9336-0CC1395F273E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7DA089FA-1311-426B-9336-0CC1395F273E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DA089FA-1311-426B-9336-0CC1395F273E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DA089FA-1311-426B-9336-0CC1395F273E}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +66,7 @@ Global
 		{91BECB37-E2BC-4593-800D-E7C394D69B00} = {397F3C30-7610-4CD1-B6BC-E493FCB5F7C7}
 		{3C12779E-D3DF-4B81-9B68-0C6ECB3DD6BE} = {3E1783B3-DB96-4EEE-A58F-463D48E10287}
 		{6ED49F60-5425-4D32-89B6-5983301347D4} = {D754290F-ED90-4EFF-B90C-BF64B0092E34}
+		{7DA089FA-1311-426B-9336-0CC1395F273E} = {3E1783B3-DB96-4EEE-A58F-463D48E10287}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6D66302A-C860-466E-98ED-72A3A42C4983}
