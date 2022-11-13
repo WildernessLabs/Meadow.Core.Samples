@@ -25,7 +25,7 @@ Public Class MeadowApp
         Device.BluetoothAdapter.StartBluetoothServer(bleTreeDefinition)
 
         ' wire up some notifications on set
-        For Each Characteristic In bleTreeDefinition.Services(1).Characteristics
+        For Each Characteristic In bleTreeDefinition.Services(0).Characteristics
             AddHandler Characteristic.ValueSet,
                 Sub(c As ICharacteristic, d As Object)
                     Console.WriteLine($"HEY, I JUST GOT THIS BLE DATA for Characteristic '{c.Name}' of type {d.GetType().Name}: {d}")
