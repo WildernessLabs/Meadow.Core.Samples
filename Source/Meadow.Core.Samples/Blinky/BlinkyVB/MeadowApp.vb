@@ -12,7 +12,7 @@ Public Class MeadowApp
     Private onboardLed As RgbPwmLed
 
     Public Overrides Function Run() As Task
-        Console.WriteLine("Run... (VB.NET)")
+        Resolver.Log.Info("Run... (VB.NET)")
 
         CycleColors(TimeSpan.FromMilliseconds(1000))
 
@@ -20,7 +20,7 @@ Public Class MeadowApp
     End Function
 
     Public Overrides Function Initialize() As Task
-        Console.WriteLine("Initialize... (VB.NET)")
+        Resolver.Log.Info("Initialize... (VB.NET)")
 
         onboardLed = New RgbPwmLed(Device,
             Device.Pins.OnboardLedRed,
@@ -28,11 +28,11 @@ Public Class MeadowApp
             Device.Pins.OnboardLedBlue,
             CommonType.CommonAnode)
 
-        Return MyBase.Run()
+        Return MyBase.Initialize()
     End Function
 
     Private Sub CycleColors(ByVal duration As TimeSpan)
-        Console.WriteLine("Cycle colors...")
+        Resolver.Log.Info("Cycle colors...")
 
         While True
             ShowColorPulse(Color.Blue, duration)
