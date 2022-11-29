@@ -6,6 +6,14 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="app.config.yaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app.config.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\Meadow.Core\source\Meadow.F7\Meadow.F7.csproj" />
   </ItemGroup>
   <ItemGroup>

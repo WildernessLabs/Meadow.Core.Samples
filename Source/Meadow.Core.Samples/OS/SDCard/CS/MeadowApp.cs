@@ -2,38 +2,58 @@
 using Meadow.Devices;
 using System;
 using System.IO;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SDCard
 {
-    public class MeadowApp : App<F7FeatherV2>
+    public class MeadowApp : App<F7CoreComputeV2>
     {
         public override Task Run()
         {
-            if (!Device.PlatformOS.SdCardPresent)
+            Device.PlatformOS.ExternalStorageEvent += PlatformOS_ExternalStorageEvent;
+
+            var storage = Device.PlatformOS.ExternalStorage.FirstOrDefault();
+
+            if (storage == null)
             {
                 Resolver.Log.Warn($"SD card is not detected");
-                return Task.CompletedTask;
             }
-
-            Resolver.Log.Info($"SD card is mounted at: {MeadowOS.FileSystem.SDCard}");
-
-            var random = new Random();
-
-            var name = $"test_{random.Next(32768)}.txt";
-
-            using (var file = File.CreateText(Path.Combine(MeadowOS.FileSystem.SDCard, name)))
+            else
             {
-                file.Write("Hello Meadow!");
+                Resolver.Log.Info($"SD card is mounted at: {storage.Directory.FullName}");
+
+                Tree(storage.Directory.FullName, true);
             }
 
-            Resolver.Log.Info($"Created {name}");
+            Resolver.Log.Info("Waiting for storage events...");
 
-            Tree(MeadowOS.FileSystem.SDCard, true);
+            while (true)
+            {
+                Thread.Sleep(1000);
+            }
+        }
 
-            Console.WriteLine("Sample complete");
+        private void PlatformOS_ExternalStorageEvent(IExternalStorage storage, ExternalStorageState state)
+        {
+            Resolver.Log.Info($"Storage Event: {storage.Directory.FullName} is {state}");
 
-            return Task.CompletedTask;
+            if (state == ExternalStorageState.Inserted)
+            {
+                var random = new Random();
+
+                var name = $"test_{random.Next(32768)}.txt";
+
+                using (var file = File.CreateText(Path.Combine(storage.Directory.FullName, name)))
+                {
+                    file.Write("Hello Meadow!");
+                }
+
+                Resolver.Log.Info($"Created {name}");
+
+                Tree(storage.Directory.FullName, true);
+            }
         }
 
         void Tree(string root, bool showSize = false)
