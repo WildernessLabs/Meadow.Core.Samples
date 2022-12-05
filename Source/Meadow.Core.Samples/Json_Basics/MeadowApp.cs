@@ -1,7 +1,5 @@
 ﻿using Meadow;
 using Meadow.Devices;
-using Meadow.Foundation;
-using Meadow.Foundation.Leds;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,34 +16,15 @@ namespace Json_Basics
 
     public class MeadowApp : App<F7FeatherV2>
     {
-        RgbPwmLed onboardLed;
-
-        public override Task Initialize()
-        {
-            onboardLed = new RgbPwmLed(
-                device: Device,
-                redPwmPin: Device.Pins.OnboardLedRed,
-                greenPwmPin: Device.Pins.OnboardLedGreen,
-                bluePwmPin: Device.Pins.OnboardLedBlue);
-
-            return base.Initialize();
-        }
-
         public override Task Run()
         {
             Console.WriteLine("Hello Meadow Json serialize");
 
-            onboardLed.SetColor(Color.Orange);
-
             TestJsonSerialize();
-
-            onboardLed.SetColor(Color.Yellow);
 
             TestJsonDeserialize();
 
-            onboardLed.SetColor(Color.Green);
-
-            return base.Run();
+            return Task.CompletedTask;
         }
 
         void TestJsonSerialize()
