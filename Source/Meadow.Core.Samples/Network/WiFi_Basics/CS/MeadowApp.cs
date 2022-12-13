@@ -29,16 +29,9 @@ namespace WiFi_Basics
             // connect to the wifi network.
             Console.WriteLine($"Connecting to WiFi Network {WIFI_NAME}");
 
-            var connectionResult = await wifi.Connect(WIFI_NAME, WIFI_PASSWORD, TimeSpan.FromSeconds(45));
+            await wifi.Connect(WIFI_NAME, WIFI_PASSWORD, TimeSpan.FromSeconds(45));
 
-            if (connectionResult.ConnectionStatus != ConnectionStatus.Success)
-            {
-                throw new Exception($"Cannot connect to network: {connectionResult.ConnectionStatus}");
-            }
-            else
-            {
-                DisplayNetworkInformation();
-            }
+            DisplayNetworkInformation();
 
             do
             {
