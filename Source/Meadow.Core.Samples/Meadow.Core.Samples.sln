@@ -90,7 +90,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Contracts", "..\..\.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Counter", "IO\Counter\Counter.csproj", "{D343696F-5426-4BDD-AF33-CCAE726E2610}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Logging", "..\..\..\Meadow.Logging\lib\Meadow.Logging.csproj", "{D79EA455-5444-4F4A-9869-9FE0320DE50B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Logging", "..\..\..\Meadow.Logging\Source\Meadow.Logging\lib\Meadow.Logging.csproj", "{D79EA455-5444-4F4A-9869-9FE0320DE50B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Power_Manager", "OS\Power_Manager\Power_Manager.csproj", "{046DAA14-B710-4120-9FBC-3150B713C8B3}"
 EndProject
