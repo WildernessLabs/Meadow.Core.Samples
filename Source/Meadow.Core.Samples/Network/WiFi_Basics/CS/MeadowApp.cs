@@ -5,6 +5,7 @@ using Meadow.Hardware;
 using System;
 using System.Net.Http;
 using System.Net.NetworkInformation;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WiFi_Basics
@@ -35,20 +36,18 @@ namespace WiFi_Basics
 
             while (true)
             {
-                GetWebPageViaHttpClient("https://postman-echo.com/get?foo1=bar1&foo2=bar2").Wait();
-                // force cleanup
-                GC.Collect();
+                await GetWebPageViaHttpClient("https://postman-echo.com/get?foo1=bar1&foo2=bar2");
             }
         }
 
         void WiFiAdapter_NetworkConnected(object sender, EventArgs e)
         {
-            Console.WriteLine("Connection request completed.");
+            Console.WriteLine("Connection request completed");
         }
 
         async Task ScanForAccessPoints(IWiFiNetworkAdapter wifi)
         {
-            Console.WriteLine("Getting list of access points.");
+            Console.WriteLine("Getting list of access points");
             var networks = await wifi.Scan(TimeSpan.FromSeconds(60));
 
             if (networks.Count > 0)
@@ -64,17 +63,19 @@ namespace WiFi_Basics
             }
             else
             {
-                Console.WriteLine($"No access points detected.");
+                Console.WriteLine($"No access points detected");
             }
         }
 
         public void DisplayNetworkInformation()
         {
             NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
+
             if (adapters.Length == 0)
             {
-                Console.WriteLine("No adapters available.");
+                Console.WriteLine("No adapters available");
             }
+
             foreach (NetworkInterface adapter in adapters)
             {
                 IPInterfaceProperties properties = adapter.GetIPProperties();
@@ -85,11 +86,14 @@ namespace WiFi_Basics
                 Console.WriteLine($"  Interface type .......................... : {adapter.NetworkInterfaceType}");
                 Console.WriteLine($"  Physical Address ........................ : {adapter.GetPhysicalAddress()}");
                 Console.WriteLine($"  Operational status ...................... : {adapter.OperationalStatus}");
+                
                 string versions = string.Empty;
+
                 if (adapter.Supports(NetworkInterfaceComponent.IPv4))
                 {
                     versions = "IPv4";
                 }
+
                 if (adapter.Supports(NetworkInterfaceComponent.IPv6))
                 {
                     if (versions.Length > 0)
@@ -98,12 +102,15 @@ namespace WiFi_Basics
                     }
                     versions += "IPv6";
                 }
+
                 Console.WriteLine($"  IP version .............................. : {versions}");
+              
                 if (adapter.Supports(NetworkInterfaceComponent.IPv4))
                 {
                     IPv4InterfaceProperties ipv4 = properties.GetIPv4Properties();
                     Console.WriteLine("  MTU ..................................... : {0}", ipv4.Mtu);
                 }
+
                 if ((adapter.NetworkInterfaceType == NetworkInterfaceType.Wireless80211) || (adapter.NetworkInterfaceType == NetworkInterfaceType.Ethernet))
                 {
                     foreach (UnicastIPAddressInformation ip in adapter.GetIPProperties().UnicastAddresses)
