@@ -33,11 +33,12 @@ namespace WiFi_Basics
 
             DisplayNetworkInformation();
 
-            do
+            while (true)
             {
                 GetWebPageViaHttpClient("https://postman-echo.com/get?foo1=bar1&foo2=bar2").Wait();
+                // force cleanup
+                GC.Collect();
             }
-            while (true);
         }
 
         void WiFiAdapter_NetworkConnected(object sender, EventArgs e)
