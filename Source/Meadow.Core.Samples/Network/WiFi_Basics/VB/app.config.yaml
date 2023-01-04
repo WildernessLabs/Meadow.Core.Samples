@@ -1,6 +1,6 @@
 ﻿Logging:
   LogLevel:
-    Default: "Trace"
+    Default: Trace
 Lifecycle:
-  ResetOnAppFailure: false,
+  RestartOnAppFailure: false
   AppFailureRestartDelaySeconds: 60
