@@ -46,7 +46,7 @@ Meadow.Foundation is currently split into multiple GitHub repos:
     * [Threading.Tasks](/Source/Meadow.Core.Samples/OS/Threading.Tasks)
     * [Update](/Source/Meadow.Core.Samples/OS/Update)
     * [Watchdog](/Source/Meadow.Core.Samples/OS/Watchdog)
-* [Walking Digital Outputs](/Source/Meadow.Core.Samples/Utilities)
+* [Walking Digital Outputs](/Source/Meadow.Core.Samples/Utilities/Walking_DigitalOutputs)
 
 
 For peripheral samples, see the [Meadow.Foundation repo](https://github.com/wildernesslabs/Meadow.Foundation).
