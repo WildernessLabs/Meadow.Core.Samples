@@ -2,7 +2,6 @@
 
 # Meadow.Core.Samples
 
-Meadow.Foundation is currently split into multiple GitHub repos:
 * [Blinky (C#, F#, VB.NET)](/Source/Meadow.Core.Samples/Blinky) 
 * [Bluetooth](/Source/Meadow.Core.Samples/Bluetooth/Bluetooth_Basics)
 * [Board Specific Samples](/Source/Meadow.Core.Samples/Board_Specific_Samples)
