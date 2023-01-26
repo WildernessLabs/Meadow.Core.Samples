@@ -23,7 +23,9 @@ Public Class MeadowApp
         Await ScanForAccessPoints(wifi)
 
         Try
-            Await wifi.Connect(SSID, WIFI_PASSWORD, TimeSpan.FromSeconds(45))
+            Console.WriteLine($"Connecting to WiFi Network {WIFI_NAME}")
+
+            Await wifi.Connect(WIFI_NAME, WIFI_PASSWORD, TimeSpan.FromSeconds(45))
 
         Catch ex As Exception
             Resolver.Log.Error($"Failed to Connect: {ex.Message}")
@@ -32,17 +34,21 @@ Public Class MeadowApp
         If wifi.IsConnected Then
             DisplayNetworkInformation()
 
-            Await GetWebPageViaHttpClient("https://postman-echo.com/get?foo1=bar1&foo2=bar2")
+            While True
+                Await GetWebPageViaHttpClient("https://postman-echo.com/get?foo1=bar1&foo2=bar2")
+            End While
         End If
-
     End Function
+
+    Private Sub OnNetworkConected(sender As INetworkAdapter, e As NetworkConnectionEventArgs) _
+        Handles wifi.NetworkConnected
+
+        Resolver.Log.Info("Connection request completed.")
+    End Sub
 
     Private Async Function ScanForAccessPoints(adapter As IWiFiNetworkAdapter) As Task
         Resolver.Log.Info("Getting list of access points.")
-
         Dim networks = Await wifi.Scan(TimeSpan.FromSeconds(60))
-
-        Resolver.Log.Info($"scan complete {networks}")
 
         If networks.Count > 0 Then
             Resolver.Log.Info("|-------------------------------------------------------------|---------|")
@@ -72,6 +78,7 @@ Public Class MeadowApp
                 Resolver.Log.Info($"  Interface type .......................... : {ni.NetworkInterfaceType}")
                 Resolver.Log.Info($"  Physical Address ........................ : {ni.GetPhysicalAddress()}")
                 Resolver.Log.Info($"  Operational status ...................... : {ni.OperationalStatus}")
+
                 Dim versions = String.Empty
 
                 If ni.Supports(NetworkInterfaceComponent.IPv4) Then
@@ -94,7 +101,6 @@ Public Class MeadowApp
 
                 If (ni.NetworkInterfaceType = NetworkInterfaceType.Wireless80211) Or (ni.NetworkInterfaceType = NetworkInterfaceType.Ethernet) Then
                     For Each ip In ni.GetIPProperties().UnicastAddresses
-
                         If (ip.Address.AddressFamily = System.Net.Sockets.AddressFamily.InterNetwork) Then
                             Resolver.Log.Info($"  IP address .............................. : {ip.Address} [{wifi.IpAddress}]")
                             Resolver.Log.Info($"  Subnet mask ............................. : {ip.IPv4Mask}")
@@ -124,10 +130,4 @@ Public Class MeadowApp
             End Try
         End Using
     End Function
-
-    Private Sub OnNetworkConected(sender As Object, e As EventArgs) _
-        Handles wifi.NetworkConnected
-
-        Resolver.Log.Info("Connection request completed.")
-    End Sub
 End Class
