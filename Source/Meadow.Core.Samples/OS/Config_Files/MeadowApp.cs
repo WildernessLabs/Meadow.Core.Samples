@@ -93,11 +93,10 @@ namespace Config_Files
                 {
                     Console.WriteLine($"====================OutputDeviceConfigurationInfo======================");
                     Resolver.Log.Info($"Automatically connect to network: {F7PlatformOS.GetBoolean(IPlatformOS.ConfigurationValues.AutomaticallyStartNetwork)}");
-                    Resolver.Log.Info($"Get time at startup: {F7PlatformOS.GetBoolean(IPlatformOS.ConfigurationValues.AutomaticallyStartNetwork)}");
-                    // Resolver.Log.Info($"NTP Server: {F7PlatformOS.GetBoolean(IPlatformOS.ConfigurationValues.NtpServer)}");
-                    Resolver.Log.Info($"Default access point: {F7PlatformOS.GetBoolean(IPlatformOS.ConfigurationValues.DefaultAccessPoint)}");
-                    Resolver.Log.Info($"Maximum retry count: {esp32Wifi.MaximumRetryCount}");
-                    Resolver.Log.Info($"Maximum retry count: {F7PlatformOS.GetBoolean(IPlatformOS.ConfigurationValues.MaximumNetworkRetryCount)}");
+                    Resolver.Log.Info($"Get time at startup: {F7PlatformOS.GetBoolean(IPlatformOS.ConfigurationValues.GetTimeAtStartup)}");
+                    Resolver.Log.Info($"Default access point: {F7PlatformOS.GetString(IPlatformOS.ConfigurationValues.DefaultAccessPoint)}");
+                    // Note: You can also access the maximum retry count via the ESP32 coprocessor using `esp32Wifi.MaximumRetryCount`.
+                    Resolver.Log.Info($"Maximum retry count: {F7PlatformOS.GetUInt(IPlatformOS.ConfigurationValues.MaximumNetworkRetryCount)}");
                     Resolver.Log.Info($"=======================================================================");
                 }
             }
