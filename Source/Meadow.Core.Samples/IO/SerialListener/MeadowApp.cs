@@ -14,7 +14,14 @@ namespace SerialListener
         public override Task Initialize()
         {
             // instantiate our serial port
-            classicSerialPort = Device.CreateSerialPort(Device.PlatformOS.GetSerialPortName("COM4"), 9600);
+            Resolver.Log.Info("Available serial ports:");
+            foreach (var name in Device.PlatformOS.GetSerialPortNames())
+            {
+                Resolver.Log.Info($"  {name.FriendlyName}");
+            }
+            var serialPortName = Device.PlatformOS.GetSerialPortName("COM4");
+            Console.WriteLine($"Using {serialPortName.FriendlyName}...");
+            classicSerialPort = Device.CreateSerialPort(serialPortName, 9600);
             Console.WriteLine("\tCreated");
 
             // open the serial port

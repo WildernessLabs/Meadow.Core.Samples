@@ -21,6 +21,11 @@ namespace SerialMessagePort
 
         public override Task Initialize()
         {
+            Resolver.Log.Info("Available serial ports:");
+            foreach (var name in Device.PlatformOS.GetSerialPortNames())
+            {
+                Resolver.Log.Info($"  {name.FriendlyName}");
+            }
             serialPortName = Device.PlatformOS.GetSerialPortName("COM1");
 
             Console.WriteLine("Get delimiter");

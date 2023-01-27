@@ -13,8 +13,14 @@ namespace SerialPort_Echo
 
         public override Task Initialize()
         {
-            Console.WriteLine("Using 'Com1'...");
-            port = Device.CreateSerialPort(Device.PlatformOS.GetSerialPortName("COM1"), 115200);
+            Resolver.Log.Info("Available serial ports:");
+            foreach (var name in Device.PlatformOS.GetSerialPortNames())
+            {
+                Resolver.Log.Info($"  {name.FriendlyName}");
+            }
+            var serialPortName = Device.PlatformOS.GetSerialPortName("COM1");
+            Console.WriteLine($"Using {serialPortName.FriendlyName}...");
+            port = Device.CreateSerialPort(serialPortName, 115200);
             Console.WriteLine("\tCreated");
             port.Open();
             if (port.IsOpen)
