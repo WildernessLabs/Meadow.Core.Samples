@@ -21,7 +21,7 @@ namespace SerialMessagePort
 
         public override Task Initialize()
         {
-            serialPortName = Device.SerialPortNames.Com1;
+            serialPortName = Device.Pins.SerialPortNames.Com1;
 
             Console.WriteLine("Get delimiter");
             // convert for later. 
