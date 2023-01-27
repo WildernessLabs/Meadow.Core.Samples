@@ -31,6 +31,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.WinForms", "..\..\..
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Graphics.MicroGraphics", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Libraries_and_Frameworks\Graphics.MicroGraphics\Driver\Graphics.MicroGraphics.csproj", "{53AE05DE-134E-45BA-9AFA-60B6E1824B06}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sensors.Motion.Bno055", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Sensors.Motion.Bno055\Driver\Sensors.Motion.Bno055.csproj", "{2F19CA09-A73F-4D23-B61C-58823841A87F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "I2C", "IO\I2C\I2C.csproj", "{CAEE04D2-E489-4EA4-AD73-BE7FCC580438}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Foundation.Core", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Core\Meadow.Foundation.Core.csproj", "{6D9FE81B-8769-4F00-A6E3-9E037A8318CB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sensors.Motion.Mpu6050", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Sensors.Motion.Mpu6050\Driver\Sensors.Motion.Mpu6050.csproj", "{3DF53F9F-F0AD-40C9-9310-6BC52A17840C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +99,28 @@ Global
 		{53AE05DE-134E-45BA-9AFA-60B6E1824B06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53AE05DE-134E-45BA-9AFA-60B6E1824B06}.Release|Any CPU.Build.0 = Release|Any CPU
 		{53AE05DE-134E-45BA-9AFA-60B6E1824B06}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{2F19CA09-A73F-4D23-B61C-58823841A87F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F19CA09-A73F-4D23-B61C-58823841A87F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F19CA09-A73F-4D23-B61C-58823841A87F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{2F19CA09-A73F-4D23-B61C-58823841A87F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F19CA09-A73F-4D23-B61C-58823841A87F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F19CA09-A73F-4D23-B61C-58823841A87F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{CAEE04D2-E489-4EA4-AD73-BE7FCC580438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAEE04D2-E489-4EA4-AD73-BE7FCC580438}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAEE04D2-E489-4EA4-AD73-BE7FCC580438}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAEE04D2-E489-4EA4-AD73-BE7FCC580438}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D9FE81B-8769-4F00-A6E3-9E037A8318CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D9FE81B-8769-4F00-A6E3-9E037A8318CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D9FE81B-8769-4F00-A6E3-9E037A8318CB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{6D9FE81B-8769-4F00-A6E3-9E037A8318CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D9FE81B-8769-4F00-A6E3-9E037A8318CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D9FE81B-8769-4F00-A6E3-9E037A8318CB}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{3DF53F9F-F0AD-40C9-9310-6BC52A17840C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DF53F9F-F0AD-40C9-9310-6BC52A17840C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DF53F9F-F0AD-40C9-9310-6BC52A17840C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3DF53F9F-F0AD-40C9-9310-6BC52A17840C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DF53F9F-F0AD-40C9-9310-6BC52A17840C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DF53F9F-F0AD-40C9-9310-6BC52A17840C}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,6 +137,10 @@ Global
 		{A395133A-2820-480E-83E5-159FB54D8959} = {C4C395D2-B493-454A-84DC-E125FE9BC6B9}
 		{139418B0-DBCE-49E3-AA68-201CC94661B1} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
 		{53AE05DE-134E-45BA-9AFA-60B6E1824B06} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
+		{2F19CA09-A73F-4D23-B61C-58823841A87F} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
+		{CAEE04D2-E489-4EA4-AD73-BE7FCC580438} = {DF4E42E7-7E84-474F-A8BA-903DA6A71A84}
+		{6D9FE81B-8769-4F00-A6E3-9E037A8318CB} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
+		{3DF53F9F-F0AD-40C9-9310-6BC52A17840C} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B727D8B-A918-479F-8D18-98A83CE51645}

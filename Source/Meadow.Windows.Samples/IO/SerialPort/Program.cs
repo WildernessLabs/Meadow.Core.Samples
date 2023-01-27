@@ -9,7 +9,12 @@ public class MeadowApp : App<Windows>
 
     public override Task Initialize()
     {
-        //        Device.Information.
+        var names = Device.PlatformOS.GetSerialPortNames();
+
+        // use the first one - adjust to your needs
+        var port = Device.CreateSerialPort(names.First());
+        port.Open();
+
 
         return Task.CompletedTask;
     }

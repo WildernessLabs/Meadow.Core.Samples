@@ -5,8 +5,7 @@ using Meadow.Hardware;
 public class MeadowApp : App<Windows>
 {
     private Ft232h _expander = new Ft232h();
-    private II2cBus _i2c;
-    private ISpiBus _spi;
+    private IDigitalOutputPort _c0;
 
     public static Task Main(string[] _)
     {
@@ -17,10 +16,13 @@ public class MeadowApp : App<Windows>
     {
         Console.WriteLine("Creating Outputs");
 
-        _i2c = _expander.CreateI2cBus();
-        _spi = _expander.CreateSpiBus();
+        _c0 = _expander.CreateDigitalOutputPort(_expander.Pins.C0);
 
-        _expander.CreateDigitalInputPort(_expander.Pins.C0);
+        while (true)
+        {
+            _c0.State = !_c0.State;
+            Thread.Sleep(1);
+        }
 
         return Task.CompletedTask;
     }
