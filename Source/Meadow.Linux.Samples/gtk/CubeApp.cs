@@ -1,12 +1,13 @@
 ﻿using Meadow.Foundation;
 using Meadow.Foundation.Graphics;
 using Meadow.Graphics;
+using Meadow.Pinouts;
 using System;
 using System.Threading.Tasks;
 
 namespace Meadow
 {
-    public class CubeApp : App<Simulation.SimulatedMeadow<Simulation.SimulatedPinout>>
+    public class CubeApp : App<Linux<RaspberryPi>>
     {
         private MicroGraphics _graphics = default!;
         private GtkDisplay _display = default!;
@@ -19,6 +20,11 @@ namespace Meadow
         private int[,] cubeWireframe = new int[12, 3];
         private int[,] cubeVertices;
 
+        public static async Task Main(string[] _)
+        {
+            await MeadowOS.Start();
+        }
+
         public override async Task Run()
         {
             _ = Task.Run(() =>
@@ -30,7 +36,7 @@ namespace Meadow
 
         public override Task Initialize()
         {
-            _display = new Meadow.Graphics.GtkDisplay(ColorType.Format16bppRgb565);
+            _display = new Meadow.Graphics.GtkDisplay(ColorMode.Format16bppRgb565);
 
             int cubeSize = 100;
 

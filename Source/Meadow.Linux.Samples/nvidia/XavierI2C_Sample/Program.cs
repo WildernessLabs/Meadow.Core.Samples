@@ -4,15 +4,21 @@ using Meadow.Foundation.Sensors.Motion;
 using Meadow.Pinouts;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace XavierI2C_Sample
 {
-    class MeadowApp : App<MeadowForLinux<JetsonXavierAGX>>
+    class MeadowApp : App<Linux<JetsonXavierAGX>>
     {
         private Bno055 _bno055;
         private Ccs811 _ccs811;
         private Si70xx _si7021;
         private Adxl345 _adxl345;
+
+        public static async Task Main(string[] _)
+        {
+            await MeadowOS.Start();
+        }
 
         public MeadowApp()
         {
