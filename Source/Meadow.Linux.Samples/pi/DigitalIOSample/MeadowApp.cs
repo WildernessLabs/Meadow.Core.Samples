@@ -2,11 +2,17 @@
 using Meadow.Pinouts;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace DigitalIOSample
 {
     public class MeadowApp : App<Linux<RaspberryPi>>
     {
+        public static async Task Main(string[] _)
+        {
+            await MeadowOS.Start();
+        }
+
         public MeadowApp()
         {
             RunPulse();

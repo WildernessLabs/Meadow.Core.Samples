@@ -6,13 +6,19 @@ using Meadow.Hardware;
 using Meadow.Pinouts;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace PushButton_Sample
 {
-    public class MeadowApp : App<MeadowForLinux<RaspberryPi>>
+    public class MeadowApp : App<Linux<RaspberryPi>>
     {
         private St7789 _display;
         private MicroGraphics _graphics;
+
+        public static async Task Main(string[] _)
+        {
+            await MeadowOS.Start();
+        }
 
         public MeadowApp()
         {

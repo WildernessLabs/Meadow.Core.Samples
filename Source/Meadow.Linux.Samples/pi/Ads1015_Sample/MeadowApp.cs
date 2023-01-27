@@ -10,6 +10,11 @@ namespace Ads1015_Sample
     {
         private Ads1x15 _adc;
 
+        public static async Task Main(string[] _)
+        {
+            await MeadowOS.Start();
+        }
+
         public MeadowApp()
         {
             Initialize();
