@@ -21,7 +21,12 @@ namespace SerialMessagePort
 
         public override Task Initialize()
         {
-            serialPortName = Device.Pins.SerialPortNames.Com1;
+            Resolver.Log.Info("Available serial ports:");
+            foreach (var name in Device.PlatformOS.GetSerialPortNames())
+            {
+                Resolver.Log.Info($"  {name.FriendlyName}");
+            }
+            serialPortName = Device.PlatformOS.GetSerialPortName("COM1");
 
             Console.WriteLine("Get delimiter");
             // convert for later. 
@@ -66,9 +71,9 @@ namespace SerialMessagePort
             serialPort.MessageReceived += SerialPort_MessageReceived;
 
             // write to the port.
-            while (true) 
+            while (true)
             {
-                foreach (var sentence in BuildVariableLengthTestSentences()) 
+                foreach (var sentence in BuildVariableLengthTestSentences())
                 {
                     //var dataToWrite = Encoding.ASCII.GetBytes($"{sentence}{DelimiterToken}");
                     var dataToWrite = Encoding.ASCII.GetBytes($"{sentence}").Concat(delimiterBytes).ToArray();
@@ -96,14 +101,14 @@ namespace SerialMessagePort
             Console.WriteLine("\tOpened");
 
             // wire up message received handler
-            serialPort.MessageReceived += (object sender, SerialMessageData e) => 
+            serialPort.MessageReceived += (object sender, SerialMessageData e) =>
             {
                 Console.WriteLine($"Message Lenght: {e.Message.Length}");
-                if (e.Message.Length == 11) 
+                if (e.Message.Length == 11)
                 {
                     Console.WriteLine("Things are groovy.");
-                } 
-                else 
+                }
+                else
                 {
                     Console.WriteLine("Things are not so groovy.");
                 }
@@ -122,7 +127,7 @@ namespace SerialMessagePort
 
             // instantiate our serial port
             serialPort = Device.CreateSerialMessagePort(
-                serialPortName, delimiterBytes, preseveDelimiter, baudRate:115200);
+                serialPortName, delimiterBytes, preseveDelimiter, baudRate: 115200);
             Console.WriteLine("\tCreated");
 
             // open the serial port
@@ -159,8 +164,10 @@ namespace SerialMessagePort
             serialPort.MessageReceived += SerialPort_MessageReceived;
 
             // write to the port.
-            while (true) {
-                foreach (var sentence in BuildFixedLengthTestSentences()) {
+            while (true)
+            {
+                foreach (var sentence in BuildFixedLengthTestSentences())
+                {
                     //var dataToWrite = Encoding.ASCII.GetBytes($"{sentence}{DelimiterToken}");
                     var dataToWrite = delimiterBytes.Concat(Encoding.ASCII.GetBytes($"{sentence}")).ToArray();
                     var written = serialPort.Write(dataToWrite);
@@ -177,9 +184,9 @@ namespace SerialMessagePort
             Console.WriteLine($"Msg recvd: {e.GetMessageString(Encoding.ASCII)}\n");
         }
 
-        protected string[] BuildFixedLengthTestSentences() 
+        protected string[] BuildFixedLengthTestSentences()
         {
-            return new string[] 
+            return new string[]
             {
                 "1234567890_abcdefghijklmnop",
                 "quad erat demonstrandum foo",
@@ -194,9 +201,9 @@ namespace SerialMessagePort
             return $"TrickyDouble.{delimiterString}DoubleMessageTest";
         }
 
-        protected string[] BuildVariableLengthTestSentences() 
+        protected string[] BuildVariableLengthTestSentences()
         {
-            return new string[] 
+            return new string[]
             {
                 "Hello Meadow!",
                 $"TrickyDouble.{delimiterString}DoubleMessageTest",
