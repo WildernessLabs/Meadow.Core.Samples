@@ -1,6 +1,6 @@
 ﻿using Meadow.Foundation;
+using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
-using Meadow.Graphics;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,7 +34,7 @@ namespace Meadow
 
         public override Task Initialize()
         {
-            _display = new Meadow.Graphics.WinFormsDisplay();
+            _display = new WinFormsDisplay();
 
             int cubeSize = 100;
 

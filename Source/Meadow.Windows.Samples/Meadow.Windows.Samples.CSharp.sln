@@ -27,8 +27,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HMI", "HMI", "{C4C395D2-B49
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinForms", "HMI\WinForms\WinForms.csproj", "{A395133A-2820-480E-83E5-159FB54D8959}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.WinForms", "..\..\..\Meadow.Core\source\implementations\windows\Meadow.WinForms\Meadow.WinForms.csproj", "{139418B0-DBCE-49E3-AA68-201CC94661B1}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Graphics.MicroGraphics", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Libraries_and_Frameworks\Graphics.MicroGraphics\Driver\Graphics.MicroGraphics.csproj", "{53AE05DE-134E-45BA-9AFA-60B6E1824B06}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sensors.Motion.Bno055", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Sensors.Motion.Bno055\Driver\Sensors.Motion.Bno055.csproj", "{2F19CA09-A73F-4D23-B61C-58823841A87F}"
@@ -38,6 +36,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Foundation.Core", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Core\Meadow.Foundation.Core.csproj", "{6D9FE81B-8769-4F00-A6E3-9E037A8318CB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sensors.Motion.Mpu6050", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Sensors.Motion.Mpu6050\Driver\Sensors.Motion.Mpu6050.csproj", "{3DF53F9F-F0AD-40C9-9310-6BC52A17840C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sensors.Atmospheric.Bme280", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Sensors.Atmospheric.Bme280\Driver\Sensors.Atmospheric.Bme280.csproj", "{6B228FCD-FDDD-4880-9C9A-C71953A0A28D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RTCs.Ds1307", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\RTCs.Ds1307\Driver\RTCs.Ds1307.csproj", "{37271C83-B03D-4CA2-B4F5-80025AD79443}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Displays.WinForms", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Displays.WinForms\Driver\Displays.WinForms.csproj", "{9B7EEC9E-B304-4B83-8377-83AA3183B83A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,10 +93,6 @@ Global
 		{A395133A-2820-480E-83E5-159FB54D8959}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A395133A-2820-480E-83E5-159FB54D8959}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A395133A-2820-480E-83E5-159FB54D8959}.Release|Any CPU.Build.0 = Release|Any CPU
-		{139418B0-DBCE-49E3-AA68-201CC94661B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{139418B0-DBCE-49E3-AA68-201CC94661B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{139418B0-DBCE-49E3-AA68-201CC94661B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{139418B0-DBCE-49E3-AA68-201CC94661B1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{53AE05DE-134E-45BA-9AFA-60B6E1824B06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{53AE05DE-134E-45BA-9AFA-60B6E1824B06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53AE05DE-134E-45BA-9AFA-60B6E1824B06}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
@@ -121,6 +121,22 @@ Global
 		{3DF53F9F-F0AD-40C9-9310-6BC52A17840C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DF53F9F-F0AD-40C9-9310-6BC52A17840C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3DF53F9F-F0AD-40C9-9310-6BC52A17840C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{6B228FCD-FDDD-4880-9C9A-C71953A0A28D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B228FCD-FDDD-4880-9C9A-C71953A0A28D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B228FCD-FDDD-4880-9C9A-C71953A0A28D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{6B228FCD-FDDD-4880-9C9A-C71953A0A28D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B228FCD-FDDD-4880-9C9A-C71953A0A28D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B228FCD-FDDD-4880-9C9A-C71953A0A28D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{37271C83-B03D-4CA2-B4F5-80025AD79443}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37271C83-B03D-4CA2-B4F5-80025AD79443}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37271C83-B03D-4CA2-B4F5-80025AD79443}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{37271C83-B03D-4CA2-B4F5-80025AD79443}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37271C83-B03D-4CA2-B4F5-80025AD79443}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37271C83-B03D-4CA2-B4F5-80025AD79443}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{9B7EEC9E-B304-4B83-8377-83AA3183B83A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B7EEC9E-B304-4B83-8377-83AA3183B83A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B7EEC9E-B304-4B83-8377-83AA3183B83A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B7EEC9E-B304-4B83-8377-83AA3183B83A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,12 +151,14 @@ Global
 		{285BE7BF-7437-4A79-AA8F-11D1296580C2} = {DF4E42E7-7E84-474F-A8BA-903DA6A71A84}
 		{3B404CFB-EAD7-4124-B1DF-68284FC6AB61} = {DF4E42E7-7E84-474F-A8BA-903DA6A71A84}
 		{A395133A-2820-480E-83E5-159FB54D8959} = {C4C395D2-B493-454A-84DC-E125FE9BC6B9}
-		{139418B0-DBCE-49E3-AA68-201CC94661B1} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
 		{53AE05DE-134E-45BA-9AFA-60B6E1824B06} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
 		{2F19CA09-A73F-4D23-B61C-58823841A87F} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
 		{CAEE04D2-E489-4EA4-AD73-BE7FCC580438} = {DF4E42E7-7E84-474F-A8BA-903DA6A71A84}
 		{6D9FE81B-8769-4F00-A6E3-9E037A8318CB} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
 		{3DF53F9F-F0AD-40C9-9310-6BC52A17840C} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
+		{6B228FCD-FDDD-4880-9C9A-C71953A0A28D} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
+		{37271C83-B03D-4CA2-B4F5-80025AD79443} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
+		{9B7EEC9E-B304-4B83-8377-83AA3183B83A} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B727D8B-A918-479F-8D18-98A83CE51645}

@@ -1,6 +1,6 @@
 ﻿using Meadow.Foundation;
+using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
-using Meadow.Graphics;
 using Meadow.Pinouts;
 using System;
 using System.Threading.Tasks;
@@ -36,7 +36,7 @@ namespace Meadow
 
         public override Task Initialize()
         {
-            _display = new Meadow.Graphics.GtkDisplay(ColorMode.Format16bppRgb565);
+            _display = new GtkDisplay(ColorMode.Format16bppRgb565);
 
             int cubeSize = 100;
 
