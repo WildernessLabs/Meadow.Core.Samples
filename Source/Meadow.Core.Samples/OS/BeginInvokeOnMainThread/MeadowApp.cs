@@ -18,7 +18,6 @@ namespace BeginInvokeOnMainThread
             Console.WriteLine("Initialize hardware...");
 
             onboardLed = new RgbPwmLed(
-                device: Device,
                 redPwmPin: Device.Pins.OnboardLedRed,
                 greenPwmPin: Device.Pins.OnboardLedGreen,
                 bluePwmPin: Device.Pins.OnboardLedBlue);

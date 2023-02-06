@@ -12,8 +12,8 @@ namespace Tasks_Basics
 
         public override Task Initialize()
         {
-            out1 = Device.CreateDigitalOutputPort(Device.Pins.D00);
-            out2 = Device.CreateDigitalOutputPort(Device.Pins.D01);
+            out1 = Device.Pins.D00.CreateDigitalOutputPort();
+            out2 = Device.Pins.D01.CreateDigitalOutputPort();
 
             out1.State = true;
 

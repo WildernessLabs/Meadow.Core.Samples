@@ -77,7 +77,7 @@ namespace Config_Files
         {
             Resolver.Log.Info($"=========================OutputMeadowOSInfo============================");
             Resolver.Log.Info($"OS version: {MeadowOS.SystemInformation.OSVersion}");
-            Resolver.Log.Info($"Mono version: {MeadowOS.SystemInformation.MonoVersion}");
+            Resolver.Log.Info($"Runtime version: {MeadowOS.SystemInformation.RuntimeVersion}");
             Resolver.Log.Info($"Build date: {MeadowOS.SystemInformation.OSBuildDate}");
             Resolver.Log.Info($"=======================================================================");
         }

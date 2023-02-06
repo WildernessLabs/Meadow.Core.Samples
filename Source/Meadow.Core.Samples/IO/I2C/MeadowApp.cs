@@ -2,7 +2,6 @@
 using Meadow.Devices;
 using Meadow.Hardware;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace I2C
@@ -31,7 +30,7 @@ namespace I2C
             {
                 try
                 {
-                    Console.WriteLine($"Reading @{i2c.Frequency.Kilohertz} kHz...");
+                    Console.WriteLine($"Reading @{((int)i2c.BusSpeed / 1000d):0} kHz...");
                     gyro.Refresh();
 
                     Console.WriteLine($"({gyro.AccelerationX:X4},{gyro.AccelerationY:X4},{gyro.AccelerationZ:X4}) ({gyro.GyroX:X4},{gyro.GyroY:X4},{gyro.GyroZ:X4}) {gyro.Temperature}");
@@ -39,16 +38,16 @@ namespace I2C
                     switch (count++ % 4)
                     {
                         case 0:
-                            i2c.Frequency = new Meadow.Units.Frequency(100000, Meadow.Units.Frequency.UnitType.Hertz);
+                            i2c.BusSpeed = I2cBusSpeed.Standard;
                             break;
                         case 1:
-                            i2c.Frequency = new Meadow.Units.Frequency(400000, Meadow.Units.Frequency.UnitType.Hertz);
+                            i2c.BusSpeed = I2cBusSpeed.Fast;
                             break;
                         case 2:
-                            i2c.Frequency = new Meadow.Units.Frequency(1000000, Meadow.Units.Frequency.UnitType.Hertz);
+                            i2c.BusSpeed = I2cBusSpeed.FastPlus;
                             break;
                         case 3:
-                            i2c.Frequency = new Meadow.Units.Frequency(3400000, Meadow.Units.Frequency.UnitType.Hertz);
+                            i2c.BusSpeed = I2cBusSpeed.High;
                             break;
                     }
                 }
@@ -124,7 +123,7 @@ namespace I2C
 
         public void Wake()
         {
-            _bus.Write(Address, new byte[]{ (byte)Registers.PowerManagement});
+            _bus.Write(Address, new byte[] { (byte)Registers.PowerManagement });
         }
 
         int c = 0;
@@ -138,9 +137,9 @@ namespace I2C
             _bus.Write(address, new byte[] { (byte)Registers.AccelerometerX });
             var data = new byte[14];
             _bus.Write(address, data);
-  
-//            Console.WriteLine($" Got {data.Length} bytes");
-//            Console.WriteLine($" {BitConverter.ToString(data)}");
+
+            //            Console.WriteLine($" Got {data.Length} bytes");
+            //            Console.WriteLine($" {BitConverter.ToString(data)}");
 
             AccelerationX = data[0] << 8 | data[1];
             AccelerationY = data[2] << 8 | data[3];
