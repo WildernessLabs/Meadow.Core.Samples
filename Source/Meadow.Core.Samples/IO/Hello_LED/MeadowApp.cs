@@ -2,7 +2,6 @@
 using Meadow.Devices;
 using Meadow.Hardware;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Hello_LED
@@ -16,9 +15,9 @@ namespace Hello_LED
         public override Task Initialize()
         {
             Console.WriteLine("Creating Outputs");
-            _redLED = Device.CreateDigitalOutputPort(Device.Pins.OnboardLedRed);
-            _blueLED = Device.CreateDigitalOutputPort(Device.Pins.OnboardLedBlue);
-            _greenLED = Device.CreateDigitalOutputPort(Device.Pins.OnboardLedGreen);
+            _redLED = Device.Pins.OnboardLedRed.CreateDigitalOutputPort();
+            _blueLED = Device.Pins.OnboardLedBlue.CreateDigitalOutputPort();
+            _greenLED = Device.Pins.OnboardLedGreen.CreateDigitalOutputPort();
 
             return Task.CompletedTask;
         }

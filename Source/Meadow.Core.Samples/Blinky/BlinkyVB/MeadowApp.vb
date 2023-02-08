@@ -22,7 +22,7 @@ Public Class MeadowApp
     Public Overrides Function Initialize() As Task
         Resolver.Log.Info("Initialize... (VB.NET)")
 
-        onboardLed = New RgbPwmLed(Device,
+        onboardLed = New RgbPwmLed(
             Device.Pins.OnboardLedRed,
             Device.Pins.OnboardLedGreen,
             Device.Pins.OnboardLedBlue,

@@ -26,7 +26,7 @@ namespace Ads1015_Sample
         {
             Console.WriteLine("Initialize hardware...");
             _adc = new Ads1015(
-                Device.CreateI2cBus(1, new Meadow.Units.Frequency(1, Meadow.Units.Frequency.UnitType.Megahertz)),
+                Device.CreateI2cBus(1, Meadow.Hardware.I2cBusSpeed.FastPlus),
                 Ads1x15.Addresses.Default,
                 Ads1x15.MeasureMode.Continuous,
                 Ads1x15.ChannelSetting.A0SingleEnded,

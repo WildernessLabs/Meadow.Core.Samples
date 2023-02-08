@@ -42,7 +42,7 @@ namespace Update_Sample
                 Resolver.UpdateService.ApplyUpdate(e);
             };
 
-            green = Device.CreateDigitalOutputPort(Device.Pins.OnboardLedGreen);
+            green = Device.Pins.OnboardLedGreen.CreateDigitalOutputPort();
 
             return Task.CompletedTask;
         }

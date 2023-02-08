@@ -39,7 +39,7 @@ type MeadowApp() =
     override this.Initialize() =
         do Console.WriteLine "Initialize... (F#)"
 
-        led <- new RgbPwmLed(MeadowApp.Device, 
+        led <- new RgbPwmLed(
             MeadowApp.Device.Pins.OnboardLedRed,
             MeadowApp.Device.Pins.OnboardLedGreen, 
             MeadowApp.Device.Pins.OnboardLedBlue, 

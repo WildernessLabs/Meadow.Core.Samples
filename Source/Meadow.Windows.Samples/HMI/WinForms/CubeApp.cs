@@ -1,16 +1,17 @@
 ﻿using Meadow.Foundation;
 using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
-using Meadow.Pinouts;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Meadow
 {
-    public class CubeApp : App<Linux<RaspberryPi>>
+    public class CubeApp : App<Windows>
     {
         private MicroGraphics _graphics = default!;
-        private GtkDisplay _display = default!;
+        private WinFormsDisplay _display = default!;
 
         //needs cleanup - quick port from c code
         private double rot, rotationX, rotationY, rotationZ;
@@ -20,23 +21,20 @@ namespace Meadow
         private int[,] cubeWireframe = new int[12, 3];
         private int[,] cubeVertices;
 
-        public static async Task Main(string[] _)
-        {
-            await MeadowOS.Start();
-        }
-
         public override async Task Run()
         {
             _ = Task.Run(() =>
             {
+                Thread.Sleep(1000);
                 Show3dCube();
             });
-            _display.Run();
+
+            Application.Run(_display);
         }
 
         public override Task Initialize()
         {
-            _display = new GtkDisplay(ColorMode.Format16bppRgb565);
+            _display = new WinFormsDisplay();
 
             int cubeSize = 100;
 
@@ -72,7 +70,8 @@ namespace Meadow
 
             while (true)
             {
-                InvokeOnMainThread((_) =>
+
+                _display.Invoke(() =>
                 {
                     _graphics.Clear();
                     _graphics.DrawText(5, 5, frameRate, Color.Red);
