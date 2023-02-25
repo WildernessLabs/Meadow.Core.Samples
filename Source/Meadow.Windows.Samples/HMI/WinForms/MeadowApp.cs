@@ -1,68 +1,95 @@
 ﻿using Meadow.Foundation;
+using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
-using Meadow.Graphics;
-using System;
+using Meadow.Foundation.Sensors.Buttons;
+using Meadow.Foundation.Sensors.Hid;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Meadow
 {
-    public class MeadowApp : App<Simulation.SimulatedMeadow<Simulation.SimulatedPinout>>
+    public class MeadowApp : App<Windows>
     {
-        private MicroGraphics _graphics;
-        private Display _display;
-        private bool _useGraphics = true;
-
-        public MeadowApp()
-        {
-        }
+        private MicroGraphics _graphics = default!;
+        private WinFormsDisplay _display = default!;
+        private Keyboard _keyBoard = default!;
+        private int _xDirection;
+        private int _yDirection;
+        private int _speed = 5;
+        private int _x;
+        private int _y;
+        private int _radius = 10;
 
         public override async Task Run()
         {
-            _display = new Meadow.Graphics.Display();
-            _graphics = new MicroGraphics(_display);
-            _ = Task.Run(() => Updater());
-            _display.Run();
+            _ = Task.Run(() =>
+            {
+                Thread.Sleep(1000);
+                DisplayLoop();
+            });
+
+            Application.Run(_display);
         }
 
-        private void DrawStuff(object? o)
+        public override Task Initialize()
         {
-            if (_useGraphics)
-            {
-                // use MicroGraphics
-                _graphics.Clear(RandomColor());
-                _graphics.DrawRectangle(100, 100, _display.Width - 200, _display.Height - 200, RandomColor(), true);
-                _graphics.DrawLine(0, _display.Height / 3, _display.Width, _display.Height / 3, RandomColor());
-                _graphics.Show();
-            }
-            else
-            {
-                // use only display primitives
-                _display.Fill(RandomColor());
-                _display.Fill(100, 100, _display.Width - 200, _display.Height - 200, RandomColor());
+            _display = new WinFormsDisplay();
+            _graphics = new MicroGraphics(_display);
+            _keyBoard = new Keyboard();
 
-                var linecolor = RandomColor();
+            var rightButton = new PushButton(_keyBoard.CreateDigitalInputPort(_keyBoard.Pins.Right));
+            var leftButton = new PushButton(_keyBoard.CreateDigitalInputPort(_keyBoard.Pins.Left));
+            var upButton = new PushButton(_keyBoard.CreateDigitalInputPort(_keyBoard.Pins.Up));
+            var downButton = new PushButton(_keyBoard.CreateDigitalInputPort(_keyBoard.Pins.Down));
 
-                for (int x = 0; x < _display.Width; x++)
-                {
-                    _display.DrawPixel(x, _display.Height / 2, linecolor);
-                }
-                _display.Show();
-            }
+            rightButton.PressStarted += (s, e) => { _xDirection = 1; };
+            leftButton.PressStarted += (s, e) => { _xDirection = -1; };
+            upButton.PressStarted += (s, e) => { _yDirection = -1; };
+            downButton.PressStarted += (s, e) => { _yDirection = 1; };
+
+            rightButton.PressEnded += (s, e) => { _xDirection = _yDirection = 0; };
+            leftButton.PressEnded += (s, e) => { _xDirection = _yDirection = 0; };
+            upButton.PressEnded += (s, e) => { _xDirection = _yDirection = 0; };
+            downButton.PressEnded += (s, e) => { _xDirection = _yDirection = 0; };
+
+            _x = _display.Width / 2;
+            _y = _display.Height / 2;
+
+            return base.Initialize();
         }
 
-        public void Updater()
+        private void MoveAndDrawCircle()
+        {
+            var x = _x + (_speed * _xDirection);
+            var y = _y + (_speed * _yDirection);
+
+            // check for edge
+
+            _x = x;
+            _y = y;
+
+            _graphics.DrawCircle(_x, _y, _radius, Color.Yellow, filled: true);
+        }
+
+        void DisplayLoop()
         {
             while (true)
             {
-                InvokeOnMainThread(DrawStuff);
-                Thread.Sleep(1000);
+
+                _display.Invoke(() =>
+                {
+                    // Do your drawing stuff here
+                    _graphics.Clear();
+
+                    MoveAndDrawCircle();
+
+                    _graphics.Show();
+                });
+
+                Thread.Sleep(33);
             }
         }
-
-        public Color RandomColor()
-        {
-            return new Color(Random.Shared.NextDouble(), Random.Shared.NextDouble(), Random.Shared.NextDouble());
-        }
     }
+
 }
