@@ -9,8 +9,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\Meadow.Contracts\Source\Meadow.Contracts\Meadow.Contracts.csproj" />
-    <ProjectReference Include="..\..\..\..\..\Meadow.Core\source\implementations\windows\Meadow.Windows\Meadow.Windows.csproj" />
-    <ProjectReference Include="..\..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Sensors.Hid.Keyboard\Driver\Sensors.Hid.Keyboard.csproj" />
+    <PackageReference Include="Meadow.Windows" Version="0.*" />
+    <PackageReference Include="Meadow.Foundation.Sensors.Hid.Keyboard" Version="0.*" />
   </ItemGroup>
 
 </Project>

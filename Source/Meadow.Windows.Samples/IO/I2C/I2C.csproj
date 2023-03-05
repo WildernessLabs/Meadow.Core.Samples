@@ -14,9 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Meadow.Core\source\implementations\windows\Meadow.Windows\Meadow.Windows.csproj" />
-    <ProjectReference Include="..\..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Sensors.Motion.Bno055\Driver\Sensors.Motion.Bno055.csproj" />
-    <ProjectReference Include="..\..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Sensors.Motion.Mpu6050\Driver\Sensors.Motion.Mpu6050.csproj" />
+    <PackageReference Include="Meadow.Windows" Version="0.*" />
+    <PackageReference Include="Meadow.Foundation.Sensors.Motion.Bno055" Version="0.*" />
+    <PackageReference Include="Meadow.Foundation.Sensors.Motion.Mpu6050" Version="0.*" />
   </ItemGroup>
 
 </Project>
