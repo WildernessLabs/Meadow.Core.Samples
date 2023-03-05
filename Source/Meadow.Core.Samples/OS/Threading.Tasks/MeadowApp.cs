@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 
 namespace Tasks_Basics
 {
-    public class MeadowApp : App<F7FeatherV2>
+    public class MeadowApp : App<F7CoreComputeV2>
     {
         IDigitalOutputPort out1;
         IDigitalOutputPort out2;
 
         public override Task Initialize()
         {
-            out1 = Device.CreateDigitalOutputPort(Device.Pins.D00);
-            out2 = Device.CreateDigitalOutputPort(Device.Pins.D01);
+            out1 = Device.Pins.D00.CreateDigitalOutputPort();
+            out2 = Device.Pins.D01.CreateDigitalOutputPort();
 
             out1.State = true;
 
@@ -22,7 +22,8 @@ namespace Tasks_Basics
 
         public override Task Run()
         {
-            Task t = new Task(async () => {
+            Task t = new Task(async () =>
+            {
                 while (true)
                 {
                     out2.State = true;
@@ -33,7 +34,19 @@ namespace Tasks_Basics
             });
             t.Start();
 
+            Task.Run(async () =>
+            {
+                await Task.Delay(10000);
+                Resolver.Log.Info("COMPLETE");
+            });
+
             return Task.CompletedTask;
+        }
+
+        public override Task OnShutdown()
+        {
+            Resolver.Log.Info("SHUTTING DOWN");
+            return base.OnShutdown();
         }
     }
 }

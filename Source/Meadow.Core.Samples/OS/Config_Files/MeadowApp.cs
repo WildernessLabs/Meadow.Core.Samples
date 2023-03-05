@@ -77,7 +77,7 @@ namespace Config_Files
         {
             Resolver.Log.Info($"=========================OutputMeadowOSInfo============================");
             Resolver.Log.Info($"OS version: {MeadowOS.SystemInformation.OSVersion}");
-            Resolver.Log.Info($"Mono version: {MeadowOS.SystemInformation.MonoVersion}");
+            Resolver.Log.Info($"Runtime version: {MeadowOS.SystemInformation.RuntimeVersion}");
             Resolver.Log.Info($"Build date: {MeadowOS.SystemInformation.OSBuildDate}");
             Resolver.Log.Info($"=======================================================================");
         }
@@ -86,12 +86,19 @@ namespace Config_Files
         {
             try
             {
-                Resolver.Log.Info($"====================OutputDeviceConfigurationInfo======================");
-                Resolver.Log.Info($"Automatically connect to network: {wifi.AutoConnect}");
-                Resolver.Log.Info($"Automatically reconnect: {wifi.AutoReconnect}");
-                Resolver.Log.Info($"Default access point: {wifi.DefaultSsid}");
-                Resolver.Log.Info($"MAC address: {wifi.MacAddress}");
-                Resolver.Log.Info($"=======================================================================");
+                // Retrieve
+                var isF7PlatformOS = Device.PlatformOS is F7PlatformOS;
+                var esp32Wifi = wifi as Esp32Coprocessor;
+                if (isF7PlatformOS && esp32Wifi != null)
+                {
+                    Console.WriteLine($"====================OutputDeviceConfigurationInfo======================");
+                    Resolver.Log.Info($"Automatically connect to network: {F7PlatformOS.GetBoolean(IPlatformOS.ConfigurationValues.AutomaticallyStartNetwork)}");
+                    Resolver.Log.Info($"Get time at startup: {F7PlatformOS.GetBoolean(IPlatformOS.ConfigurationValues.GetTimeAtStartup)}");
+                    Resolver.Log.Info($"Default access point: {F7PlatformOS.GetString(IPlatformOS.ConfigurationValues.DefaultAccessPoint)}");
+                    // Note: You can also access the maximum retry count via the ESP32 coprocessor using `esp32Wifi.MaximumRetryCount`.
+                    Resolver.Log.Info($"Maximum retry count: {F7PlatformOS.GetUInt(IPlatformOS.ConfigurationValues.MaximumNetworkRetryCount)}");
+                    Resolver.Log.Info($"=======================================================================");
+                }
             }
             catch (Exception e)
             {

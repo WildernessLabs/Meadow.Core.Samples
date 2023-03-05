@@ -17,7 +17,7 @@ namespace WiFi_Basics
 
         public override async Task Run()
         {
-            Console.WriteLine("Initialize hardware...");
+            Resolver.Log.Info("Run...");
 
             var wifi = Device.NetworkAdapters.Primary<IWiFiNetworkAdapter>();
 
@@ -27,43 +27,53 @@ namespace WiFi_Basics
             // enumerate the public WiFi channels
             await ScanForAccessPoints(wifi);
 
-            // connect to the wifi network.
-            Console.WriteLine($"Connecting to WiFi Network {WIFI_NAME}");
-
-            await wifi.Connect(WIFI_NAME, WIFI_PASSWORD, TimeSpan.FromSeconds(45));
-
-            DisplayNetworkInformation();
-
-            while (true)
+            try
             {
-                await GetWebPageViaHttpClient("https://postman-echo.com/get?foo1=bar1&foo2=bar2");
+                // connect to the wifi network.
+                Resolver.Log.Info($"Connecting to WiFi Network {WIFI_NAME}");
+
+                await wifi.Connect(WIFI_NAME, WIFI_PASSWORD, TimeSpan.FromSeconds(45));
+            }
+            catch (Exception ex)
+            {
+                Resolver.Log.Error($"Failed to Connect: {ex.Message}");
+            }
+
+            if (wifi.IsConnected)
+            {
+                DisplayNetworkInformation();
+
+                while (true)
+                {
+                    await GetWebPageViaHttpClient("https://postman-echo.com/get?foo1=bar1&foo2=bar2");
+                }
             }
         }
 
-        void WiFiAdapter_NetworkConnected(object sender, EventArgs e)
+        void WiFiAdapter_NetworkConnected(INetworkAdapter networkAdapter, NetworkConnectionEventArgs e)
         {
-            Console.WriteLine("Connection request completed");
+            Resolver.Log.Info("Connection request completed");
         }
 
         async Task ScanForAccessPoints(IWiFiNetworkAdapter wifi)
         {
-            Console.WriteLine("Getting list of access points");
+            Resolver.Log.Info("Getting list of access points");
             var networks = await wifi.Scan(TimeSpan.FromSeconds(60));
 
             if (networks.Count > 0)
             {
-                Console.WriteLine("|-------------------------------------------------------------|---------|");
-                Console.WriteLine("|         Network Name             | RSSI |       BSSID       | Channel |");
-                Console.WriteLine("|-------------------------------------------------------------|---------|");
+                Resolver.Log.Info("|-------------------------------------------------------------|---------|");
+                Resolver.Log.Info("|         Network Name             | RSSI |       BSSID       | Channel |");
+                Resolver.Log.Info("|-------------------------------------------------------------|---------|");
 
                 foreach (WifiNetwork accessPoint in networks)
                 {
-                    Console.WriteLine($"| {accessPoint.Ssid,-32} | {accessPoint.SignalDbStrength,4} | {accessPoint.Bssid,17} |   {accessPoint.ChannelCenterFrequency,3}   |");
+                    Resolver.Log.Info($"| {accessPoint.Ssid,-32} | {accessPoint.SignalDbStrength,4} | {accessPoint.Bssid,17} |   {accessPoint.ChannelCenterFrequency,3}   |");
                 }
             }
             else
             {
-                Console.WriteLine($"No access points detected");
+                Resolver.Log.Info($"No access points detected");
             }
         }
 
@@ -73,52 +83,54 @@ namespace WiFi_Basics
 
             if (adapters.Length == 0)
             {
-                Console.WriteLine("No adapters available");
+                Resolver.Log.Warn("No adapters available");
             }
-
-            foreach (NetworkInterface adapter in adapters)
+            else
             {
-                IPInterfaceProperties properties = adapter.GetIPProperties();
-                Console.WriteLine();
-                Console.WriteLine(adapter.Description);
-                Console.WriteLine(string.Empty.PadLeft(adapter.Description.Length, '='));
-                Console.WriteLine($"  Adapter name: {adapter.Name}");
-                Console.WriteLine($"  Interface type .......................... : {adapter.NetworkInterfaceType}");
-                Console.WriteLine($"  Physical Address ........................ : {adapter.GetPhysicalAddress()}");
-                Console.WriteLine($"  Operational status ...................... : {adapter.OperationalStatus}");
-                
-                string versions = string.Empty;
-
-                if (adapter.Supports(NetworkInterfaceComponent.IPv4))
+                foreach (NetworkInterface adapter in adapters)
                 {
-                    versions = "IPv4";
-                }
+                    IPInterfaceProperties properties = adapter.GetIPProperties();
+                    Resolver.Log.Info("");
+                    Resolver.Log.Info(adapter.Description);
+                    Resolver.Log.Info(string.Empty.PadLeft(adapter.Description.Length, '='));
+                    Resolver.Log.Info($"  Adapter name: {adapter.Name}");
+                    Resolver.Log.Info($"  Interface type .......................... : {adapter.NetworkInterfaceType}");
+                    Resolver.Log.Info($"  Physical Address ........................ : {adapter.GetPhysicalAddress()}");
+                    Resolver.Log.Info($"  Operational status ...................... : {adapter.OperationalStatus}");
 
-                if (adapter.Supports(NetworkInterfaceComponent.IPv6))
-                {
-                    if (versions.Length > 0)
+                    string versions = string.Empty;
+
+                    if (adapter.Supports(NetworkInterfaceComponent.IPv4))
                     {
-                        versions += " ";
+                        versions = "IPv4";
                     }
-                    versions += "IPv6";
-                }
 
-                Console.WriteLine($"  IP version .............................. : {versions}");
-              
-                if (adapter.Supports(NetworkInterfaceComponent.IPv4))
-                {
-                    IPv4InterfaceProperties ipv4 = properties.GetIPv4Properties();
-                    Console.WriteLine("  MTU ..................................... : {0}", ipv4.Mtu);
-                }
-
-                if ((adapter.NetworkInterfaceType == NetworkInterfaceType.Wireless80211) || (adapter.NetworkInterfaceType == NetworkInterfaceType.Ethernet))
-                {
-                    foreach (UnicastIPAddressInformation ip in adapter.GetIPProperties().UnicastAddresses)
+                    if (adapter.Supports(NetworkInterfaceComponent.IPv6))
                     {
-                        if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                        if (versions.Length > 0)
                         {
-                            Console.WriteLine($"  IP address .............................. : {ip.Address}");
-                            Console.WriteLine($"  Subnet mask ............................. : {ip.IPv4Mask}");
+                            versions += " ";
+                        }
+                        versions += "IPv6";
+                    }
+
+                    Resolver.Log.Info($"  IP version .............................. : {versions}");
+
+                    if (adapter.Supports(NetworkInterfaceComponent.IPv4))
+                    {
+                        IPv4InterfaceProperties ipv4 = properties.GetIPv4Properties();
+                        Resolver.Log.Info($"  MTU ..................................... : {ipv4.Mtu}");
+                    }
+
+                    if ((adapter.NetworkInterfaceType == NetworkInterfaceType.Wireless80211) || (adapter.NetworkInterfaceType == NetworkInterfaceType.Ethernet))
+                    {
+                        foreach (UnicastIPAddressInformation ip in adapter.GetIPProperties().UnicastAddresses)
+                        {
+                            if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                            {
+                                Resolver.Log.Info($"  IP address .............................. : {ip.Address}");
+                                Resolver.Log.Info($"  Subnet mask ............................. : {ip.IPv4Mask}");
+                            }
                         }
                     }
                 }
@@ -127,7 +139,7 @@ namespace WiFi_Basics
 
         public async Task GetWebPageViaHttpClient(string uri)
         {
-            Console.WriteLine($"Requesting {uri} - {DateTime.Now}");
+            Resolver.Log.Info($"Requesting {uri} - {DateTime.Now}");
 
             using (HttpClient client = new HttpClient())
             {
@@ -139,15 +151,15 @@ namespace WiFi_Basics
                 {
                     response.EnsureSuccessStatusCode();
                     string responseBody = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine(responseBody);
+                    Resolver.Log.Info(responseBody);
                 }
                 catch (TaskCanceledException)
                 {
-                    Console.WriteLine("Request time out.");
+                    Resolver.Log.Info("Request time out.");
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"Request went sideways: {e.Message}");
+                    Resolver.Log.Info($"Request went sideways: {e.Message}");
                 }
             }
         }
