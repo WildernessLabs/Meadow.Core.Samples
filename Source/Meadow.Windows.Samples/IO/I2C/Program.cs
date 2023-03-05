@@ -1,5 +1,6 @@
 ﻿using Meadow;
 using Meadow.Foundation.ICs.IOExpanders;
+using Meadow.Foundation.Sensors.Atmospheric;
 using Meadow.Foundation.Sensors.Motion;
 using System.Diagnostics;
 
@@ -8,6 +9,7 @@ public class MeadowApp : App<Windows>
     private Ft232h _expander = new Ft232h();
     private Bno055 _bno;
     private Mpu6050 _mpu;
+    private Bme280 _bme;
 
     public static async Task Main(string[] _)
     {
@@ -20,15 +22,15 @@ public class MeadowApp : App<Windows>
 
         var bus = _expander.CreateI2cBus();
 
-        _mpu = new Mpu6050(bus);
-        _mpu.TemperatureUpdated += _mpu_TemperatureUpdated;
-        _mpu.StartUpdating();
+        _bme = new Bme280(bus);
+        _bme.StartUpdating();
 
-        //        var _bno = new Bno055(bus);
-        //        _bno.EulerOrientationUpdated += OnEulerOrientationUpdated;
-        //_bno.StartUpdating();
-
+        _bme.Updated += _bme_Updated;
         return base.Initialize();
+    }
+
+    private void _bme_Updated(object? sender, IChangeResult<(Meadow.Units.Temperature? Temperature, Meadow.Units.RelativeHumidity? Humidity, Meadow.Units.Pressure? Pressure)> e)
+    {
     }
 
     private void _mpu_TemperatureUpdated(object? sender, IChangeResult<Meadow.Units.Temperature> e)

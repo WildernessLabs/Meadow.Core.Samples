@@ -55,8 +55,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModbusRtu", "IO\ModbusRtu\M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Modbus", "..\..\..\Meadow.Modbus\src\Meadow.Modbus\Meadow.Modbus.csproj", "{CE248BAB-8E0E-460F-A69C-FC69C2EDC9BD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Devices.Thermostats.Tstat8", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Devices.Thermostats.Tstat8\Driver\Devices.Thermostats.Tstat8.csproj", "{02BD08FE-A3D7-48DC-B1F6-A13881B9C304}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -179,12 +177,6 @@ Global
 		{CE248BAB-8E0E-460F-A69C-FC69C2EDC9BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE248BAB-8E0E-460F-A69C-FC69C2EDC9BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE248BAB-8E0E-460F-A69C-FC69C2EDC9BD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{02BD08FE-A3D7-48DC-B1F6-A13881B9C304}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{02BD08FE-A3D7-48DC-B1F6-A13881B9C304}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{02BD08FE-A3D7-48DC-B1F6-A13881B9C304}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{02BD08FE-A3D7-48DC-B1F6-A13881B9C304}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{02BD08FE-A3D7-48DC-B1F6-A13881B9C304}.Release|Any CPU.Build.0 = Release|Any CPU
-		{02BD08FE-A3D7-48DC-B1F6-A13881B9C304}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -213,7 +205,6 @@ Global
 		{8DC63F41-505E-4BBA-BCA8-844DC9FAB9AB} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
 		{AA5093BD-CC02-4A6F-8267-26C1D808E7C5} = {DF4E42E7-7E84-474F-A8BA-903DA6A71A84}
 		{CE248BAB-8E0E-460F-A69C-FC69C2EDC9BD} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
-		{02BD08FE-A3D7-48DC-B1F6-A13881B9C304} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B727D8B-A918-479F-8D18-98A83CE51645}

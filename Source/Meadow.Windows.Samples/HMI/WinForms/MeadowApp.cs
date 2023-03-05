@@ -65,9 +65,14 @@ namespace Meadow
             var y = _y + (_speed * _yDirection);
 
             // check for edge
-
-            _x = x;
-            _y = y;
+            if (x - _radius > 0 && x + _radius < _display.Width && x != _x)
+            {
+                _x = x;
+            }
+            if (y - _radius > 0 && y + _radius < _display.Height && y != _y)
+            {
+                _y = y;
+            }
 
             _graphics.DrawCircle(_x, _y, _radius, Color.Yellow, filled: true);
         }
