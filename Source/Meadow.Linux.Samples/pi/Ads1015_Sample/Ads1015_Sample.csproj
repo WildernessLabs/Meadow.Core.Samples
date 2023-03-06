@@ -8,9 +8,9 @@
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.ICs.ADC.Ads1x15" Version="0.1.10" />
+    <ProjectReference Include="..\..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\ICs.ADC.Ads1x15\Driver\ICs.ADC.Ads1x15.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Linux" Version="0.*" />
+    <ProjectReference Include="..\..\..\..\..\Meadow.Core\Source\implementations\linux\Meadow.Linux\Meadow.Linux.csproj" />
   </ItemGroup>
 </Project>

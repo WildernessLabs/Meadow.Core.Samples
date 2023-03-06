@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Meadow.Windows" Version="0.*" />
+    <ProjectReference Include="..\..\..\..\..\Meadow.Core\Source\implementations\windows\Meadow.Windows\Meadow.Windows.csproj" />
   </ItemGroup>
 
 </Project>

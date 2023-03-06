@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Meadow.Windows" Version="0.*" />
-    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.*" />
+    <ProjectReference Include="..\..\..\..\..\Meadow.Core\Source\implementations\windows\Meadow.Windows\Meadow.Windows.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Displays.TftSpi\Driver\Displays.TftSpi.csproj" />
     <ProjectReference Include="..\..\..\..\..\Meadow.Units\Source\Meadow.Units\Meadow.Units.csproj" />
   </ItemGroup>
 

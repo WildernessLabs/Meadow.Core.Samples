@@ -13,7 +13,7 @@
    <Compile Remove="MeadowApp.cs" />
  </ItemGroup>
  <ItemGroup>
-    <PackageReference Include="Meadow.Linux" Version="0.*" />
-    <PackageReference Include="Meadow.Foundation.Displays.Gtk" Version="0.*" />
+    <ProjectReference Include="..\..\..\..\Meadow.Core\Source\implementations\linux\Meadow.Linux\Meadow.Linux.csproj" />
+    <ProjectReference Include="..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Displays.Gtk\Driver\Displays.Gtk.csproj" />
  </ItemGroup>
 </Project>
