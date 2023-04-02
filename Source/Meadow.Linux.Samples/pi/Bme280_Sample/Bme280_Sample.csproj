@@ -10,7 +10,7 @@
     <None Remove="Properties\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.Sensors.Atmospheric.Bme280" Version="0.5.60" />
+    <PackageReference Include="Meadow.Foundation.Sensors.Atmospheric.Bme280" Version="0.*" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Meadow.Linux" Version="0.*" />

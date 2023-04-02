@@ -6,12 +6,10 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.Displays.Ssd130x" Version="0.12.47" />
-    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.52" />
-    <PackageReference Include="Meadow.Logging" Version="0.24.0" />
-    <PackageReference Include="Meadow.Modbus" Version="0.25.0" />
-  </ItemGroup>
-  <ItemGroup>
+    <PackageReference Include="Meadow.Foundation.Displays.Ssd130x" Version="0.*" />
+    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.*" />
+    <PackageReference Include="Meadow.Logging" Version="0.*" />
+    <PackageReference Include="Meadow.Modbus" Version="0.*" />
     <PackageReference Include="Meadow.F7" Version="0.*" />
     <PackageReference Include="Meadow.Foundation" Version="0.*" />
     <PackageReference Include="Meadow.Foundation.Sensors.Light.Tsl2591" Version="0.*" />

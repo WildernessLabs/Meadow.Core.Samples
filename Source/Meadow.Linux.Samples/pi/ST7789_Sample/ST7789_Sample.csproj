@@ -9,7 +9,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Meadow.Foundation.Displays.MicroGraphics" Version="0.9.57" />
-    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.7.61" />
+    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.*" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Meadow.Linux" Version="0.*" />
