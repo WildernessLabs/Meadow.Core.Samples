@@ -1,14 +1,11 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
-using Meadow.Foundation;
-using Meadow.Foundation.Displays.TftSpi;
-using Meadow.Foundation.Leds;
-using Meadow.Foundation.Sensors.Light;
+using Meadow.Foundation.Displays;
 using Meadow.Hardware;
 using Meadow.Logging;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MeadowApp
 {
@@ -50,7 +47,7 @@ namespace MeadowApp
                 {
                     if (pin.Supports<IPwmChannelInfo>())
                     {
-                        using (var pwm = device.CreatePwmPort(pin, dutyCycle: 0f))
+                        using (var pwm = device.CreatePwmPort(pin, new Meadow.Units.Frequency(500), 0.5f))
                         {
                             pwm.Start();
 
@@ -109,7 +106,7 @@ namespace MeadowApp
         }
     }
 
-    public class MeadowApp : App<F7CoreCompute, MeadowApp>
+    public class MeadowApp : App<F7CoreComputeV2>
     {
         private Logger _logger;
         private SPIDisplay _spiDisplay;
@@ -173,14 +170,13 @@ namespace MeadowApp
             var spi = Device.CreateSpiBus(St7789.DefaultSpiBusSpeed, spidisplaybus);
 
             _spiDisplay = new SPIDisplay(
-                Device, 
                 spi, 
                 Device.Pins.D17, // cs
                 Device.Pins.D18, // dc
                 Device.Pins.D19, // res
                 _logger);
 
-            _led = Device.CreatePwmPort(Device.Pins.D20, dutyCycle: 0);
+            _led = Device.CreatePwmPort(Device.Pins.D20, new Meadow.Units.Frequency(500), 0.5f);
             _led.Start();
         }
     }

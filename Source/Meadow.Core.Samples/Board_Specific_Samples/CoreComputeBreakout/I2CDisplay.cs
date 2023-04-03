@@ -1,4 +1,4 @@
-﻿using Meadow.Foundation.Displays.Ssd130x;
+﻿using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Hardware;
 using Meadow.Logging;
