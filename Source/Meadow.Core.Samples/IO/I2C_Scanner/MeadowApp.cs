@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Meadow;
 using Meadow.Devices;
 
-namespace I2CScanner
+namespace I2C_Scanner
 {
     public class MeadowApp : App<F7FeatherV2>
     {

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace I2CScanner
+namespace I2C_Scanner
 {
     public class I2CScanner
     {
@@ -120,7 +120,9 @@ namespace I2CScanner
                     continue;
                 try
                 {
-                    bus.Read(address, 1);
+                    var readBuffer = new Span<byte>(); 
+                    readBuffer[0] = 1;
+                    bus.Read(address, readBuffer);
                     validAddresses.Add(address);
                 }
                 catch
