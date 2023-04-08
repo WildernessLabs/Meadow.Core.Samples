@@ -112,7 +112,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreComputeBreakout", "Boar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "I2CScanner", "IO\I2CScanner\I2CScanner.csproj", "{4CBF8FAB-8EB5-49B6-A505-529F12A9E58A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WiFiTest", "Network\WiFiTest\WiFiTest.csproj", "{7FAD1D6B-632E-43D9-BC27-63D35A519436}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WiFi_Test", "Network\WiFi_Test\WiFi_Test.csproj", "{7FAD1D6B-632E-43D9-BC27-63D35A519436}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
