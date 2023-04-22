@@ -57,6 +57,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sensors.Atmospheric.Bme280"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MQTTnet", "..\..\..\MQTTnet\Source\MQTTnet\MQTTnet.csproj", "{F60127E8-5BF0-40C7-AEEC-363BB2F16D3E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Displays.TftSpi", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Displays.TftSpi\Driver\Displays.TftSpi.csproj", "{215BDB20-6A6F-46C5-920E-360974BF5B08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -175,6 +177,12 @@ Global
 		{F60127E8-5BF0-40C7-AEEC-363BB2F16D3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F60127E8-5BF0-40C7-AEEC-363BB2F16D3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F60127E8-5BF0-40C7-AEEC-363BB2F16D3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{215BDB20-6A6F-46C5-920E-360974BF5B08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{215BDB20-6A6F-46C5-920E-360974BF5B08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{215BDB20-6A6F-46C5-920E-360974BF5B08}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{215BDB20-6A6F-46C5-920E-360974BF5B08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{215BDB20-6A6F-46C5-920E-360974BF5B08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{215BDB20-6A6F-46C5-920E-360974BF5B08}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -205,6 +213,7 @@ Global
 		{3C8328AE-593C-4785-B219-600AF84DB547} = {7F70E7D5-BAB0-4BB4-AFE4-7447B74568AA}
 		{6B73A2F0-743A-4320-A10B-740CE17781AE} = {7F70E7D5-BAB0-4BB4-AFE4-7447B74568AA}
 		{F60127E8-5BF0-40C7-AEEC-363BB2F16D3E} = {7F70E7D5-BAB0-4BB4-AFE4-7447B74568AA}
+		{215BDB20-6A6F-46C5-920E-360974BF5B08} = {7F70E7D5-BAB0-4BB4-AFE4-7447B74568AA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5CF4A510-8877-4F71-BFB1-15D6AE1BF070}
