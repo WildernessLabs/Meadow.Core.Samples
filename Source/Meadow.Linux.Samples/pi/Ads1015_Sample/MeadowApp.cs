@@ -10,19 +10,12 @@ namespace Ads1015_Sample
     {
         private Ads1x15 _adc;
 
-        public static async Task Main(string[] _)
+        public static async Task Main(string[] args)
         {
-            await MeadowOS.Start(null);
+            await MeadowOS.Start(args);
         }
 
-        public MeadowApp()
-        {
-            Initialize();
-            _ = TestSpeed();
-            _ = TakeMeasurements();
-        }
-
-        void Initialize()
+        public override Task Initialize()
         {
             Console.WriteLine("Initialize hardware...");
             _adc = new Ads1015(
@@ -34,6 +27,13 @@ namespace Ads1015_Sample
 
             _adc.Gain = Ads1x15.FsrGain.TwoThirds;
 
+            return Task.CompletedTask;
+        }
+
+        public override async Task Run()
+        {
+            await TestSpeed();
+            await TakeMeasurements();
         }
 
         async Task TestSpeed()

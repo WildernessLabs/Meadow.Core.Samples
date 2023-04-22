@@ -13,22 +13,15 @@ namespace PushButton_Sample
     {
         private List<PushButton> _pushButtons;
 
-        public static async Task Main(string[] _)
+        public static async Task Main(string[] args)
         {
-            await MeadowOS.Start(null);
+            await MeadowOS.Start(args);
         }
 
-        public MeadowApp()
+        public override Task Initialize()
         {
             Console.WriteLine("Initializing...");
 
-            ConfigureButtons();
-
-            Console.WriteLine("PushButton(s) ready!!!");
-        }
-
-        void ConfigureButtons()
-        {
             _pushButtons = new List<PushButton>();
 
             var inputExternalPullUp = Device.CreateDigitalInputPort(
@@ -56,6 +49,8 @@ namespace PushButton_Sample
                 pushButton.PressEnded += PushButtonPressEnded;
                 pushButton.LongClicked += PushButtonLongClicked;
             }
+
+            return Task.CompletedTask;
         }
 
         void PushButtonClicked(object sender, EventArgs e)

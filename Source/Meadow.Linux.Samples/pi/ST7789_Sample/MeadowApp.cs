@@ -15,12 +15,12 @@ namespace PushButton_Sample
         private St7789 _display;
         private MicroGraphics _graphics;
 
-        public static async Task Main(string[] _)
+        public static async Task Main(string[] args)
         {
-            await MeadowOS.Start(null);
+            await MeadowOS.Start(args);
         }
 
-        public MeadowApp()
+        public override Task Initialize()
         {
             Console.WriteLine("Initializing...");
 
@@ -29,9 +29,13 @@ namespace PushButton_Sample
             _graphics = new MicroGraphics(display);
             _graphics.Rotation = RotationType._180Degrees;
 
-            DoDrawing(_graphics);
+            return Task.CompletedTask;
+        }
 
-            Console.WriteLine("PushButton(s) ready!!!");
+        public override Task Run()
+        {
+            DoDrawing(_graphics);
+            return Task.CompletedTask;
         }
 
         private IGraphicsDisplay ConfigureDisplay()

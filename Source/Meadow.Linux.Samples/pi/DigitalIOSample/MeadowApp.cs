@@ -8,28 +8,12 @@ namespace DigitalIOSample
 {
     public class MeadowApp : App<Linux<RaspberryPi>>
     {
-        public static async Task Main(string[] _)
+        public static async Task Main(string[] args)
         {
-            await MeadowOS.Start(null);
+            await MeadowOS.Start(args);
         }
 
-        public MeadowApp()
-        {
-            RunPulse();
-            //RunLoopback();
-            //CheckResistor();
-        }
-
-        void CheckResistor()
-        {
-            //            var input20 = Device.CreateDigitalInputPort(Device.Pins.GPIO20, Meadow.Hardware.InterruptMode.None, Meadow.Hardware.ResistorMode.InternalPullUp);
-            //            var input21 = Device.CreateDigitalInputPort(Device.Pins.GPIO21, Meadow.Hardware.InterruptMode.None, Meadow.Hardware.ResistorMode.InternalPullDown);
-
-            //            Console.WriteLine($"20 is {input20.State}");
-            //            Console.WriteLine($"21 is {input21.State}");
-        }
-
-        void RunPulse()
+        public override Task Run()
         {
             // this is pin 40 on a Pi4, so last outer pin (easy to clip with a scope)
             var output = Device.CreateDigitalOutputPort(Device.Pins.Pin40);
