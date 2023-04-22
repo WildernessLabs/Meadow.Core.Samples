@@ -12,7 +12,7 @@ namespace Bme280_Sample
 
         public static async Task Main(string[] _)
         {
-            await MeadowOS.Start();
+            await MeadowOS.Start(null);
         }
 
         public MeadowApp()

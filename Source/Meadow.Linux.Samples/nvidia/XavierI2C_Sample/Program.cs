@@ -17,7 +17,7 @@ namespace XavierI2C_Sample
 
         public static async Task Main(string[] _)
         {
-            await MeadowOS.Start();
+            await MeadowOS.Start(null);
         }
 
         public MeadowApp()
