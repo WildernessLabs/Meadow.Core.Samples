@@ -8,7 +8,7 @@ namespace Ads1015_Sample
 {
     public class MeadowApp : App<Linux<RaspberryPi>>
     {
-        private Ads1x15 _adc;
+        private Ads1015 _adc;
 
         public static async Task Main(string[] args)
         {
@@ -20,12 +20,12 @@ namespace Ads1015_Sample
             Console.WriteLine("Initialize hardware...");
             _adc = new Ads1015(
                 Device.CreateI2cBus(1, Meadow.Hardware.I2cBusSpeed.FastPlus),
-                Ads1x15.Addresses.Default,
-                Ads1x15.MeasureMode.Continuous,
-                Ads1x15.ChannelSetting.A0SingleEnded,
+                Ads1015.Addresses.Default,
+                Ads1015.MeasureMode.Continuous,
+                Ads1015.ChannelSetting.A0SingleEnded,
                 Ads1015.SampleRateSetting.Sps3300);
 
-            _adc.Gain = Ads1x15.FsrGain.TwoThirds;
+            _adc.Gain = Ads1015.FsrGain.TwoThirds;
 
             return Task.CompletedTask;
         }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Meadow
 {
-    public class CubeApp : App<Linux<RaspberryPi>>
+    public class CubeApp : App<Linux<WSL2>>
     {
         private MicroGraphics _graphics = default!;
         private GtkDisplay _display = default!;
