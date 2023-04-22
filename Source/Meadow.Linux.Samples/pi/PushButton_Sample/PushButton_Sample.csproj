@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <OutputType>Exe</OutputType>
@@ -8,9 +8,9 @@
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation" Version="0.34.1" />
+    <PackageReference Include="Meadow.Foundation" Version="0.*" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Meadow.Core\source\implementations\linux\Meadow.Linux\Meadow.Linux.csproj" />
+    <PackageReference Include="Meadow.Linux" Version="0.*" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <OutputType>Exe</OutputType>
@@ -8,9 +8,9 @@
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.ICs.ADC.Ads1x15" Version="0.1.10" />
+    <PackageReference Include="Meadow.Foundation.ICs.ADC.Ads1x15" Version="0.*" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Meadow.Core\source\implementations\linux\Meadow.Linux\Meadow.Linux.csproj" />
+    <PackageReference Include="Meadow.Linux" Version="0.*" />
   </ItemGroup>
 </Project>

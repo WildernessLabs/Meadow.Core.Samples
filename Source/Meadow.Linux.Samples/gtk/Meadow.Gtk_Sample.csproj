@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
  <PropertyGroup>
 	 <TargetFramework>net7.0</TargetFramework>
 	 <OutputType>Exe</OutputType>
@@ -13,7 +13,7 @@
    <Compile Remove="MeadowApp.cs" />
  </ItemGroup>
  <ItemGroup>
-   <ProjectReference Include="..\..\..\..\Meadow.Core\source\implementations\linux\Meadow.Linux\Meadow.Linux.csproj" />
-   <ProjectReference Include="..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Displays.Gtk\Driver\Displays.Gtk.csproj" />
+    <PackageReference Include="Meadow.Linux" Version="0.*" />
+    <PackageReference Include="Meadow.Foundation.Displays.Gtk" Version="0.*" />
  </ItemGroup>
 </Project>
