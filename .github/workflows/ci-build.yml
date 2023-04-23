@@ -68,6 +68,3 @@ jobs:
 
     - name: Build Meadow.Core.Samples
       run: dotnet build -c Release root/source/Meadow.Core.Samples/Meadow.Core.Samples.sln
-
-    - name: Build Meadow.Linux.Samples
-      run: dotnet build -c Release root/source/Meadow.Linux.Samples/Meadow.Linux.Samples.sln
