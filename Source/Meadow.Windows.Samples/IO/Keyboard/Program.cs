@@ -8,9 +8,9 @@ public class MeadowApp : App<Windows>
     private Keyboard _keyBoard;
     private IDigitalInputPort _a;
 
-    public static async Task Main(string[] _)
+    public static async Task Main(string[] args)
     {
-        await MeadowOS.Start();
+        await MeadowOS.Start(args);
     }
 
     public override Task Initialize()
@@ -23,7 +23,7 @@ public class MeadowApp : App<Windows>
 
     private void OnKeyChanged(object? sender, DigitalPortResult e)
     {
-        var pin = (sender as Keyboard.KeyboardKey)?.Pin as KeyboardPin;
+        var pin = (sender as Keyboard.KeyboardKey)?.Pin as KeyboardKeyPin;
         Debug.WriteLine($"Key '{pin?.Name}' is {(e.New.State ? "down" : "up")}");
     }
 }
