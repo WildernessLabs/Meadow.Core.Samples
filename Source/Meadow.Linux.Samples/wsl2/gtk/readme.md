@@ -8,8 +8,8 @@ Check for .NET:
 
 ```
 $ dotnet --list-runtimes
-Microsoft.AspNetCore.App 7.0.10 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
-Microsoft.NETCore.App 7.0.10 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
+Microsoft.AspNetCore.App 7.0.5 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+Microsoft.NETCore.App 7.0.5 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
 ```
 
 If .NET is not installed, install it:
