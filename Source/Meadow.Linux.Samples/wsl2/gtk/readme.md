@@ -2,14 +2,14 @@
 
 ## WSL2
 
-To run the GTK Sample under WSL, you must ensure you have .NET 6.0 and GTK installed.
+To run the GTK Sample under WSL, you must ensure you have .NET 7.0 and GTK installed.
 
 Check for .NET:
 
 ```
 $ dotnet --list-runtimes
-Microsoft.AspNetCore.App 6.0.10 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
-Microsoft.NETCore.App 6.0.10 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
+Microsoft.AspNetCore.App 7.0.5 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+Microsoft.NETCore.App 7.0.5 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
 ```
 
 If .NET is not installed, install it:
@@ -21,7 +21,7 @@ $ rm packages-microsoft-prod.deb
 $ sudo apt update; \
     sudo apt install -y apt-transport-https && \
     sudo apt update && \
-    sudo apt install -y dotnet-sdk-6.0
+    sudo apt install -y dotnet-sdk-7.0
 ```
 
 Install GTK# by installing the sample applications:

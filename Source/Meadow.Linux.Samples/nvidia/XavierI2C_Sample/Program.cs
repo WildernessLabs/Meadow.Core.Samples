@@ -3,7 +3,6 @@ using Meadow.Foundation.Sensors.Atmospheric;
 using Meadow.Foundation.Sensors.Motion;
 using Meadow.Pinouts;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace XavierI2C_Sample
@@ -15,17 +14,12 @@ namespace XavierI2C_Sample
         private Si70xx _si7021;
         private Adxl345 _adxl345;
 
-        public static async Task Main(string[] _)
+        public static async Task Main(string[] args)
         {
-            await MeadowOS.Start();
+            await MeadowOS.Start(args);
         }
 
-        public MeadowApp()
-        {
-            InitializeHardware();
-        }
-
-        private void InitializeHardware()
+        public override Task Initialize()
         {
             // Note the Xavier uses bus 8 for pins 3 & 5
             var bus = Device.CreateI2cBus(8);
@@ -41,6 +35,8 @@ namespace XavierI2C_Sample
             _si7021 = new Si70xx(bus);
             _si7021.Updated += TempHumidityUpdated;
             _si7021.StartUpdating(TimeSpan.FromSeconds(5));
+
+            return Task.CompletedTask;
         }
 
         private void TempHumidityUpdated(object sender, IChangeResult<(Meadow.Units.Temperature? Temperature, Meadow.Units.RelativeHumidity? Humidity)> e)
@@ -56,15 +52,6 @@ namespace XavierI2C_Sample
         private void OnEulerOrientationUpdated(object sender, IChangeResult<Meadow.Foundation.Spatial.EulerAngles> e)
         {
             Console.WriteLine($"H:{e.New.Heading} P:{e.New.Pitch} R:{e.New.Roll}");
-        }
-    }
-
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            var app = new MeadowApp();
-            Thread.Sleep(Timeout.Infinite);
         }
     }
 }

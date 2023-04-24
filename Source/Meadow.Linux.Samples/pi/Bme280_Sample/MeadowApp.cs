@@ -10,12 +10,12 @@ namespace Bme280_Sample
     {
         private Bme280 _bme;
 
-        public static async Task Main(string[] _)
+        public static async Task Main(string[] args)
         {
-            await MeadowOS.Start();
+            await MeadowOS.Start(args);
         }
 
-        public MeadowApp()
+        public override Task Initialize()
         {
             Console.WriteLine("Initializing...");
 
@@ -24,10 +24,11 @@ namespace Bme280_Sample
 
             _bme = new Bme280(bus);
 
-            Task.Run(() => StartMonitoring());
+            return Task.CompletedTask;
         }
 
-        private async Task StartMonitoring()
+
+        public override async Task Run()
         {
             while (true)
             {

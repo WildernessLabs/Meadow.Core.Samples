@@ -7,9 +7,9 @@ public class MeadowApp : App<Windows>
     private Ft232h _expander = new Ft232h();
     private IDigitalOutputPort _c0;
 
-    public static async Task Main(string[] _)
+    public static async Task Main(string[] args)
     {
-        await MeadowOS.Start();
+        await MeadowOS.Start(args);
     }
 
     public override Task Initialize()
