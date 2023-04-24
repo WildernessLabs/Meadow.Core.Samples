@@ -24,22 +24,29 @@ namespace PushButton_Sample
 
             _pushButtons = new List<PushButton>();
 
+            // DEV NOTE:
+            // this sample uses *external* resistors because internal resistor is only supported on OSes that have GPIOD support
+            // 32-bit Raspberry Pi OS still uses the older sysfs driver as of the writing of this sample, even though the hardware supports resistors
+
+            Console.WriteLine("Creating button on pin 40...");
             var inputExternalPullUp = Device.CreateDigitalInputPort(
-                pin: Device.Pins.GPIO21,
+                pin: Device.Pins.GPIO21, // same as Device.Pins.Pin40
                 InterruptMode.EdgeBoth,
                 resistorMode: ResistorMode.ExternalPullUp);
             var buttonExternalPullUp = new PushButton(inputExternalPullUp);
 
             _pushButtons.Add(buttonExternalPullUp);
 
+            Console.WriteLine("Creating button on pin 38...");
             var inputExternalPullDown = Device.CreateDigitalInputPort(
-                pin: Device.Pins.GPIO20,
+                pin: Device.Pins.GPIO20, // same as Device.Pins.Pin38
                 InterruptMode.EdgeBoth,
                 resistorMode: ResistorMode.ExternalPullDown);
             var buttonExternalPullDown = new PushButton(inputExternalPullDown);
 
             _pushButtons.Add(buttonExternalPullDown);
 
+            Console.WriteLine("Wiring up event handlers...");
             foreach (var pushButton in _pushButtons)
             {
                 pushButton.LongClickedThreshold = new TimeSpan(0, 0, 1);
@@ -56,29 +63,23 @@ namespace PushButton_Sample
         void PushButtonClicked(object sender, EventArgs e)
         {
             Console.WriteLine($"PushButton Clicked!");
-            // TODO: set some output/LED
-            Thread.Sleep(500);
-            // TODO: set some output/LED
+            Thread.Sleep(500); // this provides a simple "debounce"
         }
 
         void PushButtonPressStarted(object sender, EventArgs e)
         {
             Console.WriteLine($"PushButton PressStarted!");
-            // TODO: set some output/LED
         }
 
         void PushButtonPressEnded(object sender, EventArgs e)
         {
             Console.WriteLine($"PushButton PressEnded!");
-            // TODO: set some output/LED
         }
 
         void PushButtonLongClicked(object sender, EventArgs e)
         {
             Console.WriteLine($"PushButton LongClicked!");
-            // TODO: set some output/LED
-            Thread.Sleep(500);
-            // TODO: set some output/LED
+            Thread.Sleep(500); // this provides a simple "debounce"
         }
     }
 }
