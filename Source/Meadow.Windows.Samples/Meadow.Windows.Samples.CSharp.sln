@@ -51,6 +51,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Keyboard", "IO\Keyboard\Key
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sensors.Hid.Keyboard", "..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Sensors.Hid.Keyboard\Driver\Sensors.Hid.Keyboard.csproj", "{8DC63F41-505E-4BBA-BCA8-844DC9FAB9AB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvaloniaMeadow", "HMI\Avalonia\AvaloniaMeadow.csproj", "{D7E79C38-1C9B-46CF-AC6D-A6D68BA89A47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -165,6 +167,10 @@ Global
 		{8DC63F41-505E-4BBA-BCA8-844DC9FAB9AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DC63F41-505E-4BBA-BCA8-844DC9FAB9AB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8DC63F41-505E-4BBA-BCA8-844DC9FAB9AB}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{D7E79C38-1C9B-46CF-AC6D-A6D68BA89A47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7E79C38-1C9B-46CF-AC6D-A6D68BA89A47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7E79C38-1C9B-46CF-AC6D-A6D68BA89A47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7E79C38-1C9B-46CF-AC6D-A6D68BA89A47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -191,6 +197,7 @@ Global
 		{FE6A3988-CB86-4A17-BCC0-0039F616587D} = {DF4E42E7-7E84-474F-A8BA-903DA6A71A84}
 		{06DECD14-49FF-454A-9BB4-7B7622133A1C} = {DF4E42E7-7E84-474F-A8BA-903DA6A71A84}
 		{8DC63F41-505E-4BBA-BCA8-844DC9FAB9AB} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
+		{D7E79C38-1C9B-46CF-AC6D-A6D68BA89A47} = {C4C395D2-B493-454A-84DC-E125FE9BC6B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B727D8B-A918-479F-8D18-98A83CE51645}
