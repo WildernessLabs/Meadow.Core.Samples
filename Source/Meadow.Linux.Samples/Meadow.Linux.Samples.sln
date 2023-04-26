@@ -59,6 +59,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Led_Sample", "pi\Led_Sample
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Gtk_Sample", "wsl2\gtk\Meadow.Gtk_Sample.csproj", "{6291B9C3-DB83-4D4E-9AE9-620121261DF6}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvaloniaMeadow", "pi\Avalonia_Sample\AvaloniaMeadow.csproj", "{4626C31A-63C1-4C63-9059-5056B05134EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -183,6 +185,10 @@ Global
 		{6291B9C3-DB83-4D4E-9AE9-620121261DF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6291B9C3-DB83-4D4E-9AE9-620121261DF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6291B9C3-DB83-4D4E-9AE9-620121261DF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4626C31A-63C1-4C63-9059-5056B05134EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4626C31A-63C1-4C63-9059-5056B05134EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4626C31A-63C1-4C63-9059-5056B05134EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4626C31A-63C1-4C63-9059-5056B05134EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -214,6 +220,7 @@ Global
 		{215BDB20-6A6F-46C5-920E-360974BF5B08} = {7F70E7D5-BAB0-4BB4-AFE4-7447B74568AA}
 		{E527DFB5-243D-47B9-B1B5-17D29A3E7D5D} = {2AF6A39A-8213-4B29-988E-F5C76C6A9B8B}
 		{6291B9C3-DB83-4D4E-9AE9-620121261DF6} = {7FC14CD3-089F-4BD0-8B2F-A247EC4EDD92}
+		{4626C31A-63C1-4C63-9059-5056B05134EE} = {2AF6A39A-8213-4B29-988E-F5C76C6A9B8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5CF4A510-8877-4F71-BFB1-15D6AE1BF070}
