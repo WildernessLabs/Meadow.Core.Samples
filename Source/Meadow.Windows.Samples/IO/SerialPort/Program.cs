@@ -2,9 +2,9 @@
 
 public class MeadowApp : App<Windows>
 {
-    public static async Task Main(string[] _)
+    public static async Task Main(string[] args)
     {
-        await MeadowOS.Start();
+        await MeadowOS.Start(args);
     }
 
     public override Task Initialize()

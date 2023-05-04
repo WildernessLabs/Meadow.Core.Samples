@@ -15,12 +15,12 @@ namespace PushButton_Sample
         private St7789 _display;
         private MicroGraphics _graphics;
 
-        public static async Task Main(string[] _)
+        public static async Task Main(string[] args)
         {
-            await MeadowOS.Start();
+            await MeadowOS.Start(args);
         }
 
-        public MeadowApp()
+        public override Task Initialize()
         {
             Console.WriteLine("Initializing...");
 
@@ -29,9 +29,13 @@ namespace PushButton_Sample
             _graphics = new MicroGraphics(display);
             _graphics.Rotation = RotationType._180Degrees;
 
-            DoDrawing(_graphics);
+            return Task.CompletedTask;
+        }
 
-            Console.WriteLine("PushButton(s) ready!!!");
+        public override Task Run()
+        {
+            DoDrawing(_graphics);
+            return Task.CompletedTask;
         }
 
         private IGraphicsDisplay ConfigureDisplay()
@@ -49,7 +53,6 @@ namespace PushButton_Sample
                     config);
 
                 _display = new St7789(
-                    device: Device,
                     spiBus: spiBus,
                     chipSelectPin: Device.Pins.GPIO25, // A03
                     dcPin: Device.Pins.GPIO27, // A04
@@ -158,12 +161,12 @@ namespace PushButton_Sample
             _graphics.Clear();
 
             _graphics.DrawText(120, 0, "Left aligned", Color.Blue);
-            _graphics.DrawText(120, 16, "Center aligned", Color.Green, ScaleFactor.X1, TextAlignment.Center);
-            _graphics.DrawText(120, 32, "Right aligned", Color.Red, ScaleFactor.X1, TextAlignment.Right);
+            _graphics.DrawText(120, 16, "Center aligned", Color.Green, ScaleFactor.X1, HorizontalAlignment.Center);
+            _graphics.DrawText(120, 32, "Right aligned", Color.Red, ScaleFactor.X1, HorizontalAlignment.Right);
 
             _graphics.DrawText(120, 64, "Left aligned", Color.Blue, ScaleFactor.X2);
-            _graphics.DrawText(120, 96, "Center aligned", Color.Green, ScaleFactor.X2, TextAlignment.Center);
-            _graphics.DrawText(120, 128, "Right aligned", Color.Red, ScaleFactor.X2, TextAlignment.Right);
+            _graphics.DrawText(120, 96, "Center aligned", Color.Green, ScaleFactor.X2, HorizontalAlignment.Center);
+            _graphics.DrawText(120, 128, "Right aligned", Color.Red, ScaleFactor.X2, HorizontalAlignment.Right);
 
             _graphics.Show();
         }

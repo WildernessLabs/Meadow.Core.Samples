@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Meadow
 {
-    public class CubeApp : App<Linux<RaspberryPi>>
+    public class CubeApp : App<Linux<WSL2>>
     {
         private MicroGraphics _graphics = default!;
         private GtkDisplay _display = default!;
@@ -20,18 +20,9 @@ namespace Meadow
         private int[,] cubeWireframe = new int[12, 3];
         private int[,] cubeVertices;
 
-        public static async Task Main(string[] _)
+        public static async Task Main(string[] args)
         {
-            await MeadowOS.Start();
-        }
-
-        public override async Task Run()
-        {
-            _ = Task.Run(() =>
-            {
-                Show3dCube();
-            });
-            _display.Run();
+            await MeadowOS.Start(args);
         }
 
         public override Task Initialize()
@@ -54,6 +45,17 @@ namespace Meadow
             _graphics = new MicroGraphics(_display);
 
             return base.Initialize();
+        }
+
+        public override Task Run()
+        {
+            _ = Task.Run(() =>
+            {
+                Show3dCube();
+            });
+            _display.Run();
+
+            return Task.CompletedTask;
         }
 
         void Show3dCube()

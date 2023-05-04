@@ -11,9 +11,9 @@ public class MeadowApp : App<Windows>
     private Mpu6050 _mpu;
     private Bme280 _bme;
 
-    public static async Task Main(string[] _)
+    public static async Task Main(string[] args)
     {
-        await MeadowOS.Start();
+        await MeadowOS.Start(args);
     }
 
     public override Task Initialize()
