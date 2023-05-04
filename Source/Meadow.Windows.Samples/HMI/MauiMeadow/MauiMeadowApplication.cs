@@ -1,26 +1,21 @@
-﻿using Avalonia;
-using Avalonia.Threading;
-using Meadow;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Meadow;
 
-namespace AvaloniaMeadow
+namespace MauiMeadow
 {
-    public class AvaloniaMeadowApplication<T> : Application, IApp
+    public class MauiMeadowApplication<T> : Application, IApp
         where T : class, IMeadowDevice
     {
         public CancellationToken CancellationToken => throw new NotImplementedException();
 
         public static T Device => Resolver.Services.Get<IMeadowDevice>() as T;
 
-        protected AvaloniaMeadowApplication()
+        protected MauiMeadowApplication()
         {
         }
 
         public void InvokeOnMainThread(Action<object?> action, object? state = null)
         {
-            Dispatcher.UIThread.Post(() => action(state));
+            MainThread.BeginInvokeOnMainThread(() => action(state));
         }
 
         virtual public Task OnError(Exception e)

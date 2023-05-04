@@ -3,6 +3,7 @@ using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Pinouts;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Meadow
@@ -113,6 +114,8 @@ namespace Meadow
                     DrawWireframe();
 
                     _graphics.Show();
+
+                    Thread.Sleep(50);
 
                     if (++frames % 1000 == 0)
                     {

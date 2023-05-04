@@ -7,3 +7,4 @@ Update:
   #UpdateServer: 192.168.1.92
   "UpdateServer": "20.253.228.77"
   Enabled: true
+  RootTopic: ota;ota/{ID}/updates

@@ -16,6 +16,8 @@ namespace Threading_Basics
             // register it as the interface, not concrete type
             Resolver.Services.Add<IOutputService>(outputService);
 
+            var pin = ((F7FeatherV2)Resolver.Device).Pins.A01;
+
             // this check could be from an app config setting, or even a digital input
             if (_useMock)
             {

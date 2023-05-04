@@ -15,8 +15,8 @@ namespace I2C
         {
             Console.WriteLine("+GY521 Speed Change Test");
 
-            i2c = Device.CreateI2cBus();
-            gyro = new GY521(i2c);
+            II2cBus i2c = Device.CreateI2cBus();
+            GY521 gyro = new GY521(i2c);
             gyro.Wake();
 
             return Task.CompletedTask;

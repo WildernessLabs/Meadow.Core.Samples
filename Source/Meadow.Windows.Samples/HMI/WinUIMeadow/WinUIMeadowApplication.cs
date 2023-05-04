@@ -1,20 +1,25 @@
-﻿using Avalonia;
-using Avalonia.Threading;
-using Meadow;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿// Copyright (c) Microsoft Corporation and Contributors.
+// Licensed under the MIT License.
 
-namespace AvaloniaMeadow
+using Meadow;
+using Microsoft.UI.Xaml;
+using System;
+using System.Threading.Tasks;
+using System.Threading;
+
+// To learn more about WinUI, the WinUI project structure,
+// and more about our project templates, see: http://aka.ms/winui-project-info.
+
+namespace WinUIMeadow
 {
-    public class AvaloniaMeadowApplication<T> : Application, IApp
+    public class WinUIMeadowApplication<T> : Application, IApp
         where T : class, IMeadowDevice
     {
         public CancellationToken CancellationToken => throw new NotImplementedException();
 
         public static T Device => Resolver.Services.Get<IMeadowDevice>() as T;
 
-        protected AvaloniaMeadowApplication()
+        protected WinUIMeadowApplication()
         {
         }
 
