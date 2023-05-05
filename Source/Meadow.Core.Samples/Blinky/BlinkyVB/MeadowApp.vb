@@ -1,5 +1,4 @@
-﻿Imports System.Threading
-Imports Meadow
+﻿Imports Meadow
 Imports Meadow.Devices
 Imports Meadow.Foundation
 Imports Meadow.Foundation.Leds
@@ -11,12 +10,11 @@ Public Class MeadowApp
 
     Private onboardLed As RgbPwmLed
 
-    Public Overrides Function Run() As Task
+    Public Overrides Async Function Run() As Task
         Resolver.Log.Info("Run... (VB.NET)")
 
-        CycleColors(TimeSpan.FromMilliseconds(1000))
+        Await CycleColors(TimeSpan.FromMilliseconds(1000))
 
-        Return MyBase.Run()
     End Function
 
     Public Overrides Function Initialize() As Task
@@ -28,32 +26,32 @@ Public Class MeadowApp
             Device.Pins.OnboardLedBlue,
             CommonType.CommonAnode)
 
-        Return MyBase.Initialize()
+        Return MyBase.Run()
     End Function
 
-    Private Sub CycleColors(ByVal duration As TimeSpan)
+    Private Async Function CycleColors(ByVal duration As TimeSpan) As Task
         Resolver.Log.Info("Cycle colors...")
 
         While True
-            ShowColorPulse(Color.Blue, duration)
-            ShowColorPulse(Color.Cyan, duration)
-            ShowColorPulse(Color.Green, duration)
-            ShowColorPulse(Color.GreenYellow, duration)
-            ShowColorPulse(Color.Yellow, duration)
-            ShowColorPulse(Color.Orange, duration)
-            ShowColorPulse(Color.OrangeRed, duration)
-            ShowColorPulse(Color.Red, duration)
-            ShowColorPulse(Color.MediumVioletRed, duration)
-            ShowColorPulse(Color.Purple, duration)
-            ShowColorPulse(Color.Magenta, duration)
-            ShowColorPulse(Color.Pink, duration)
+            Await ShowColorPulse(Color.Blue, duration)
+            Await ShowColorPulse(Color.Cyan, duration)
+            Await ShowColorPulse(Color.Green, duration)
+            Await ShowColorPulse(Color.GreenYellow, duration)
+            Await ShowColorPulse(Color.Yellow, duration)
+            Await ShowColorPulse(Color.Orange, duration)
+            Await ShowColorPulse(Color.OrangeRed, duration)
+            Await ShowColorPulse(Color.Red, duration)
+            Await ShowColorPulse(Color.MediumVioletRed, duration)
+            Await ShowColorPulse(Color.Purple, duration)
+            Await ShowColorPulse(Color.Magenta, duration)
+            Await ShowColorPulse(Color.Pink, duration)
         End While
 
-    End Sub
+    End Function
 
-    Private Sub ShowColorPulse(ByVal color As Color, ByVal duration As TimeSpan)
-        onboardLed.StartPulse(color, duration / 2)
-        Thread.Sleep(duration)
-    End Sub
+    Private Async Function ShowColorPulse(ByVal color As Color, ByVal duration As TimeSpan) As Task
+        Await onboardLed.StartPulse(color, duration / 2)
+        Await Task.Delay(duration)
+    End Function
 
 End Class
