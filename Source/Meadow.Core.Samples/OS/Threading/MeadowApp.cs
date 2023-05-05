@@ -1,6 +1,7 @@
 ﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Hardware;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,17 +24,27 @@ namespace Threading_Basics
 
         public override Task Run()
         {
-            Thread th = new Thread(() =>
+            Task.Run(() =>
             {
+                Resolver.Log.Info($"Running");
+
+                var i = 0;
+
                 while (true)
                 {
                     out2.State = true;
                     Thread.Sleep(250);
                     out2.State = false;
                     Thread.Sleep(250);
+
+                    if (i++ % 20 == 0)
+                    {
+                        long memUsed = GC.GetTotalMemory(false);
+                        Resolver.Log.Info($"GC: {DateTime.Now:yyyy/MM/dd HH:mm:ss}  {memUsed:N0}");
+                    }
                 }
+
             });
-            th.Start();
 
             return Task.CompletedTask;
         }
