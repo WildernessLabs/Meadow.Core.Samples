@@ -17,7 +17,7 @@ type MeadowApp() =
     let ShowColorPulse (color : Color) (duration : TimeSpan) = 
         led.StartPulse(color, duration.Divide(2)) |> ignore
         Threading.Thread.Sleep (duration) |> ignore
-        led.Stop |> ignore
+        led.StopAnimation |> ignore
     
     let CycleColors (duration : TimeSpan)  = 
         do Console.WriteLine "Cycle colors..."
