@@ -11,7 +11,7 @@ namespace Meadow
             Application.SetCompatibleTextRenderingDefault(false);
             ApplicationConfiguration.Initialize();
 
-            await MeadowOS.Start();
+            await MeadowOS.Start(args);
         }
 
     }

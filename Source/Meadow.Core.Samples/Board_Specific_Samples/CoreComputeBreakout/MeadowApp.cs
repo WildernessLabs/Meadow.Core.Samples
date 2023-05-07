@@ -1,8 +1,9 @@
 ﻿using Meadow;
 using Meadow.Devices;
-using Meadow.Foundation.Displays;
+using Meadow.Foundation.Leds;
 using Meadow.Hardware;
 using Meadow.Logging;
+using Meadow.Units;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -47,7 +48,7 @@ namespace MeadowApp
                 {
                     if (pin.Supports<IPwmChannelInfo>())
                     {
-                        using (var pwm = device.CreatePwmPort(pin, new Meadow.Units.Frequency(500), 0.5f))
+                        using (var pwm = device.CreatePwmPort(pin, new Frequency(500, Frequency.UnitType.Hertz), dutyCycle: 0f))
                         {
                             pwm.Start();
 
@@ -112,7 +113,7 @@ namespace MeadowApp
         private SPIDisplay _spiDisplay;
         private I2CDisplay _i2cDisplay;
         private IPwmPort _led;
-        private Meadow.Foundation.Leds.PwmLed _pwm;
+        private PwmLed _pwm;
 
         public MeadowApp()
         {
@@ -161,22 +162,22 @@ namespace MeadowApp
 
             _logger.Info($"Creating I2C display on bus {i2cdisplaybus}...");
             _i2cDisplay = new I2CDisplay(
-                Device.CreateI2cBus(i2cdisplaybus), 
+                Device.CreateI2cBus(i2cdisplaybus),
                 _logger);
-            
+
             var spidisplaybus = 5;
 
             _logger.Info($"Creating SPI display on bus {spidisplaybus}...");
-            var spi = Device.CreateSpiBus(St7789.DefaultSpiBusSpeed, spidisplaybus);
+            var spi = Device.CreateSpiBus();
 
             _spiDisplay = new SPIDisplay(
-                spi, 
+                spi,
                 Device.Pins.D17, // cs
                 Device.Pins.D18, // dc
                 Device.Pins.D19, // res
                 _logger);
 
-            _led = Device.CreatePwmPort(Device.Pins.D20, new Meadow.Units.Frequency(500), 0.5f);
+            _led = Device.CreatePwmPort(Device.Pins.D20, new Frequency(500, Frequency.UnitType.Hertz), dutyCycle: 0);
             _led.Start();
         }
     }

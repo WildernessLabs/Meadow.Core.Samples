@@ -6,14 +6,12 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Meadow.Linux" Version="0.*" />
     <PackageReference Include="Meadow.Foundation" Version="0.*" />
     <PackageReference Include="Meadow.Foundation.Sensors.Atmospheric.Ccs811" Version="0.*" />
     <PackageReference Include="Meadow.Foundation.Sensors.Atmospheric.Si70xx" Version="0.*" />
     <PackageReference Include="Meadow.Foundation.Sensors.Motion.Adxl3xx" Version="0.*" />
     <PackageReference Include="Meadow.Foundation.Sensors.Motion.Bno055" Version="0.*" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Meadow.Linux" Version="0.*" />
   </ItemGroup>
 
 </Project>

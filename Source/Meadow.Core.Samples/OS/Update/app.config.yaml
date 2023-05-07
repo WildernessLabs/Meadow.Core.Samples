@@ -4,6 +4,9 @@
 Lifecycle:
   ResetOnAppFailure: false
 Update:
-  #UpdateServer: 192.168.1.92
-  "UpdateServer": "20.253.228.77"
+  UpdateServer: mqtt.meadowcloud.co
+  UpdatePort: 8883
+  AuthServer: https://staging.meadowcloud.dev
+  AuthPort: 443
   Enabled: true
+  UseAuthentication: true

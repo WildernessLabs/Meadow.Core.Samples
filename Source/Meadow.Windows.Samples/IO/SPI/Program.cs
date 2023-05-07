@@ -9,9 +9,9 @@ public class MeadowApp : App<Windows>
     private Ft232h _expander = new Ft232h();
     private St7789 _display;
 
-    public static async Task Main(string[] _)
+    public static async Task Main(string[] args)
     {
-        await MeadowOS.Start();
+        await MeadowOS.Start(args);
     }
 
     public override Task Initialize()

@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace DigitalIOSample
 {
-    public class MeadowApp : App<MeadowForLinux<SnickerdoodleBlack>>
+    public class MeadowApp : App<Linux<SnickerdoodleBlack>>
     {
         public MeadowApp()
         {

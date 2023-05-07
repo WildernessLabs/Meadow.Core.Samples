@@ -9,9 +9,9 @@ public class MeadowApp : App<Windows>
     private Bno055 _bno;
     private Mpu6050 _mpu;
 
-    public static async Task Main(string[] _)
+    public static async Task Main(string[] args)
     {
-        await MeadowOS.Start();
+        await MeadowOS.Start(args);
     }
 
     public override Task Initialize()

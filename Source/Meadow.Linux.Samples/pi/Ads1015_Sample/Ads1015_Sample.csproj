@@ -5,12 +5,7 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Properties\PublishProfiles\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.ICs.ADC.Ads1x15" Version="0.*" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Meadow.Linux" Version="0.*" />
+    <PackageReference Include="Meadow.Foundation.ICs.ADC.Ads1x15" Version="0.*" />
   </ItemGroup>
 </Project>
