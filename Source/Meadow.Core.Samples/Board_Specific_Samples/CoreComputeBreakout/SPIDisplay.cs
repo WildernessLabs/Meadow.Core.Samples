@@ -3,7 +3,6 @@ using Meadow.Foundation.Displays;
 using Meadow.Foundation.Graphics;
 using Meadow.Hardware;
 using Meadow.Logging;
-using System.Threading.Tasks;
 
 namespace MeadowApp
 {
