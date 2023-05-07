@@ -1,15 +1,12 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
-using Meadow.Foundation;
-using Meadow.Foundation.Displays;
 using Meadow.Foundation.Leds;
-using Meadow.Foundation.Sensors.Light;
 using Meadow.Hardware;
 using Meadow.Logging;
 using Meadow.Units;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MeadowApp
 {
@@ -165,13 +162,13 @@ namespace MeadowApp
 
             _logger.Info($"Creating I2C display on bus {i2cdisplaybus}...");
             _i2cDisplay = new I2CDisplay(
-                Device.CreateI2cBus(i2cdisplaybus), 
+                Device.CreateI2cBus(i2cdisplaybus),
                 _logger);
-            
+
             var spidisplaybus = 5;
 
             _logger.Info($"Creating SPI display on bus {spidisplaybus}...");
-            var spi = Device.CreateSpiBus(St7789.DefaultSpiBusSpeed, spidisplaybus);
+            var spi = Device.CreateSpiBus();
 
             _spiDisplay = new SPIDisplay(
                 spi,
