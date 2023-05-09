@@ -20,6 +20,16 @@ namespace AvaloniaMeadow
             {
                 desktop.MainWindow = new MainWindow
                 {
+                    Content = new MainView()
+                    {
+                        DataContext = new MainWindowViewModel(),
+                    }
+                };
+            }
+            else if(ApplicationLifetime is ISingleViewApplicationLifetime singleView)
+            {
+                singleView.MainView = new MainView
+                {
                     DataContext = new MainWindowViewModel(),
                 };
             }
