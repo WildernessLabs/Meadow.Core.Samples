@@ -1,3 +1,4 @@
+using System;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using AvaloniaMeadow.ViewModels;
@@ -9,6 +10,8 @@ using Meadow.Foundation.Sensors.Atmospheric;
 using Meadow.Peripherals.Sensors;
 using Meadow.Pinouts;
 using System.Threading.Tasks;
+using Meadow.Foundation.Leds;
+using Meadow.Hardware;
 
 namespace AvaloniaMeadow
 {
@@ -48,6 +51,9 @@ namespace AvaloniaMeadow
         {
             var r = Resolver.Services.Get<IMeadowDevice>();
 
+            var led = Device.Pins.Pin40.CreateDigitalOutputPort(false);
+            Resolver.Services.Add<IDigitalOutputPort>(led);
+            
             if (r == null)
             {
                 Resolver.Log.Info("IMeadowDevice is null");
