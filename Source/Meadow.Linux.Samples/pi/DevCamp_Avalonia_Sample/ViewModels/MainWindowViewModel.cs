@@ -3,10 +3,11 @@ using Meadow.Hardware;
 using ReactiveUI;
 using System.Reactive;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AvaloniaMeadow.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public partial class MainWindowViewModel : ViewModelBase
     {
         private IDigitalOutputPort? _led;
         private string _buttonText;
@@ -23,11 +24,8 @@ namespace AvaloniaMeadow.ViewModels
             _ = Task.Run(WaitForLed);
         }
 
-        public string ButtonText
-        {
-            get => _buttonText;
-            set => this.RaiseAndSetIfChanged(ref _buttonText, value);
-        }
+        [ObservableProperty]
+        private string buttonText;
 
         private async Task WaitForLed()
         {

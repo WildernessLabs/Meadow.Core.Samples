@@ -26,7 +26,7 @@ namespace AvaloniaSample.Simulation
                 var delta = Random.Shared.NextSingle() / 10f;
                 if (Random.Shared.NextSingle() > 0.5f) delta *= -1;
                 var newHumidity = new RelativeHumidity(last.Percent + delta, RelativeHumidity.UnitType.Percent);
-
+                RaiseUpdatedEvent(newHumidity);
                 Debug.WriteLine($"New humidity: {newHumidity.Percent:N1}%");
                 return Task.FromResult(newHumidity);
             }

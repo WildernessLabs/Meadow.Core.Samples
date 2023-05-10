@@ -24,10 +24,13 @@
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.0-preview7" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0-preview7" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-beta.700-11.0.0-preview7" />
     <PackageReference Include="Meadow.Foundation" Version="0.98.0" />
     <PackageReference Include="Meadow.Foundation.Sensors.Atmospheric.Htux1d" Version="0.98.0" />
     <PackageReference Include="Meadow.Linux" Version="0.98.0" />
     <PackageReference Include="Meadow.Windows" Version="0.98.0" />
+    <PackageReference Include="SkiaSharp" Version="2.88.3" />
   </ItemGroup>
 
   <ItemGroup>

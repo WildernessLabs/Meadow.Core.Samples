@@ -25,7 +25,7 @@ namespace AvaloniaMeadow
                 {
                     Content = new MainView()
                     {
-                        DataContext = new MainWindowViewModel(),
+                        DataContext = new MainViewModel(),
                     }
                 };
             }
@@ -33,7 +33,7 @@ namespace AvaloniaMeadow
             {
                 singleView.MainView = new MainView
                 {
-                    DataContext = new MainWindowViewModel(),
+                    DataContext = new MainViewModel(),
                 };
             }
 
@@ -50,9 +50,6 @@ namespace AvaloniaMeadow
         public override Task InitializeMeadow()
         {
             var r = Resolver.Services.Get<IMeadowDevice>();
-
-            var led = Device.Pins.Pin40.CreateDigitalOutputPort(false);
-            Resolver.Services.Add<IDigitalOutputPort>(led);
             
             if (r == null)
             {
