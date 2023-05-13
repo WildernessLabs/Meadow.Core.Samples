@@ -2,16 +2,15 @@
 using Meadow.Devices;
 using Meadow.Hardware;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace BiDirectonalPort
 {
     public class MeadowApp : App<F7FeatherV2>
     {
-        private IBiDirectionalPort _d04 = null;
-        private IBiDirectionalPort _d05 = null;
-        private IBiDirectionalPort _d06 = null;
+        private IBiDirectionalInterruptPort _d04 = null;
+        private IBiDirectionalInterruptPort _d05 = null;
+        private IBiDirectionalInterruptPort _d06 = null;
 
         public override Task Initialize()
         {
@@ -21,10 +20,10 @@ namespace BiDirectonalPort
             // _d06 = Device.CreateBiDirectionalPort(
             //     Device.Pins.D06,
 
-            _d04 = Device.CreateBiDirectionalPort(Device.Pins.D08);
-            _d05 = Device.CreateBiDirectionalPort(Device.Pins.D09);
+            _d04 = Device.CreateBiDirectionalInterruptPort(Device.Pins.D08);
+            _d05 = Device.CreateBiDirectionalInterruptPort(Device.Pins.D09);
 
-            _d06 = Device.CreateBiDirectionalPort(
+            _d06 = Device.CreateBiDirectionalInterruptPort(
                 Device.Pins.D10,
                 resistorMode: ResistorMode.Disabled,
                 initialDirection: PortDirectionType.Input,
@@ -83,9 +82,9 @@ namespace BiDirectonalPort
 
         private async void OnD06Changed(object sender, DigitalPortResult args)
         {
-          // The circuit had an led tied to Vcc an resister from the led to D06
-          // and a push button from ground to D06. If the led has a low forward
-          // drop pressing the button will cause the LED to blink.
+            // The circuit had an led tied to Vcc an resister from the led to D06
+            // and a push button from ground to D06. If the led has a low forward
+            // drop pressing the button will cause the LED to blink.
             Console.WriteLine("D06 Interrupt");
             Console.WriteLine("D06 -> false");
             _d06.State = false;      // Becomes output & sets high
