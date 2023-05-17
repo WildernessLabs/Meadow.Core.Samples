@@ -1,3 +1,4 @@
+using System;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using AvaloniaMeadow.ViewModels;
@@ -9,6 +10,8 @@ using Meadow.Foundation.Sensors.Atmospheric;
 using Meadow.Peripherals.Sensors;
 using Meadow.Pinouts;
 using System.Threading.Tasks;
+using Meadow.Foundation.Leds;
+using Meadow.Hardware;
 
 namespace AvaloniaMeadow
 {
@@ -20,7 +23,17 @@ namespace AvaloniaMeadow
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(),
+                    Content = new MainView()
+                    {
+                        DataContext = new MainViewModel(),
+                    }
+                };
+            }
+            else if(ApplicationLifetime is ISingleViewApplicationLifetime singleView)
+            {
+                singleView.MainView = new MainView
+                {
+                    DataContext = new MainViewModel(),
                 };
             }
 
@@ -37,7 +50,7 @@ namespace AvaloniaMeadow
         public override Task InitializeMeadow()
         {
             var r = Resolver.Services.Get<IMeadowDevice>();
-
+            
             if (r == null)
             {
                 Resolver.Log.Info("IMeadowDevice is null");
