@@ -26,7 +26,7 @@ namespace AvaloniaSample.Simulation
                 var delta = Random.Shared.NextSingle();
                 if (Random.Shared.NextSingle() > 0.5f) delta *= -1;
                 var newTemp = new Temperature(last.Fahrenheit + delta, Meadow.Units.Temperature.UnitType.Fahrenheit);
-
+                RaiseUpdatedEvent(newTemp);
                 Debug.WriteLine($"New temperature: {newTemp.Fahrenheit:N1}F");
                 return Task.FromResult(newTemp);
             }
