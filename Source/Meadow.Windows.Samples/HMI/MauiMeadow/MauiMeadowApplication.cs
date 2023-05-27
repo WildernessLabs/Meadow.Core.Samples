@@ -1,6 +1,4 @@
-﻿using Meadow;
-
-namespace MauiMeadow
+﻿namespace Meadow
 {
     public class MauiMeadowApplication<T> : Application, IApp
         where T : class, IMeadowDevice
