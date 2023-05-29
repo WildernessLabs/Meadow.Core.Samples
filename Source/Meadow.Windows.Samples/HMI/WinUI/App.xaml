@@ -1,0 +1,20 @@
+<!-- Copyright (c) Microsoft Corporation and Contributors. -->
+<!-- Licensed under the MIT License. -->
+
+<ml:WinUIMeadowApplication
+    x:Class="WinUIMeadow.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ml="using:Meadow"
+    xmlns:m="clr-namespace:Meadow;assembly=Meadow.Windows"
+    xmlns:local="using:WinUIMeadow">
+    <ml:WinUIMeadowApplication.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <!-- Other merged dictionaries here -->
+            </ResourceDictionary.MergedDictionaries>
+            <!-- Other app resources here -->
+        </ResourceDictionary>
+    </ml:WinUIMeadowApplication.Resources>
+</ml:WinUIMeadowApplication>
