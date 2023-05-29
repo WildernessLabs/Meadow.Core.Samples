@@ -6,12 +6,12 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Linux" Version="0.*" />
-    <PackageReference Include="Meadow.Foundation" Version="0.*" />
-    <PackageReference Include="Meadow.Foundation.Sensors.Atmospheric.Ccs811" Version="0.*" />
-    <PackageReference Include="Meadow.Foundation.Sensors.Atmospheric.Si70xx" Version="0.*" />
-    <PackageReference Include="Meadow.Foundation.Sensors.Motion.Adxl3xx" Version="0.*" />
-    <PackageReference Include="Meadow.Foundation.Sensors.Motion.Bno055" Version="0.*" />
+    <ProjectReference Include="..\..\..\..\..\Meadow.Core\source\implementations\linux\Meadow.Linux\Meadow.Linux.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Core\Meadow.Foundation.Core.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Sensors.Atmospheric.Ccs811\Driver\Sensors.Atmospheric.Ccs811.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Sensors.Atmospheric.Si70xx\Driver\Sensors.Atmospheric.Si70xx.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Sensors.Motion.Adxl3xx\Driver\Sensors.Motion.Adxl3xx.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Sensors.Motion.Bno055\Driver\Sensors.Motion.Bno055.csproj" />
   </ItemGroup>
 
 </Project>
