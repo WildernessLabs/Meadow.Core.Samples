@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
@@ -26,10 +26,10 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.0-preview7" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
     <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-beta.700-11.0.0-preview7" />
-    <PackageReference Include="Meadow.Foundation" Version="0.98.0" />
-    <PackageReference Include="Meadow.Foundation.Sensors.Atmospheric.Htux1d" Version="0.98.0" />
-    <PackageReference Include="Meadow.Linux" Version="0.98.0" />
-    <PackageReference Include="Meadow.Windows" Version="0.98.0" />
+    <ProjectReference Include="..\..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Core\Meadow.Foundation.Core.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Sensors.Atmospheric.Htu2xd\Driver\Sensors.Atmospheric.Htux1d.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Meadow.Core\Source\implementations\linux\Meadow.Linux\Meadow.Linux.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Meadow.Core\Source\implementations\windows\Meadow.Windows\Meadow.Windows.csproj" />
     <PackageReference Include="SkiaSharp" Version="2.88.3" />
   </ItemGroup>
 
