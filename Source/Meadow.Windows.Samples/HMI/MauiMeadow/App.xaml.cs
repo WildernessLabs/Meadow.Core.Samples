@@ -1,4 +1,4 @@
-﻿using Meadow;
+﻿using Meadow.UI;
 
 namespace MauiMeadow
 {

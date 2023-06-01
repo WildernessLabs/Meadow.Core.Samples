@@ -4,7 +4,7 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:MauiMeadow"
-             xmlns:ml="clr-namespace:Meadow"
+             xmlns:ml="clr-namespace:Meadow.UI;assembly=Meadow.Maui"
              xmlns:m="clr-namespace:Meadow;assembly=Meadow.Windows"
              x:Class="MauiMeadow.App">
     <ml:MauiMeadowApplication.Resources>

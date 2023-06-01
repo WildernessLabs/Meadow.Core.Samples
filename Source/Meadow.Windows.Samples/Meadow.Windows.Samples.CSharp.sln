@@ -65,7 +65,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Modbus", "..\..\..\M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MQTTnet", "..\..\..\MQTTnet\Source\MQTTnet\MQTTnet.csproj", "{9DA5C560-688D-4FE7-B165-4722A55471F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiMeadow", "HMI\MauiMeadow\MauiMeadow.csproj", "{12F4BF32-2354-484E-B98C-CCBAABB55EA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiMeadow", "HMI\MauiMeadow\MauiMeadow.csproj", "{12F4BF32-2354-484E-B98C-CCBAABB55EA4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Avalonia", "..\..\..\Meadow.Core\source\ui\Meadow.Avalonia\Meadow.Avalonia.csproj", "{E164A026-3BC5-4AC9-B742-DC3E48FC64C6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meadow.Maui", "..\..\..\Meadow.Core\source\ui\Meadow.Maui\Meadow.Maui.csproj", "{E42B1570-9244-48EF-8A6C-7A4500F7CF62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -215,6 +219,14 @@ Global
 		{12F4BF32-2354-484E-B98C-CCBAABB55EA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12F4BF32-2354-484E-B98C-CCBAABB55EA4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{12F4BF32-2354-484E-B98C-CCBAABB55EA4}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{E164A026-3BC5-4AC9-B742-DC3E48FC64C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E164A026-3BC5-4AC9-B742-DC3E48FC64C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E164A026-3BC5-4AC9-B742-DC3E48FC64C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E164A026-3BC5-4AC9-B742-DC3E48FC64C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E42B1570-9244-48EF-8A6C-7A4500F7CF62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E42B1570-9244-48EF-8A6C-7A4500F7CF62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E42B1570-9244-48EF-8A6C-7A4500F7CF62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E42B1570-9244-48EF-8A6C-7A4500F7CF62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -248,6 +260,8 @@ Global
 		{097B8AF2-5998-48EF-AC3B-B0916FDE87BF} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
 		{9DA5C560-688D-4FE7-B165-4722A55471F0} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
 		{12F4BF32-2354-484E-B98C-CCBAABB55EA4} = {C4C395D2-B493-454A-84DC-E125FE9BC6B9}
+		{E164A026-3BC5-4AC9-B742-DC3E48FC64C6} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
+		{E42B1570-9244-48EF-8A6C-7A4500F7CF62} = {2EDC8049-733E-4AEC-92F1-893E6A9A53E5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6B727D8B-A918-479F-8D18-98A83CE51645}
