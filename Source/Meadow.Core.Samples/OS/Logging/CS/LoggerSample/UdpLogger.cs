@@ -25,7 +25,7 @@ namespace Logging
 
         public void Log(LogLevel level, string message)
         {
-            var payload = Encoding.UTF8.GetBytes($"{level}{_delimiter}{message}");
+            var payload = Encoding.UTF8.GetBytes($"{level}{_delimiter}{message}\n");
             _client.Send(payload, payload.Length, _broadcast);
         }
 
