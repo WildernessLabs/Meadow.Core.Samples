@@ -29,19 +29,23 @@ namespace PushButton_Sample
             // 32-bit Raspberry Pi OS still uses the older sysfs driver as of the writing of this sample, even though the hardware supports resistors
 
             Console.WriteLine("Creating button on pin 40...");
-            var inputExternalPullUp = Device.CreateDigitalInputPort(
+            var inputExternalPullUp = Device.CreateDigitalInterruptPort(
                 pin: Device.Pins.GPIO21, // same as Device.Pins.Pin40
                 InterruptMode.EdgeBoth,
-                resistorMode: ResistorMode.ExternalPullUp);
+                ResistorMode.ExternalPullUp,
+                TimeSpan.Zero,
+                TimeSpan.Zero);
             var buttonExternalPullUp = new PushButton(inputExternalPullUp);
 
             _pushButtons.Add(buttonExternalPullUp);
 
             Console.WriteLine("Creating button on pin 38...");
-            var inputExternalPullDown = Device.CreateDigitalInputPort(
+            var inputExternalPullDown = Device.CreateDigitalInterruptPort(
                 pin: Device.Pins.GPIO20, // same as Device.Pins.Pin38
                 InterruptMode.EdgeBoth,
-                resistorMode: ResistorMode.ExternalPullDown);
+                ResistorMode.ExternalPullDown,
+                TimeSpan.Zero,
+                TimeSpan.Zero);
             var buttonExternalPullDown = new PushButton(inputExternalPullDown);
 
             _pushButtons.Add(buttonExternalPullDown);
@@ -60,23 +64,23 @@ namespace PushButton_Sample
             return Task.CompletedTask;
         }
 
-        void PushButtonClicked(object sender, EventArgs e)
+        private void PushButtonClicked(object sender, EventArgs e)
         {
             Console.WriteLine($"PushButton Clicked!");
             Thread.Sleep(500); // this provides a simple "debounce"
         }
 
-        void PushButtonPressStarted(object sender, EventArgs e)
+        private void PushButtonPressStarted(object sender, EventArgs e)
         {
             Console.WriteLine($"PushButton PressStarted!");
         }
 
-        void PushButtonPressEnded(object sender, EventArgs e)
+        private void PushButtonPressEnded(object sender, EventArgs e)
         {
             Console.WriteLine($"PushButton PressEnded!");
         }
 
-        void PushButtonLongClicked(object sender, EventArgs e)
+        private void PushButtonLongClicked(object sender, EventArgs e)
         {
             Console.WriteLine($"PushButton LongClicked!");
             Thread.Sleep(500); // this provides a simple "debounce"
