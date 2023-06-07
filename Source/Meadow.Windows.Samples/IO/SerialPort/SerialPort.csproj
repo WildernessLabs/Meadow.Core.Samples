@@ -6,6 +6,6 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Windows" Version="0.*" />
+    <PackageReference Include="Meadow.Windows" Version="1.*" />
   </ItemGroup>
 </Project>

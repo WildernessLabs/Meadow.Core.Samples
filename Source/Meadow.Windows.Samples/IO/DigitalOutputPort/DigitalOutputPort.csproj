@@ -11,7 +11,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Foundation.ICs.IOExpanders.Ft232h" Version="0.*" />
-    <PackageReference Include="Meadow.Windows" Version="0.*" />
+    <PackageReference Include="Meadow.Foundation.ICs.IOExpanders.Ft232h" Version="1.*" />
+    <PackageReference Include="Meadow.Windows" Version="1.*" />
   </ItemGroup>
 </Project>

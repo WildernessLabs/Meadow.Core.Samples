@@ -6,9 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Windows" Version="0.*" />
-    <PackageReference Include="Meadow.Foundation.ICs.IOExpanders.Ft232h" Version="0.*" />
-    <PackageReference Include="Meadow.Foundation.Sensors.Motion.Bno055" Version="0.*" />
-    <PackageReference Include="Meadow.Foundation.Sensors.Motion.Mpu6050" Version="0.*" />
+    <PackageReference Include="Meadow.Windows" Version="1.*" />
+    <PackageReference Include="Meadow.Foundation.ICs.IOExpanders.Ft232h" Version="1.*" />
+    <PackageReference Include="Meadow.Foundation.Sensors.Motion.Bno055" Version="1.*" />
+    <PackageReference Include="Meadow.Foundation.Sensors.Motion.Mpu6050" Version="1.*" />
   </ItemGroup>
 </Project>
