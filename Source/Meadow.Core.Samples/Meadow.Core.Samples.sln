@@ -10,7 +10,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiDirectonalPort", "IO\BiDi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigitalInputPort", "IO\DigitalInputPort\DigitalInputPort.csproj", "{3173C381-839B-4458-A2E9-D2EF326ACF2D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigitalInputPort_Basics", "IO\DigitalInputPort_IObservable\DigitalInputPort_Basics.csproj", "{4D228F7E-709A-4577-97A8-BD90EF62C496}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigitalInterruptPort_Basics", "IO\DigitalInputPort_IObservable\DigitalInterruptPort_Basics.csproj", "{4D228F7E-709A-4577-97A8-BD90EF62C496}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "I2C", "IO\I2C\I2C.csproj", "{FC0409C2-669C-4AEE-A3E5-F9223683B5EE}"
 EndProject

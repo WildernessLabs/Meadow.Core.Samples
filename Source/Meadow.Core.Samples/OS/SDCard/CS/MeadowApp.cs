@@ -12,9 +12,9 @@ namespace SDCard
     {
         public override Task Run()
         {
-            Device.PlatformOS.ExternalStorageEvent += PlatformOS_ExternalStorageEvent;
+            Device.PlatformOS.FileSystem.ExternalStorageEvent += PlatformOS_ExternalStorageEvent;
 
-            var storage = Device.PlatformOS.ExternalStorage.FirstOrDefault();
+            var storage = Device.PlatformOS.FileSystem.ExternalStorage.FirstOrDefault();
 
             if (storage == null)
             {

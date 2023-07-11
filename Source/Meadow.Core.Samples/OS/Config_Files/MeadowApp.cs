@@ -12,7 +12,7 @@ namespace Config_Files
 
         public override Task Initialize()
         {
-            Resolver.Log.Info($"Log level: {Resolver.Log.Loglevel}");
+            Resolver.Log.Info($"Log level: {Resolver.Log.LogLevel}");
 
             Resolver.Log.Trace($"Trace Message");
             Resolver.Log.Debug($"Debug Message");

@@ -3,7 +3,6 @@ using Meadow.Devices;
 using Meadow.Hardware;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace F7_Micro_Board_Diagnostics
@@ -14,12 +13,12 @@ namespace F7_Micro_Board_Diagnostics
         {
             // Simple Digital IO
             Tuple<bool, List<PortTestResult>> digitalIOResults = TestDigitalIO();
-            Debug.WriteLine("Simple Digital IO Test Results: " + (digitalIOResults.Item1 ? "PASS" : "FAIL"));
+            Console.WriteLine("Simple Digital IO Test Results: " + (digitalIOResults.Item1 ? "PASS" : "FAIL"));
             if (!digitalIOResults.Item1)
             {
                 foreach (var r in digitalIOResults.Item2)
                 {
-                    Debug.WriteLineIf(!r.Result, "Port failure on pin: " + r.PortName);
+                    Console.WriteLine("Port failure on pin: " + r.PortName);
                 }
             }
 
@@ -89,7 +88,7 @@ namespace F7_Micro_Board_Diagnostics
                     else
                     {
                         port.Direction = PortDirectionType.Output;
-                        port.State = true;
+                        ((IDigitalOutputPort)port).State = true;
                     }
                 }
 
@@ -114,27 +113,27 @@ namespace F7_Micro_Board_Diagnostics
                     // if we're not the high port, or the paired port
                     if (port != testDigitalPorts[i] && port != pairedEndpointPort)
                     {
-                        if (port.State)
+                        if (((IDigitalOutputPort)port).State)
                         {
                             // FAILURE: if this port is high, something is wrong.
                             success = portSuccess = false;
                             portTestResults.Add(new PortTestResult("", false)); // TODO: Name
-                            Debug.WriteLine("Port failure on pin: " + port.Pin.Name + ", channel: " + port.Channel.Name + "; should be LOW, but is HIGH. Short detected.");
+                            Console.WriteLine("Port failure on pin: " + port.Pin.Name + ", channel: " + port.Channel.Name + "; should be LOW, but is HIGH. Short detected.");
                         }
                     } // if it's the port on the other 
                     else if (port != testDigitalPorts[i] && port == pairedEndpointPort)
                     {
-                        if (!port.State)
+                        if (!((IDigitalOutputPort)port).State)
                         {
                             success = portSuccess = false;
                             portTestResults.Add(new PortTestResult("", false)); // TODO: Name
-                            Debug.WriteLine("Port failure on pin: " + port.Pin.Name + ", channel: " + port.Channel.Name + ";  [name] pair should be HIGH, but it's LOW. Endpoint port read failure.");
+                            Console.WriteLine("Port failure on pin: " + port.Pin.Name + ", channel: " + port.Channel.Name + ";  [name] pair should be HIGH, but it's LOW. Endpoint port read failure.");
                         }
                     }
 
                     if (portSuccess)
                     {
-                        Debug.WriteLine("port " + port.Pin.Name + ", channel: " + port.Channel.Name + " test success.");
+                        Console.WriteLine("port " + port.Pin.Name + ", channel: " + port.Channel.Name + " test success.");
                     }
                 }
             }

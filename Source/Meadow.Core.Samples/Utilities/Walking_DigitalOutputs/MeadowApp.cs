@@ -48,7 +48,7 @@ namespace Walking_DigitalOutputs
                         }
                         else
                         {
-                            Debug.WriteLine("Cannot add pin " + pin.Name + ", as the digital channel, " + channel.Name + " exists on another pin");
+                            Console.WriteLine("Cannot add pin " + pin.Name + ", as the digital channel, " + channel.Name + " exists on another pin");
                         }
                     }
                 }
