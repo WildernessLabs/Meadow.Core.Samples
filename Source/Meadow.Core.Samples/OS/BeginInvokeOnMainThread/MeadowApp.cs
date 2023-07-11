@@ -15,7 +15,7 @@ namespace BeginInvokeOnMainThread
 
         public override Task Initialize()
         {
-            Console.WriteLine("Initialize hardware...");
+            Resolver.Log.Info("Initialize hardware...");
 
             onboardLed = new RgbPwmLed(
                 redPwmPin: Device.Pins.OnboardLedRed,

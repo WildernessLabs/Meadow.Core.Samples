@@ -91,7 +91,7 @@ namespace Config_Files
                 var esp32Wifi = wifi as Esp32Coprocessor;
                 if (isF7PlatformOS && esp32Wifi != null)
                 {
-                    Console.WriteLine($"====================OutputDeviceConfigurationInfo======================");
+                    Resolver.Log.Info($"====================OutputDeviceConfigurationInfo======================");
                     Resolver.Log.Info($"Automatically connect to network: {F7PlatformOS.GetBoolean(IPlatformOS.ConfigurationValues.AutomaticallyStartNetwork)}");
                     Resolver.Log.Info($"Get time at startup: {F7PlatformOS.GetBoolean(IPlatformOS.ConfigurationValues.GetTimeAtStartup)}");
                     Resolver.Log.Info($"Default access point: {F7PlatformOS.GetString(IPlatformOS.ConfigurationValues.DefaultAccessPoint)}");

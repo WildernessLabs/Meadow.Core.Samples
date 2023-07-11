@@ -36,7 +36,7 @@ namespace BiDirectonalPort
 
             _d06.Changed += OnD06Changed;
 
-            Console.WriteLine("ok");
+            Resolver.Log.Info("ok");
 
             return Task.CompletedTask;
         }
@@ -49,24 +49,24 @@ namespace BiDirectonalPort
             while (true)
             {
                 // _d04 starts as input
-                Console.WriteLine($"---- Start ----");
-                Console.WriteLine($"D04 --> D05 reads {(state ? "high" : "low")}");
+                Resolver.Log.Info($"---- Start ----");
+                Resolver.Log.Info($"D04 --> D05 reads {(state ? "high" : "low")}");
                 // set output
                 _d04.State = state;     // D04 to output and set true
                 // read input
                 var check = _d05.State; // Read D05 remains input
-                Console.WriteLine($"  D05 is {(check ? "high" : "low")} should match previous");
+                Resolver.Log.Info($"  D05 is {(check ? "high" : "low")} should match previous");
 
                 state = !state;
 
-                Console.WriteLine($"---- Reverse ----");
+                Resolver.Log.Info($"---- Reverse ----");
                 // now reverse
-                Console.WriteLine($"D04 <-- D05 writes {(state ? "high" : "low")}");
+                Resolver.Log.Info($"D04 <-- D05 writes {(state ? "high" : "low")}");
                 // set output
                 _d05.State = state;   // D05 to output set false
                 // read input
                 check = _d04.State;   // Read D04 changes to input
-                Console.WriteLine($"  D04 is {(check ? "high" : "low")} should match previous");
+                Resolver.Log.Info($"  D04 is {(check ? "high" : "low")} should match previous");
 
                 state = !state;
 
@@ -85,21 +85,21 @@ namespace BiDirectonalPort
             // The circuit had an led tied to Vcc an resister from the led to D06
             // and a push button from ground to D06. If the led has a low forward
             // drop pressing the button will cause the LED to blink.
-            Console.WriteLine("D06 Interrupt");
-            Console.WriteLine("D06 -> false");
+            Resolver.Log.Info("D06 Interrupt");
+            Resolver.Log.Info("D06 -> false");
             _d06.State = false;      // Becomes output & sets high
             await Task.Delay(2000);
 
-            Console.WriteLine("D06 -> true");
+            Resolver.Log.Info("D06 -> true");
             _d06.State = true;     // Still output & sets low
             await Task.Delay(2000);
 
-            Console.WriteLine("D06 -> false");
+            Resolver.Log.Info("D06 -> false");
             _d06.State = false;      // Still output & sets high
             await Task.Delay(2000);
 
             _d06.State = true;     // Still output & sets low
-            Console.WriteLine("D06 -> input");
+            Resolver.Log.Info("D06 -> input");
             _d06.Direction = PortDirectionType.Input;   // Return to input
         }
 
@@ -112,7 +112,7 @@ namespace BiDirectonalPort
             _d05 = null;
             _d06.Dispose();
             _d06 = null;
-            Console.WriteLine("ok");
+            Resolver.Log.Info("ok");
         }
     }
 }

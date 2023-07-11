@@ -10,7 +10,7 @@ namespace FileSystem_Basics
     {
         public override Task Run()
         {
-            Console.WriteLine("Meadow File System Tests");
+            Resolver.Log.Info("Meadow File System Tests");
             // list out the named directories available at MeadowOS.FileSystem.[x]
             EnumerateNamedDirectories();
 
@@ -27,28 +27,28 @@ namespace FileSystem_Basics
             // write out a tree of all files in the user file system root
             Tree(MeadowOS.FileSystem.UserFileSystemRoot, true);
 
-            Console.WriteLine("Testing complete");
+            Resolver.Log.Info("Testing complete");
 
             return Task.CompletedTask;
         }
 
         void EnumerateNamedDirectories()
         {
-            Console.WriteLine("The following named directories are available:");
-            Console.WriteLine($"\t MeadowOS.FileSystem.UserFileSystemRoot: {MeadowOS.FileSystem.UserFileSystemRoot}");
-            Console.WriteLine($"\t MeadowOS.FileSystem.CacheDirectory: {MeadowOS.FileSystem.CacheDirectory}");
-            Console.WriteLine($"\t MeadowOS.FileSystem.DataDirectory: {MeadowOS.FileSystem.DataDirectory}");
-            Console.WriteLine($"\t MeadowOS.FileSystem.DocumentsDirectory: {MeadowOS.FileSystem.DocumentsDirectory}");
-            Console.WriteLine($"\t MeadowOS.FileSystem.TempDirectory: {MeadowOS.FileSystem.TempDirectory}");
+            Resolver.Log.Info("The following named directories are available:");
+            Resolver.Log.Info($"\t MeadowOS.FileSystem.UserFileSystemRoot: {MeadowOS.FileSystem.UserFileSystemRoot}");
+            Resolver.Log.Info($"\t MeadowOS.FileSystem.CacheDirectory: {MeadowOS.FileSystem.CacheDirectory}");
+            Resolver.Log.Info($"\t MeadowOS.FileSystem.DataDirectory: {MeadowOS.FileSystem.DataDirectory}");
+            Resolver.Log.Info($"\t MeadowOS.FileSystem.DocumentsDirectory: {MeadowOS.FileSystem.DocumentsDirectory}");
+            Resolver.Log.Info($"\t MeadowOS.FileSystem.TempDirectory: {MeadowOS.FileSystem.TempDirectory}");
         }
 
         void CreateFile(string path, string filename)
         {
-            Console.WriteLine($"Creating '{path}/{filename}'...");
+            Resolver.Log.Info($"Creating '{path}/{filename}'...");
 
             if (!Directory.Exists(path))
             {
-                Console.WriteLine("Directory doesn't exist, creating.");
+                Resolver.Log.Info("Directory doesn't exist, creating.");
                 Directory.CreateDirectory(path);
             }
 
@@ -61,7 +61,7 @@ namespace FileSystem_Basics
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Resolver.Log.Info(ex.Message);
             }
         }
 
@@ -72,12 +72,12 @@ namespace FileSystem_Basics
             {
                 using (var stream = File.Open(path, FileMode.Open, FileAccess.Read))
                 {
-                    Console.WriteLine($"Size: {stream.Length,-8}");
+                    Resolver.Log.Info($"Size: {stream.Length,-8}");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Resolver.Log.Info(ex.Message);
             }
         }
 
@@ -87,9 +87,9 @@ namespace FileSystem_Basics
             var folderCount = 0;
 
             ShowFolder(root, 0);
-            Console.WriteLine(string.Empty);
-            Console.WriteLine($"{folderCount} directories");
-            Console.WriteLine($"{fileCount} files");
+            Resolver.Log.Info(string.Empty);
+            Resolver.Log.Info($"{folderCount} directories");
+            Resolver.Log.Info($"{fileCount} files");
 
             void ShowFolder(string folder, int depth, bool last = false)
             {
@@ -98,12 +98,12 @@ namespace FileSystem_Basics
                 try
                 {
                     files = Directory.GetFiles(folder);
-                    Console.WriteLine($"{GetPrefix(depth, last && files.Length == 0)}{Path.GetFileName(folder)}");
+                    Resolver.Log.Info($"{GetPrefix(depth, last && files.Length == 0)}{Path.GetFileName(folder)}");
                 }
                 catch
                 {
-                    Console.WriteLine($"{GetPrefix(depth, last)}{Path.GetFileName(folder)}");
-                    Console.WriteLine($"{GetPrefix(depth + 1, last)}<cannot list files>");
+                    Resolver.Log.Info($"{GetPrefix(depth, last)}{Path.GetFileName(folder)}");
+                    Resolver.Log.Info($"{GetPrefix(depth + 1, last)}<cannot list files>");
                 }
                 if (files != null)
                 {
@@ -124,7 +124,7 @@ namespace FileSystem_Basics
                                 prefix += $"[   error]  ";
                             }
                         }
-                        Console.WriteLine($"{prefix}{Path.GetFileName(file)}");
+                        Resolver.Log.Info($"{prefix}{Path.GetFileName(file)}");
                         fileCount++;
                     }
                 }
@@ -138,11 +138,11 @@ namespace FileSystem_Basics
                 {
                     if (files == null || files.Length == 0)
                     {
-                        Console.WriteLine($"{GetPrefix(depth + 1, last)}<cannot list sub-directories>");
+                        Resolver.Log.Info($"{GetPrefix(depth + 1, last)}<cannot list sub-directories>");
                     }
                     else
                     {
-                        Console.WriteLine($"{GetPrefix(depth + 1)}<cannot list sub-directories>");
+                        Resolver.Log.Info($"{GetPrefix(depth + 1)}<cannot list sub-directories>");
                     }
                 }
                 if (dirs != null)
@@ -181,33 +181,33 @@ namespace FileSystem_Basics
 
         void DirectoryListTest(string path)
         {
-            Console.WriteLine($"Enumerating path '{path}'");
+            Resolver.Log.Info($"Enumerating path '{path}'");
 
             var dirs = Directory.GetDirectories(path);
-            Console.WriteLine($" Found {dirs.Length} Directories {((dirs.Length > 0) ? ":" : string.Empty)}");
+            Resolver.Log.Info($" Found {dirs.Length} Directories {((dirs.Length > 0) ? ":" : string.Empty)}");
             foreach (var d in dirs)
             {
-                Console.WriteLine($"   {d}");
+                Resolver.Log.Info($"   {d}");
             }
             var files = Directory.GetFiles(path);
-            Console.WriteLine($" Found {files.Length} Files {((files.Length > 0) ? ":" : string.Empty)}");
+            Resolver.Log.Info($" Found {files.Length} Files {((files.Length > 0) ? ":" : string.Empty)}");
             foreach (var f in files)
             {
-                Console.WriteLine($"   {f}");
+                Resolver.Log.Info($"   {f}");
             }
         }
 
         void DirectoryListTest2()
         {
-            Console.WriteLine("Enumerating logical drives...");
+            Resolver.Log.Info("Enumerating logical drives...");
 
             var drives = Directory.GetLogicalDrives();
 
-            Console.WriteLine($" Found {drives.Length} logical drives");
+            Resolver.Log.Info($" Found {drives.Length} logical drives");
 
             foreach (var d in drives)
             {
-                Console.WriteLine($"  DRIVE '{d}'");
+                Resolver.Log.Info($"  DRIVE '{d}'");
 
                 ShowFolder(d, 3);
 
@@ -215,11 +215,11 @@ namespace FileSystem_Basics
                 {
                     var name = Path.GetDirectoryName(path);
                     name = string.IsNullOrEmpty(name) ? "/" : name;
-                    Console.WriteLine($"{new string(' ', indent)}+ {name}");
+                    Resolver.Log.Info($"{new string(' ', indent)}+ {name}");
 
                     foreach (var fse in Directory.GetFileSystemEntries(path))
                     {
-                        Console.WriteLine($"{new string(' ', indent + 3)}fse {fse}");
+                        Resolver.Log.Info($"{new string(' ', indent + 3)}fse {fse}");
                     }
 
                     foreach (var dir in Directory.GetDirectories(d))
@@ -229,26 +229,26 @@ namespace FileSystem_Basics
 
                     foreach (var f in Directory.GetFiles(path))
                     {
-                        Console.WriteLine($"{new string(' ', indent + 3)}f{f}");
+                        Resolver.Log.Info($"{new string(' ', indent + 3)}f{f}");
 
                         var fi = new FileInfo(f);
                         if (fi.Exists)
                         {
-                            Console.WriteLine($"{new string(' ', indent + 4)} Exists as file");
+                            Resolver.Log.Info($"{new string(' ', indent + 4)} Exists as file");
                         }
                         var di = new DirectoryInfo(f);
                         if (fi.Exists)
                         {
-                            Console.WriteLine($"{new string(' ', indent + 4)} Exists as directory");
+                            Resolver.Log.Info($"{new string(' ', indent + 4)} Exists as directory");
                         }
                     }
                 }
             }
 
-            Console.WriteLine("Opening file as a dir...");
+            Resolver.Log.Info("Opening file as a dir...");
             foreach (var f in Directory.GetFiles("/meadow0"))
             {
-                Console.WriteLine($"f {f}");
+                Resolver.Log.Info($"f {f}");
             }
         }
     }

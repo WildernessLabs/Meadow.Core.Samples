@@ -18,7 +18,7 @@ namespace Json_Basics
     {
         public override Task Run()
         {
-            Console.WriteLine("Hello Meadow Json serialize");
+            Resolver.Log.Info("Hello Meadow Json serialize");
 
             TestJsonSerialize();
 
@@ -43,7 +43,7 @@ namespace Json_Basics
 
             string json = System.Text.Json.JsonSerializer.Serialize(account);
 
-            Console.WriteLine($"Serialize:\r\n    {json}");
+            Resolver.Log.Info($"Serialize:\r\n    {json}");
         }
 
         void TestJsonDeserialize()
@@ -60,7 +60,7 @@ namespace Json_Basics
 
             Account account = System.Text.Json.JsonSerializer.Deserialize<Account>(json);
 
-            Console.WriteLine($"Deserialize:\r\n" +
+            Resolver.Log.Info($"Deserialize:\r\n" +
                 $"    Email: {account.Email}\r\n" +
                 $"    Active: {account.Active}\r\n" +
                 $"    Created date: {account.CreatedDate}\r\n" +

@@ -13,12 +13,12 @@ namespace F7_Micro_Board_Diagnostics
         {
             // Simple Digital IO
             Tuple<bool, List<PortTestResult>> digitalIOResults = TestDigitalIO();
-            Console.WriteLine("Simple Digital IO Test Results: " + (digitalIOResults.Item1 ? "PASS" : "FAIL"));
+            Resolver.Log.Info("Simple Digital IO Test Results: " + (digitalIOResults.Item1 ? "PASS" : "FAIL"));
             if (!digitalIOResults.Item1)
             {
                 foreach (var r in digitalIOResults.Item2)
                 {
-                    Console.WriteLine("Port failure on pin: " + r.PortName);
+                    Resolver.Log.Info("Port failure on pin: " + r.PortName);
                 }
             }
 
@@ -118,7 +118,7 @@ namespace F7_Micro_Board_Diagnostics
                             // FAILURE: if this port is high, something is wrong.
                             success = portSuccess = false;
                             portTestResults.Add(new PortTestResult("", false)); // TODO: Name
-                            Console.WriteLine("Port failure on pin: " + port.Pin.Name + ", channel: " + port.Channel.Name + "; should be LOW, but is HIGH. Short detected.");
+                            Resolver.Log.Info("Port failure on pin: " + port.Pin.Name + ", channel: " + port.Channel.Name + "; should be LOW, but is HIGH. Short detected.");
                         }
                     } // if it's the port on the other 
                     else if (port != testDigitalPorts[i] && port == pairedEndpointPort)
@@ -127,13 +127,13 @@ namespace F7_Micro_Board_Diagnostics
                         {
                             success = portSuccess = false;
                             portTestResults.Add(new PortTestResult("", false)); // TODO: Name
-                            Console.WriteLine("Port failure on pin: " + port.Pin.Name + ", channel: " + port.Channel.Name + ";  [name] pair should be HIGH, but it's LOW. Endpoint port read failure.");
+                            Resolver.Log.Info("Port failure on pin: " + port.Pin.Name + ", channel: " + port.Channel.Name + ";  [name] pair should be HIGH, but it's LOW. Endpoint port read failure.");
                         }
                     }
 
                     if (portSuccess)
                     {
-                        Console.WriteLine("port " + port.Pin.Name + ", channel: " + port.Channel.Name + " test success.");
+                        Resolver.Log.Info("port " + port.Pin.Name + ", channel: " + port.Channel.Name + " test success.");
                     }
                 }
             }

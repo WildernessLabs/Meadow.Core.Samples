@@ -10,7 +10,7 @@ namespace Watchdog
     {
         public override Task Initialize()
         {
-            Console.WriteLine("Initialize hardware...");
+            Resolver.Log.Info("Initialize hardware...");
 
             // enable the watchdog for 10s
             Device.WatchdogEnable(TimeSpan.FromSeconds(10));
@@ -33,7 +33,7 @@ namespace Watchdog
                 while (true)
                 {
                     Thread.Sleep(pettingInterval);
-                    Console.WriteLine("Petting watchdog.");
+                    Resolver.Log.Info("Petting watchdog.");
                     Device.WatchdogReset();
                 }
             });

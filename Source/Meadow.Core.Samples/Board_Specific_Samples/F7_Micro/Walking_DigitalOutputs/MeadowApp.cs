@@ -59,7 +59,7 @@ namespace Walking_DigitalOutputs
             _outs.Add(Device.CreateDigitalOutputPort(Device.Pins.D06));
             _outs.Add(Device.CreateDigitalOutputPort(Device.Pins.D05));
 
-            Console.WriteLine("ok.");
+            Resolver.Log.Info("ok.");
         }
 
         async Task WalkOutputs()
@@ -84,7 +84,7 @@ namespace Walking_DigitalOutputs
             }
             _outs.Clear();
 
-            Console.WriteLine("ok.");
+            Resolver.Log.Info("ok.");
         }
     }
 }

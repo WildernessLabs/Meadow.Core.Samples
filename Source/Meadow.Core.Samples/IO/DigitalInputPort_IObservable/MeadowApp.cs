@@ -17,7 +17,7 @@ namespace DigitalInterruptPort_Basics
 
         public override Task Initialize()
         {
-            Console.WriteLine("Initializing hardware...");
+            Resolver.Log.Info("Initializing hardware...");
 
             //==== create an input port on D04. 
             input = Device.CreateDigitalInterruptPort(
@@ -28,7 +28,7 @@ namespace DigitalInterruptPort_Basics
             //==== Classic .NET Events
             input.Changed += (object sender, DigitalPortResult result) =>
             {
-                Console.WriteLine($"Old school event raised; Time: {result.New.Time}, Value: {result.New.State}");
+                Resolver.Log.Info($"Old school event raised; Time: {result.New.Time}, Value: {result.New.State}");
             };
 
             //===== Filterable Observer
@@ -39,7 +39,7 @@ namespace DigitalInterruptPort_Basics
             var observer = IDigitalInterruptPort.CreateObserver(
                 handler: result =>
                 {
-                    Console.WriteLine($"Observer filter satisfied, time: {result.New.Time.ToShortTimeString()}");
+                    Resolver.Log.Info($"Observer filter satisfied, time: {result.New.Time.ToShortTimeString()}");
                 },
                 // Optional filter paramter, showing a 1 second filter, i.e., only notify
                 // if the new event is > 1 second from last time it was notified.
@@ -56,7 +56,7 @@ namespace DigitalInterruptPort_Basics
                 );
             input.Subscribe(observer);
 
-            Console.WriteLine("Hardware initialized.");
+            Resolver.Log.Info("Hardware initialized.");
 
             return Task.CompletedTask;
         }

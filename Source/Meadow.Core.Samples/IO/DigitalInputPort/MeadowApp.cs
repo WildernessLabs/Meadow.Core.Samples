@@ -57,8 +57,8 @@ namespace DigitalInputPort
                 var line1 = string.Join(" ", inputs.Select(i => i.Pin.Name).ToArray());
                 var line2 = string.Join(" ", inputs.Select(i => $" {(i.State ? 1 : 0)} ").ToArray());
 
-                Console.WriteLine(line1);
-                Console.WriteLine(line2 + "\n");
+                Resolver.Log.Info(line1);
+                Resolver.Log.Info(line2 + "\n");
 
                 await Task.Delay(2000);
             }
@@ -70,11 +70,11 @@ namespace DigitalInputPort
 
             if (port == null)
             {
-                Console.WriteLine($"sender is a {port.GetType().Name}");
+                Resolver.Log.Info($"sender is a {port.GetType().Name}");
             }
             else
             {
-                Console.WriteLine($"{port.Pin.Name} state changed to {e.New.State}");
+                Resolver.Log.Info($"{port.Pin.Name} state changed to {e.New.State}");
             }
         }
     }

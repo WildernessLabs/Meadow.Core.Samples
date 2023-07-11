@@ -10,11 +10,11 @@ namespace RealTimeClock
         public override Task Run()
         {
             //set current time to 12pm on March 20, 2020
-            Console.WriteLine("Hello RTC");
+            Resolver.Log.Info("Hello RTC");
             
             Device.PlatformOS.SetClock(new DateTime(2020, 3, 22, 12, 0, 0));
 
-            Console.WriteLine($"Today is: {DateTime.Now}");
+            Resolver.Log.Info($"Today is: {DateTime.Now}");
 
             return Task.CompletedTask;
         }

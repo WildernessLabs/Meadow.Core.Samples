@@ -43,7 +43,7 @@ namespace PWM
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                Resolver.Log.Info($"Error: {ex.Message}");
             }
         }
 
@@ -69,20 +69,20 @@ namespace PWM
             {
                 pwm.TimeScale = TimeScale.Seconds;
                 pwm.Period = 0.02f;
-                Console.WriteLine($"Freq: {pwm.Frequency.Hertz}  Period: {(int)pwm.Period} {pwm.TimeScale}");
+                Resolver.Log.Info($"Freq: {pwm.Frequency.Hertz}  Period: {(int)pwm.Period} {pwm.TimeScale}");
                 await Task.Delay(2000);
 
                 pwm.TimeScale = TimeScale.Milliseconds;
-                Console.WriteLine($"Freq: {pwm.Frequency.Hertz}  Period: {(int)pwm.Period} {pwm.TimeScale}");
+                Resolver.Log.Info($"Freq: {pwm.Frequency.Hertz}  Period: {(int)pwm.Period} {pwm.TimeScale}");
                 await Task.Delay(2000);
                 pwm.Period = 50f;
-                Console.WriteLine($"Freq: {pwm.Frequency.Hertz}  Period: {(int)pwm.Period} {pwm.TimeScale}");
+                Resolver.Log.Info($"Freq: {pwm.Frequency.Hertz}  Period: {(int)pwm.Period} {pwm.TimeScale}");
                 await Task.Delay(2000);
 
                 pwm.TimeScale = TimeScale.Microseconds;
-                Console.WriteLine($"Freq: {pwm.Frequency.Hertz}  Period: {(int)pwm.Period} {pwm.TimeScale}");
+                Resolver.Log.Info($"Freq: {pwm.Frequency.Hertz}  Period: {(int)pwm.Period} {pwm.TimeScale}");
                 pwm.Period = 80f;
-                Console.WriteLine($"Freq: {pwm.Frequency.Hertz}  Period: {(int)pwm.Period} {pwm.TimeScale}");
+                Resolver.Log.Info($"Freq: {pwm.Frequency.Hertz}  Period: {(int)pwm.Period} {pwm.TimeScale}");
                 await Task.Delay(2000);
             }
         }
@@ -95,7 +95,7 @@ namespace PWM
 
             while (true)
             {
-                Console.WriteLine($"Freq: {pwm.Frequency}  Period: {pwm.Period} {pwm.TimeScale}");
+                Resolver.Log.Info($"Freq: {pwm.Frequency}  Period: {pwm.Period} {pwm.TimeScale}");
                 await Task.Delay(5000);
 
                 pwm.Frequency += delta;
@@ -114,7 +114,7 @@ namespace PWM
 
             while (true)
             {
-                Console.WriteLine($"Duty: {pwm.DutyCycle}  Duration: {pwm.Duration} {pwm.TimeScale}");
+                Resolver.Log.Info($"Duty: {pwm.DutyCycle}  Duration: {pwm.Duration} {pwm.TimeScale}");
                 await Task.Delay(2000);
 
                 var temp = Math.Round(pwm.DutyCycle + delta, 1);
@@ -135,7 +135,7 @@ namespace PWM
             pwm.Start();
             while (true)
             {
-                Console.WriteLine($"Duty: {pwm.DutyCycle}  Duration: {pwm.Duration} {pwm.TimeScale}");
+                Resolver.Log.Info($"Duty: {pwm.DutyCycle}  Duration: {pwm.Duration} {pwm.TimeScale}");
                 await Task.Delay(2000);
 
                 var temp = Math.Round(pwm.Duration + delta, 0);
