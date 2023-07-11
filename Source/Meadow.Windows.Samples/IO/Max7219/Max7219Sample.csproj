@@ -6,13 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Windows" Version="0.*" />
+    <PackageReference Include="Meadow.Windows" Version="1.*" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Windows" Version="0.*" />
-    <PackageReference Include="Meadow.Foundation.Graphics.MicroGraphics" Version="0.*" />
-    <PackageReference Include="Meadow.Foundation.Displays.Max7219" Version="0.*" />
-    <PackageReference Include="Meadow.Foundation.ICs.IOExpanders.Ft232h" Version="0.*" />
+    <PackageReference Include="Meadow.Windows" Version="1.*" />
+    <PackageReference Include="Meadow.Foundation.Graphics.MicroGraphics" Version="1.*" />
+    <PackageReference Include="Meadow.Foundation.Displays.Max7219" Version="1.*" />
+    <PackageReference Include="Meadow.Foundation.ICs.IOExpanders.Ft232h" Version="1.*" />
   </ItemGroup>
   <ItemGroup>
     <None Update="libmpsse.dll">

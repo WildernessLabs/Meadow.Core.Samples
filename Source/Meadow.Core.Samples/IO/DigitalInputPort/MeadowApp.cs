@@ -23,19 +23,19 @@ namespace DigitalInputPort
             inputs.Add(d7);
 
             TimeSpan debounceDuration = TimeSpan.FromMilliseconds(20);
-            var d4 = Device.Pins.D04.CreateDigitalInputPort(InterruptMode.EdgeBoth, ResistorMode.Disabled);
+            var d4 = Device.Pins.D04.CreateDigitalInterruptPort(InterruptMode.EdgeBoth, ResistorMode.Disabled);
             d4.DebounceDuration = debounceDuration;
             d4.Changed += OnStateChangedHandler;
             inputs.Add(d4);
 
             // since we're looking for falling, pull it up
-            var d3 = Device.Pins.D03.CreateDigitalInputPort(InterruptMode.EdgeFalling, ResistorMode.InternalPullUp);
+            var d3 = Device.Pins.D03.CreateDigitalInterruptPort(InterruptMode.EdgeFalling, ResistorMode.InternalPullUp);
             d3.DebounceDuration = debounceDuration;
             d3.Changed += OnStateChangedHandler;
             inputs.Add(d3);
 
             // since we're looking for risinging, pull it down
-            var d2 = Device.Pins.D02.CreateDigitalInputPort(InterruptMode.EdgeRising, ResistorMode.InternalPullDown);
+            var d2 = Device.Pins.D02.CreateDigitalInterruptPort(InterruptMode.EdgeRising, ResistorMode.InternalPullDown);
             d2.DebounceDuration = debounceDuration;
             d2.Changed += OnStateChangedHandler;
             inputs.Add(d2);
@@ -57,8 +57,8 @@ namespace DigitalInputPort
                 var line1 = string.Join(" ", inputs.Select(i => i.Pin.Name).ToArray());
                 var line2 = string.Join(" ", inputs.Select(i => $" {(i.State ? 1 : 0)} ").ToArray());
 
-                Console.WriteLine(line1);
-                Console.WriteLine(line2 + "\n");
+                Resolver.Log.Info(line1);
+                Resolver.Log.Info(line2 + "\n");
 
                 await Task.Delay(2000);
             }
@@ -70,11 +70,11 @@ namespace DigitalInputPort
 
             if (port == null)
             {
-                Console.WriteLine($"sender is a {port.GetType().Name}");
+                Resolver.Log.Info($"sender is a {port.GetType().Name}");
             }
             else
             {
-                Console.WriteLine($"{port.Pin.Name} state changed to {e.New.State}");
+                Resolver.Log.Info($"{port.Pin.Name} state changed to {e.New.State}");
             }
         }
     }

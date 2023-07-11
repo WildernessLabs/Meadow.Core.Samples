@@ -20,13 +20,13 @@ namespace SerialListener
                 Resolver.Log.Info($"  {name.FriendlyName}");
             }
             var serialPortName = Device.PlatformOS.GetSerialPortName("COM4");
-            Console.WriteLine($"Using {serialPortName.FriendlyName}...");
+            Resolver.Log.Info($"Using {serialPortName.FriendlyName}...");
             classicSerialPort = Device.CreateSerialPort(serialPortName, 9600);
-            Console.WriteLine("\tCreated");
+            Resolver.Log.Info("\tCreated");
 
             // open the serial port
             classicSerialPort.Open();
-            Console.WriteLine("\tOpened");
+            Resolver.Log.Info("\tOpened");
 
             return Task.CompletedTask;
         }
@@ -49,7 +49,7 @@ namespace SerialListener
 
                 if (dataLength > 0)
                 {
-                    Console.WriteLine(ParseToString(buffer, dataLength, Encoding.ASCII));
+                    Resolver.Log.Info(ParseToString(buffer, dataLength, Encoding.ASCII));
                 }
 
                 await Task.Delay(500);

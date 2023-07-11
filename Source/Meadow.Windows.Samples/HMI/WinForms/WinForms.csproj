@@ -14,8 +14,8 @@
    <Compile Remove="MeadowApp.cs" />
  </ItemGroup>
  <ItemGroup>
-    <PackageReference Include="Meadow.Windows" Version="0.*" />
-    <PackageReference Include="Meadow.Foundation.Graphics.MicroGraphics" Version="0.*" />
-    <PackageReference Include="Meadow.Foundation.Displays.WinForms" Version="0.*" />
+    <PackageReference Include="Meadow.Windows" Version="1.*" />
+    <PackageReference Include="Meadow.Foundation.Graphics.MicroGraphics" Version="1.*" />
+    <PackageReference Include="Meadow.Foundation.Displays.WinForms" Version="1.*" />
  </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@ using AvaloniaMeadow.ViewModels;
 using AvaloniaMeadow.Views;
 using Meadow;
 using Meadow.Hardware;
+using Meadow.UI;
 using System.Threading.Tasks;
 
 namespace AvaloniaMeadow
@@ -30,7 +31,7 @@ namespace AvaloniaMeadow
             LoadMeadowOS();
         }
 
-        public override Task InitializeMeadow()
+        public override Task MeadowInitialize()
         {
             var ft = new Meadow.Foundation.ICs.IOExpanders.Ft232h();
             var led = ft.Pins.C0.CreateDigitalOutputPort(false);

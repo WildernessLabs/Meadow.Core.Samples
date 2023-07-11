@@ -14,7 +14,7 @@ namespace Hello_LED
 
         public override Task Initialize()
         {
-            Console.WriteLine("Creating Outputs");
+            Resolver.Log.Info("Creating Outputs");
             _redLED = Device.Pins.OnboardLedRed.CreateDigitalOutputPort();
             _blueLED = Device.Pins.OnboardLedBlue.CreateDigitalOutputPort();
             _greenLED = Device.Pins.OnboardLedGreen.CreateDigitalOutputPort();
@@ -31,7 +31,7 @@ namespace Hello_LED
             {
                 state = !state;
 
-                Console.WriteLine($" Count: {++stateCount}, State: {state}");
+                Resolver.Log.Info($" Count: {++stateCount}, State: {state}");
 
                 _redLED.State = state;
                 await Task.Delay(200);

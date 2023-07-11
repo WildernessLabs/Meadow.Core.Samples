@@ -1,6 +1,5 @@
 ﻿using Meadow;
 using Meadow.Devices;
-using System;
 using System.Threading.Tasks;
 
 namespace McuTemp
@@ -12,10 +11,10 @@ namespace McuTemp
     {
         public override async Task Run()
         {
-            while(true) 
+            while (true)
             {
                 // get the temp
-                Console.WriteLine($"Processor Temp: {Device.GetProcessorTemperature().Celsius:n2}C");
+                //Resolver.Log.Info($"Processor Temp: {Device.GetProcessorTemperature().Celsius:n2}C");
 
                 await Task.Delay(1000);
             }

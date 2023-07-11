@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Meadow.F7" Version="1.*" />
+    <PackageReference Include="Meadow.MQTT" Version="1.*" />
   </ItemGroup>
   <ItemGroup>
     <None Update="meadow.config.yaml">

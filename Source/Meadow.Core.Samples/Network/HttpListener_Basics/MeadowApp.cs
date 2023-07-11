@@ -33,7 +33,7 @@ namespace HttpListener_Basics
         {
             get
             {
-                if(ipAddress != null)
+                if (ipAddress != null)
                 {
                     return $"http://{ipAddress}:{port}/";
                 }
@@ -49,14 +49,14 @@ namespace HttpListener_Basics
         /// </summary>
         public override Task Initialize()
         {
-            Console.WriteLine("Creating HttpListenerTest object.");
+            Resolver.Log.Info("Creating HttpListenerTest object.");
 
             var wifi = Device.NetworkAdapters.Primary<IWiFiNetworkAdapter>();
 
-            Console.WriteLine("Connecting to access point.");
+            Resolver.Log.Info("Connecting to access point.");
             wifi.Connect(Secrets.WIFI_NAME, Secrets.WIFI_PASSWORD).Wait();
 
-            Console.WriteLine("WiFi connection completed.");
+            Resolver.Log.Info("WiFi connection completed.");
             ipAddress = wifi.IpAddress;
 
             return Task.CompletedTask;
@@ -71,7 +71,7 @@ namespace HttpListener_Basics
 
         void WiFiAdapter_WiFiConnected(object sender, EventArgs e)
         {
-            Console.WriteLine("WiFiAdapter_WiFiConnected: connected to access point.");
+            Resolver.Log.Info("WiFiAdapter_WiFiConnected: connected to access point.");
         }
 
         public async Task HandleIncomingConnections()
@@ -81,7 +81,7 @@ namespace HttpListener_Basics
             await Task.Run(async () =>
             {
                 // While a user hasn't visited the `shutdown` url, keep on handling requests
-                while(runServer)
+                while (runServer)
                 {
                     // Will wait here until we hear from a connection
                     HttpListenerContext ctx = await listener.GetContextAsync();
@@ -91,22 +91,21 @@ namespace HttpListener_Basics
                     HttpListenerResponse resp = ctx.Response;
 
                     // Print out some info about the request
-                    Console.WriteLine("Request #: {0}", ++requestCount);
-                    Console.WriteLine(req.Url);
-                    Console.WriteLine(req.HttpMethod);
-                    Console.WriteLine(req.UserHostName);
-                    Console.WriteLine(req.UserAgent);
-                    Console.WriteLine();
+                    Resolver.Log.Info($"Request #: {++requestCount}");
+                    Resolver.Log.Info(req.Url.ToString());
+                    Resolver.Log.Info(req.HttpMethod);
+                    Resolver.Log.Info(req.UserHostName);
+                    Resolver.Log.Info(req.UserAgent);
 
                     // If `shutdown` url requested w/ POST, then shutdown the server after serving the page
-                    if((req.HttpMethod == "POST") && (req.Url.AbsolutePath == "/shutdown"))
+                    if ((req.HttpMethod == "POST") && (req.Url.AbsolutePath == "/shutdown"))
                     {
-                        Console.WriteLine("Shutdown requested");
+                        Resolver.Log.Info("Shutdown requested");
                         runServer = false;
                     }
 
                     // Make sure we don't increment the page views counter if `favicon.ico` is requested
-                    if(req.Url.AbsolutePath != "/favicon.ico")
+                    if (req.Url.AbsolutePath != "/favicon.ico")
                     {
                         pageViews += 1;
                     }
@@ -130,7 +129,7 @@ namespace HttpListener_Basics
             listener = new HttpListener();
             listener.Prefixes.Add(Url);
             listener.Start();
-            Console.WriteLine("Listening for connections on {0}", Url);
+            Resolver.Log.Info($"Listening for connections on {Url}");
 
             // Handle requests
             await HandleIncomingConnections();

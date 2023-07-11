@@ -8,6 +8,6 @@
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Linux" Version="0.*" />
+    <PackageReference Include="Meadow.Linux" Version="1.*" />
   </ItemGroup>
 </Project>

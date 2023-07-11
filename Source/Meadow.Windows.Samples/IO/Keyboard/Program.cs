@@ -6,7 +6,7 @@ using System.Diagnostics;
 public class MeadowApp : App<Windows>
 {
     private Keyboard _keyBoard;
-    private IDigitalInputPort _a;
+    private IDigitalInterruptPort _a;
 
     public static async Task Main(string[] args)
     {
@@ -16,7 +16,7 @@ public class MeadowApp : App<Windows>
     public override Task Initialize()
     {
         _keyBoard = new Keyboard();
-        _a = _keyBoard.CreateDigitalInputPort(_keyBoard.Pins.A, InterruptMode.EdgeBoth);
+        _a = _keyBoard.CreateDigitalInterruptPort(_keyBoard.Pins.A, InterruptMode.EdgeBoth);
         _a.Changed += OnKeyChanged;
         return Task.CompletedTask;
     }

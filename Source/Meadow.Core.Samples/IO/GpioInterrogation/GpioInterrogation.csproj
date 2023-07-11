@@ -4,6 +4,7 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <OutputType>Library</OutputType>
     <AssemblyName>App</AssemblyName>
+	  <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>latestmajor</LangVersion>

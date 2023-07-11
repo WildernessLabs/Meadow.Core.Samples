@@ -23,28 +23,28 @@ namespace SerialPort
                 Resolver.Log.Info($"  {name.FriendlyName}");
             }
             var serialPortName = Device.PlatformOS.GetSerialPortName("COM1");
-            Console.WriteLine($"Using {serialPortName.FriendlyName}...");
+            Resolver.Log.Info($"Using {serialPortName.FriendlyName}...");
             classicSerialPort = Device.CreateSerialPort(serialPortName, 115200);
-            Console.WriteLine("\tCreated");
+            Resolver.Log.Info("\tCreated");
 
             // open the serial port
             classicSerialPort.Open();
-            Console.WriteLine("\tOpened");
+            Resolver.Log.Info("\tOpened");
 
             return Task.CompletedTask;
         }
 
         public override async Task Run()
         {
-            Console.WriteLine("BUGBUG: this test fails under specific conditions. See test for info.");
+            Resolver.Log.Info("BUGBUG: this test fails under specific conditions. See test for info.");
             SimpleReadWriteTest();
-            Console.WriteLine("Simple read/write testing completed.");
+            Resolver.Log.Info("Simple read/write testing completed.");
 
             await SerialEventTest();
-            Console.WriteLine("Serial event testing completed.");
+            Resolver.Log.Info("Serial event testing completed.");
 
-            Console.WriteLine("LongMessageTest - currently, not absolutely sure this works. Console.WriteLine might be clipping output.");
-            Console.WriteLine("Also, test it with unicode encoding and things go sideways, are we losing a byte?? ");
+            Resolver.Log.Info("LongMessageTest - currently, not absolutely sure this works. Console.WriteLine might be clipping output.");
+            Resolver.Log.Info("Also, test it with unicode encoding and things go sideways, are we losing a byte?? ");
             await LongMessageTest();
         }
 
@@ -63,7 +63,7 @@ namespace SerialPort
             int dataLength = 0;
             for (int i = 0; i < 10; i++)
             {
-                Console.WriteLine("Writing data...");
+                Resolver.Log.Info("Writing data...");
                 /*dataLength =*/
                 classicSerialPort.Write(currentTestEncoding.GetBytes($"{count * i} PRINT Hello Meadow!"));
 
@@ -87,7 +87,7 @@ namespace SerialPort
                 dataLength = classicSerialPort.BytesToRead;
                 classicSerialPort.Read(buffer, 0, dataLength);
 
-                Console.WriteLine($"Serial data: {ParseToString(buffer, dataLength, currentTestEncoding)}");
+                Resolver.Log.Info($"Serial data: {ParseToString(buffer, dataLength, currentTestEncoding)}");
 
                 await Task.Delay(300);
             }
@@ -97,7 +97,7 @@ namespace SerialPort
         // if my use of Span<T> is actually saving anything here.
         async Task SerialEventTest()
         {
-            Console.WriteLine("SerialEventTest");
+            Resolver.Log.Info("SerialEventTest");
 
             currentTestEncoding = Encoding.Unicode;
             classicSerialPort.DataReceived += ProcessData;
@@ -105,7 +105,7 @@ namespace SerialPort
             // send some messages
             await Task.Run(async () =>
             {
-                Console.WriteLine("Sending 8 messages of profundity.");
+                Resolver.Log.Info("Sending 8 messages of profundity.");
                 classicSerialPort.Write(currentTestEncoding.GetBytes("Ticking away the moments that make up a dull day,"));
                 await Task.Delay(100);
                 classicSerialPort.Write(currentTestEncoding.GetBytes("fritter and waste the hours in an offhand way."));
@@ -154,7 +154,7 @@ Hanging on in quiet desperation is the English way
 The time is gone, the song is over,
 Thought I'd something more to say.";
 
-            Console.WriteLine("LongMessageTest");
+            Resolver.Log.Info("LongMessageTest");
 
             currentTestEncoding = Encoding.ASCII;
 
@@ -163,7 +163,7 @@ Thought I'd something more to say.";
             await Task.Run(() =>
             {
                 int written = classicSerialPort.Write(currentTestEncoding.GetBytes(longMessage));
-                Console.WriteLine($"Wrote {written} bytes");
+                Resolver.Log.Info($"Wrote {written} bytes");
             });
 
             //weak ass Hack to wait for them all to process
@@ -176,7 +176,7 @@ Thought I'd something more to say.";
         // anonymous method declaration so we can unwire later.
         void ProcessData(object sender, SerialDataReceivedEventArgs e)
         {
-            Console.WriteLine("Serial Data Received");
+            Resolver.Log.Info("Serial Data Received");
             byte[] buffer = new byte[512];
             int bytesToRead = classicSerialPort.BytesToRead > buffer.Length
                                 ? buffer.Length

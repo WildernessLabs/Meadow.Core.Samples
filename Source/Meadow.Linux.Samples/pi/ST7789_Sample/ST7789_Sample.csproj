@@ -5,8 +5,8 @@
     <AssemblyName>App</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Meadow.Linux" Version="0.*" />
-    <PackageReference Include="Meadow.Foundation.Graphics.MicroGraphics" Version="0.*" />
-    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="0.*" />
+    <PackageReference Include="Meadow.Linux" Version="1.*" />
+    <PackageReference Include="Meadow.Foundation.Graphics.MicroGraphics" Version="1.*" />
+    <PackageReference Include="Meadow.Foundation.Displays.TftSpi" Version="1.*" />
   </ItemGroup>
 </Project>

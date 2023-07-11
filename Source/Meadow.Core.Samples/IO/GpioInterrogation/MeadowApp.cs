@@ -18,12 +18,12 @@ namespace GpioInterrogation
             {
                 table.Append(BuildRow(pin));
             }
-            Console.WriteLine(table.ToString());
+            Resolver.Log.Info(table.ToString());
 
             //foreach (var pin in Device.Pins.AllPins) {
-            //    Console.WriteLine($"Found pin: {pin.Name}");
+            //    Resolver.Log.Info($"Found pin: {pin.Name}");
             //    foreach (var channel in pin.SupportedChannels) {
-            //        Console.WriteLine($"Contains a {channel.GetType()} channel called: {channel.Name}.");
+            //        Resolver.Log.Info($"Contains a {channel.GetType()} channel called: {channel.Name}.");
             //    }
             //}
 

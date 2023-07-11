@@ -19,17 +19,17 @@ namespace SerialPort_Echo
                 Resolver.Log.Info($"  {name.FriendlyName}");
             }
             var serialPortName = Device.PlatformOS.GetSerialPortName("COM1");
-            Console.WriteLine($"Using {serialPortName.FriendlyName}...");
+            Resolver.Log.Info($"Using {serialPortName.FriendlyName}...");
             port = Device.CreateSerialPort(serialPortName, 115200);
-            Console.WriteLine("\tCreated");
+            Resolver.Log.Info("\tCreated");
             port.Open();
             if (port.IsOpen)
             {
-                Console.WriteLine("\tOpened");
+                Resolver.Log.Info("\tOpened");
             }
             else
             {
-                Console.WriteLine("\tFailed to Open");
+                Resolver.Log.Info("\tFailed to Open");
             }
 
             return Task.CompletedTask;
@@ -41,7 +41,7 @@ namespace SerialPort_Echo
 
             while (true)
             {
-                Console.WriteLine("Writing data...");
+                Resolver.Log.Info("Writing data...");
                 port.Write(Encoding.ASCII.GetBytes("Hello Meadow!"));
 
                 var dataLength = port.BytesToRead;
@@ -49,11 +49,11 @@ namespace SerialPort_Echo
 
                 if (read == 0)
                 {
-                    Console.WriteLine($"Read {read} bytes");
+                    Resolver.Log.Info($"Read {read} bytes");
                 }
                 else
                 {
-                    Console.WriteLine($"Read {read} bytes: {BitConverter.ToString(buffer, 0, read)}");
+                    Resolver.Log.Info($"Read {read} bytes: {BitConverter.ToString(buffer, 0, read)}");
                 }
 
                 await Task.Delay(2000);
