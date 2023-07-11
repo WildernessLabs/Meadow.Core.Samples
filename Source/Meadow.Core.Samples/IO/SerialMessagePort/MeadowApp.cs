@@ -28,13 +28,13 @@ namespace SerialMessagePort
             }
             serialPortName = Device.PlatformOS.GetSerialPortName("COM1");
 
-            Console.WriteLine("Get delimiter");
+            Resolver.Log.Info("Get delimiter");
             // convert for later. 
             delimiterBytes = Encoding.ASCII.GetBytes(delimiterString);
 
-            Console.WriteLine("SerialMessagePort_Test");
-            Console.WriteLine($"Using '{serialPortName.FriendlyName}'...");
-            Console.WriteLine($"delimiter:{delimiterString}");
+            Resolver.Log.Info("SerialMessagePort_Test");
+            Resolver.Log.Info($"Using '{serialPortName.FriendlyName}'...");
+            Resolver.Log.Info($"delimiter:{delimiterString}");
 
             return Task.CompletedTask;
         }
@@ -61,11 +61,11 @@ namespace SerialMessagePort
             // instantiate our serial port
             serialPort = Device.CreateSerialMessagePort(
                 serialPortName, delimiterBytes, preseveDelimiter, baudRate: 115200);
-            Console.WriteLine("\tCreated");
+            Resolver.Log.Info("\tCreated");
 
             // open the serial port
             serialPort.Open();
-            Console.WriteLine("\tOpened");
+            Resolver.Log.Info("\tOpened");
 
             // wire up message received handler
             serialPort.MessageReceived += SerialPort_MessageReceived;
@@ -79,7 +79,7 @@ namespace SerialMessagePort
                     var dataToWrite = Encoding.ASCII.GetBytes($"{sentence}").Concat(delimiterBytes).ToArray();
                     //var dataToWrite = Encoding.ASCII.GetBytes($"{sentence}") + delimiter;
                     var written = serialPort.Write(dataToWrite);
-                    Console.WriteLine($"\nWrote {written} bytes");
+                    Resolver.Log.Info($"\nWrote {written} bytes");
                     // sleep
                     await Task.Delay(2000);
                 }
@@ -94,29 +94,29 @@ namespace SerialMessagePort
             // instantiate our serial port
             serialPort = Device.CreateSerialMessagePort(
                 serialPortName, Encoding.UTF8.GetBytes("\r\n"), false, baudRate: 115200);
-            Console.WriteLine("\tCreated");
+            Resolver.Log.Info("\tCreated");
 
             // open the serial port
             serialPort.Open();
-            Console.WriteLine("\tOpened");
+            Resolver.Log.Info("\tOpened");
 
             // wire up message received handler
             serialPort.MessageReceived += (object sender, SerialMessageData e) =>
             {
-                Console.WriteLine($"Message Lenght: {e.Message.Length}");
+                Resolver.Log.Info($"Message Lenght: {e.Message.Length}");
                 if (e.Message.Length == 11)
                 {
-                    Console.WriteLine("Things are groovy.");
+                    Resolver.Log.Info("Things are groovy.");
                 }
                 else
                 {
-                    Console.WriteLine("Things are not so groovy.");
+                    Resolver.Log.Info("Things are not so groovy.");
                 }
             };
 
             var dataToWrite = Encoding.ASCII.GetBytes($"TestMessage\r\n");
             var written = serialPort.Write(dataToWrite);
-            Console.WriteLine($"\nWrote {written} bytes");
+            Resolver.Log.Info($"\nWrote {written} bytes");
         }
 
         async Task TestDoubleMessageWithSuffix()
@@ -128,11 +128,11 @@ namespace SerialMessagePort
             // instantiate our serial port
             serialPort = Device.CreateSerialMessagePort(
                 serialPortName, delimiterBytes, preseveDelimiter, baudRate: 115200);
-            Console.WriteLine("\tCreated");
+            Resolver.Log.Info("\tCreated");
 
             // open the serial port
             serialPort.Open();
-            Console.WriteLine("\tOpened");
+            Resolver.Log.Info("\tOpened");
 
             // wire up message received handler
             serialPort.MessageReceived += SerialPort_MessageReceived;
@@ -140,7 +140,7 @@ namespace SerialMessagePort
 
             var dataToWrite = Encoding.ASCII.GetBytes($"{GetDoubleInOne()}").Concat(delimiterBytes).ToArray();
             var written = serialPort.Write(dataToWrite);
-            Console.WriteLine($"\nWrote {written} bytes");
+            Resolver.Log.Info($"\nWrote {written} bytes");
             // sleep
             await Task.Delay(2000);
         }
@@ -154,11 +154,11 @@ namespace SerialMessagePort
             // instantiate our serial port
             serialPort = Device.CreateSerialMessagePort(
                 serialPortName, delimiterBytes, preseveDelimiter, 27, baudRate: 115200);
-            Console.WriteLine("\tCreated");
+            Resolver.Log.Info("\tCreated");
 
             // open the serial port
             serialPort.Open();
-            Console.WriteLine("\tOpened");
+            Resolver.Log.Info("\tOpened");
 
             // wire up message received handler
             serialPort.MessageReceived += SerialPort_MessageReceived;
@@ -171,7 +171,7 @@ namespace SerialMessagePort
                     //var dataToWrite = Encoding.ASCII.GetBytes($"{sentence}{DelimiterToken}");
                     var dataToWrite = delimiterBytes.Concat(Encoding.ASCII.GetBytes($"{sentence}")).ToArray();
                     var written = serialPort.Write(dataToWrite);
-                    Console.WriteLine($"\nWrote {written} bytes");
+                    Resolver.Log.Info($"\nWrote {written} bytes");
                     // sleep
                     await Task.Delay(2000);
                 }
@@ -181,7 +181,7 @@ namespace SerialMessagePort
 
         private void SerialPort_MessageReceived(object sender, SerialMessageData e)
         {
-            Console.WriteLine($"Msg recvd: {e.GetMessageString(Encoding.ASCII)}\n");
+            Resolver.Log.Info($"Msg recvd: {e.GetMessageString(Encoding.ASCII)}\n");
         }
 
         protected string[] BuildFixedLengthTestSentences()

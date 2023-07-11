@@ -48,10 +48,10 @@ namespace SQLite_Sample
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Problem: {ex.Message}");
+                Resolver.Log.Info($"Problem: {ex.Message}");
                 if (ex.InnerException != null)
                 {
-                    Console.WriteLine($"Inner exception: {ex.InnerException.Message}");
+                    Resolver.Log.Info($"Inner exception: {ex.InnerException.Message}");
                 }
             }
 
@@ -77,7 +77,7 @@ namespace SQLite_Sample
         {
             for (int i = 0; i < InsertCount; i++)
             {
-                Console.WriteLine($"Inserting row {i + 1}...");
+                Resolver.Log.Info($"Inserting row {i + 1}...");
                 Database.Insert(new SensorModel { Timestamp = DateTime.Now, Value = SensorValue });
                 Thread.Sleep(100);
                 SensorValue += 1.23;
@@ -86,11 +86,11 @@ namespace SQLite_Sample
 
         void RetreiveData()
         {
-            Console.WriteLine("Reading back the data...");
+            Resolver.Log.Info("Reading back the data...");
             var rows = Database.Table<SensorModel>();
             foreach (var r in rows)
             {
-                Console.WriteLine($"Reading was {r.Value} at {r.Timestamp.ToString("HH:mm:ss")}");
+                Resolver.Log.Info($"Reading was {r.Value} at {r.Timestamp.ToString("HH:mm:ss")}");
             }
         }
 
@@ -99,7 +99,7 @@ namespace SQLite_Sample
             // pull the first record out of the table
             SensorModel reading = Database.Table<SensorModel>().Take(1).First();
 
-            Console.WriteLine($"Found a record, ID: {reading.ID}");
+            Resolver.Log.Info($"Found a record, ID: {reading.ID}");
 
             // change the value
             reading.Value = reading.Value * 2;
@@ -112,36 +112,36 @@ namespace SQLite_Sample
         {
             SensorModel firstRow = Database.Table<SensorModel>().Take(1).First();
             var sensorReading1 = Database.Get<SensorModel>(firstRow.ID);
-            Console.WriteLine($"Sensor Reading 1: {sensorReading1.Value}");
+            Resolver.Log.Info($"Sensor Reading 1: {sensorReading1.Value}");
         }
 
         void RetrieveViaSearchPredicate()
         {
             var firstSensorReadingOver50 = Database.Get<SensorModel>(reading => reading.Value > 50);
-            Console.WriteLine($"found a sensor reading over 50; ID: {firstSensorReadingOver50.ID}, value: {firstSensorReadingOver50.Value}");
+            Resolver.Log.Info($"found a sensor reading over 50; ID: {firstSensorReadingOver50.ID}, value: {firstSensorReadingOver50.Value}");
         }
 
         void RetrieveViaLinqQuery()
         {
-            Console.WriteLine("RetrieveViaLinqQuery()");
+            Resolver.Log.Info("RetrieveViaLinqQuery()");
             var readings = from rows in Database.Table<SensorModel>()
                            where rows.Value > 50
                            select rows;
-            Console.WriteLine($"Found {readings.Count()} readings over 50: ");
+            Resolver.Log.Info($"Found {readings.Count()} readings over 50: ");
             foreach (var reading in readings)
             {
-                Console.WriteLine($"ID: {reading.ID}, value: {reading.Value}");
+                Resolver.Log.Info($"ID: {reading.ID}, value: {reading.Value}");
             }
         }
 
         void RetrieveViaTSqlQuery()
         {
-            Console.WriteLine("RetrieveViaTSqlQuery()");
+            Resolver.Log.Info("RetrieveViaTSqlQuery()");
             var readings = Database.Query<SensorModel>("SELECT * FROM SensorReadings WHERE value > ?", 50);
-            Console.WriteLine($"Found {readings.Count()} readings over 50: ");
+            Resolver.Log.Info($"Found {readings.Count()} readings over 50: ");
             foreach (var reading in readings)
             {
-                Console.WriteLine($"ID: {reading.ID}, value: {reading.Value}");
+                Resolver.Log.Info($"ID: {reading.ID}, value: {reading.Value}");
             }
         }
 
@@ -149,12 +149,12 @@ namespace SQLite_Sample
         {
             // pull the first record out of the table
             SensorModel reading = Database.Table<SensorModel>().Take(1).First();
-            Console.WriteLine($"First record ID: {reading.ID}");
+            Resolver.Log.Info($"First record ID: {reading.ID}");
             Database.Delete<SensorModel>(reading.ID);
-            Console.WriteLine($"Deleted the record");
+            Resolver.Log.Info($"Deleted the record");
             // get the first record again
             reading = Database.Table<SensorModel>().Take(1).First();
-            Console.WriteLine($"new first record ID: {reading.ID}");
+            Resolver.Log.Info($"new first record ID: {reading.ID}");
         }
     }
 }

@@ -14,7 +14,7 @@ namespace McuTemp
             while (true)
             {
                 // get the temp
-                //Console.WriteLine($"Processor Temp: {Device.GetProcessorTemperature().Celsius:n2}C");
+                //Resolver.Log.Info($"Processor Temp: {Device.GetProcessorTemperature().Celsius:n2}C");
 
                 await Task.Delay(1000);
             }

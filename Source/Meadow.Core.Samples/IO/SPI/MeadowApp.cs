@@ -15,7 +15,7 @@
 
     //    public override Task Initialize()
     //    {
-    //        Console.WriteLine($"SPI TEST");
+    //        Resolver.Log.Info($"SPI TEST");
 
     //        _chipSelect = Device.CreateDigitalOutputPort(Device.Pins.D04);
     //        _spiBus = Device.CreateSpiBus();
@@ -28,7 +28,7 @@
     //    {
     //        var result = _peripheral.ReadRegister(0x42);
 
-    //        Console.WriteLine($"Read result: {result}");
+    //        Resolver.Log.Info($"Read result: {result}");
 
     //        return Task.CompletedTask;
     //    }

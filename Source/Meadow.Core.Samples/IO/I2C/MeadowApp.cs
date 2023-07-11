@@ -13,7 +13,7 @@ namespace I2C
 
         public override Task Initialize()
         {
-            Console.WriteLine("+GY521 Speed Change Test");
+            Resolver.Log.Info("+GY521 Speed Change Test");
 
             i2c = Device.CreateI2cBus();
             gyro = new GY521(i2c);
@@ -30,10 +30,10 @@ namespace I2C
             {
                 try
                 {
-                    Console.WriteLine($"Reading @{((int)i2c.BusSpeed / 1000d):0} kHz...");
+                    Resolver.Log.Info($"Reading @{((int)i2c.BusSpeed / 1000d):0} kHz...");
                     gyro.Refresh();
 
-                    Console.WriteLine($"({gyro.AccelerationX:X4},{gyro.AccelerationY:X4},{gyro.AccelerationZ:X4}) ({gyro.GyroX:X4},{gyro.GyroY:X4},{gyro.GyroZ:X4}) {gyro.Temperature}");
+                    Resolver.Log.Info($"({gyro.AccelerationX:X4},{gyro.AccelerationY:X4},{gyro.AccelerationZ:X4}) ({gyro.GyroX:X4},{gyro.GyroY:X4},{gyro.GyroZ:X4}) {gyro.Temperature}");
 
                     switch (count++ % 4)
                     {
@@ -53,7 +53,7 @@ namespace I2C
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error: {ex.Message}");
+                    Resolver.Log.Info($"Error: {ex.Message}");
                 }
 
                 await Task.Delay(2000);
@@ -64,19 +64,19 @@ namespace I2C
         {
             var i2c = Device.CreateI2cBus();
 
-            Console.WriteLine("+GY521 Test");
+            Resolver.Log.Info("+GY521 Test");
 
             var gyro = new GY521(i2c);
 
-            Console.WriteLine("Wake");
+            Resolver.Log.Info("Wake");
             gyro.Wake();
 
             while (true)
             {
-                Console.WriteLine("Reading...");
+                Resolver.Log.Info("Reading...");
                 gyro.Refresh();
 
-                Console.WriteLine($"({gyro.AccelerationX:X4},{gyro.AccelerationY:X4},{gyro.AccelerationZ:X4}) ({gyro.GyroX:X4},{gyro.GyroY:X4},{gyro.GyroZ:X4}) {gyro.Temperature}");
+                Resolver.Log.Info($"({gyro.AccelerationX:X4},{gyro.AccelerationY:X4},{gyro.AccelerationZ:X4}) ({gyro.GyroX:X4},{gyro.GyroY:X4},{gyro.GyroZ:X4}) {gyro.Temperature}");
 
                 await Task.Delay(2000);
             }
@@ -89,7 +89,7 @@ namespace I2C
             {
                 if (++addr >= 127) addr = 1;
 
-                Console.WriteLine($"Address: {addr}");
+                Resolver.Log.Info($"Address: {addr}");
 
                 i2c.Write(addr, new byte[] { 0 });
                 await Task.Delay(2000);
@@ -138,8 +138,8 @@ namespace I2C
             var data = new byte[14];
             _bus.Write(address, data);
 
-            //            Console.WriteLine($" Got {data.Length} bytes");
-            //            Console.WriteLine($" {BitConverter.ToString(data)}");
+            //            Resolver.Log.Info($" Got {data.Length} bytes");
+            //            Resolver.Log.Info($" {BitConverter.ToString(data)}");
 
             AccelerationX = data[0] << 8 | data[1];
             AccelerationY = data[2] << 8 | data[3];

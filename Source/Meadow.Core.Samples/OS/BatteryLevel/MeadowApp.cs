@@ -12,7 +12,7 @@ namespace BatteryLevel
             while (true)
             {
 
-                Console.WriteLine($"Battery Voltage: {Device.GetBatteryInfo().Voltage.Value.Volts:N2}V");
+                Resolver.Log.Info($"Battery Voltage: {Device.GetBatteryInfo().Voltage.Value.Volts:N2}V");
 
                 await Task.Delay(3000);
             }

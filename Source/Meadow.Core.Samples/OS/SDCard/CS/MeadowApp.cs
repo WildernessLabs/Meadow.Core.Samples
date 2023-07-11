@@ -12,9 +12,9 @@ namespace SDCard
     {
         public override Task Run()
         {
-            Device.PlatformOS.ExternalStorageEvent += PlatformOS_ExternalStorageEvent;
+            Device.PlatformOS.FileSystem.ExternalStorageEvent += PlatformOS_ExternalStorageEvent;
 
-            var storage = Device.PlatformOS.ExternalStorage.FirstOrDefault();
+            var storage = Device.PlatformOS.FileSystem.ExternalStorage.FirstOrDefault();
 
             if (storage == null)
             {
@@ -62,9 +62,9 @@ namespace SDCard
             var folderCount = 0;
 
             ShowFolder(root, 0);
-            Console.WriteLine(string.Empty);
-            Console.WriteLine($"{folderCount} directories");
-            Console.WriteLine($"{fileCount} files");
+            Resolver.Log.Info(string.Empty);
+            Resolver.Log.Info($"{folderCount} directories");
+            Resolver.Log.Info($"{fileCount} files");
 
             void ShowFolder(string folder, int depth, bool last = false)
             {
@@ -73,12 +73,12 @@ namespace SDCard
                 try
                 {
                     files = Directory.GetFiles(folder);
-                    Console.WriteLine($"{GetPrefix(depth, last && files.Length == 0)}{Path.GetFileName(folder)}");
+                    Resolver.Log.Info($"{GetPrefix(depth, last && files.Length == 0)}{Path.GetFileName(folder)}");
                 }
                 catch
                 {
-                    Console.WriteLine($"{GetPrefix(depth, last)}{Path.GetFileName(folder)}");
-                    Console.WriteLine($"{GetPrefix(depth + 1, last)}<cannot list files>");
+                    Resolver.Log.Info($"{GetPrefix(depth, last)}{Path.GetFileName(folder)}");
+                    Resolver.Log.Info($"{GetPrefix(depth + 1, last)}<cannot list files>");
                 }
                 if (files != null)
                 {
@@ -99,7 +99,7 @@ namespace SDCard
                                 prefix += $"[   error]  ";
                             }
                         }
-                        Console.WriteLine($"{prefix}{Path.GetFileName(file)}");
+                        Resolver.Log.Info($"{prefix}{Path.GetFileName(file)}");
                         fileCount++;
                     }
                 }
@@ -113,11 +113,11 @@ namespace SDCard
                 {
                     if (files == null || files.Length == 0)
                     {
-                        Console.WriteLine($"{GetPrefix(depth + 1, last)}<cannot list sub-directories>");
+                        Resolver.Log.Info($"{GetPrefix(depth + 1, last)}<cannot list sub-directories>");
                     }
                     else
                     {
-                        Console.WriteLine($"{GetPrefix(depth + 1)}<cannot list sub-directories>");
+                        Resolver.Log.Info($"{GetPrefix(depth + 1)}<cannot list sub-directories>");
                     }
                 }
                 if (dirs != null)

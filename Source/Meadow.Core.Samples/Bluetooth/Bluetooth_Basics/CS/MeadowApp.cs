@@ -13,10 +13,10 @@ namespace Bluetooth_Basics
 
         public override Task Initialize()
         {
-            Console.WriteLine("Initialize hardware...");
+            Resolver.Log.Info("Initialize hardware...");
 
             // initialize the bluetooth defnition tree
-            Console.WriteLine("Starting the BLE server.");
+            Resolver.Log.Info("Starting the BLE server.");
             bleTreeDefinition = GetDefinition();
             Device.BluetoothAdapter.StartBluetoothServer(bleTreeDefinition);
 
@@ -25,17 +25,17 @@ namespace Bluetooth_Basics
             {
                 characteristic.ValueSet += (c, d) =>
                 {
-                    Console.WriteLine($"HEY, I JUST GOT THIS BLE DATA for Characteristic '{c.Name}' of type {d.GetType().Name}: {d}");
+                    Resolver.Log.Info($"HEY, I JUST GOT THIS BLE DATA for Characteristic '{c.Name}' of type {d.GetType().Name}: {d}");
                 };
             }
 
             // addressing individual characteristics:
             onOffCharacteristic.ValueSet += (c, d) =>
             {
-                Console.WriteLine($"{c.Name}: {d}");
+                Resolver.Log.Info($"{c.Name}: {d}");
             };
 
-            Console.WriteLine("Hardware initialized.");
+            Resolver.Log.Info("Hardware initialized.");
 
             return Task.CompletedTask;
         }
