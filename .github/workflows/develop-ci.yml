@@ -73,5 +73,5 @@ jobs:
         dotnet-version:
           7.0.x
     
-    - name: Build Meadow.Project.Samples
+    - name: Build Meadow.Core.Samples
       run: dotnet build -c Release Meadow.Core.Samples/Source/Meadow.Core.Samples.sln
