@@ -128,6 +128,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Displays.TftSpi", "..\..\Me
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sensors.Light.Tsl2591", "..\..\Meadow.Foundation\Source\Meadow.Foundation.Peripherals\Sensors.Light.Tsl2591\Driver\Sensors.Light.Tsl2591.csproj", "{1711F10A-864D-4AE9-B6C2-5B36FD6B8171}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChargeState", "OS\ChargeState\ChargeState.csproj", "{DB7F472B-A997-4873-A44D-81C06FDE26BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -388,6 +390,12 @@ Global
 		{1711F10A-864D-4AE9-B6C2-5B36FD6B8171}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1711F10A-864D-4AE9-B6C2-5B36FD6B8171}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1711F10A-864D-4AE9-B6C2-5B36FD6B8171}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{DB7F472B-A997-4873-A44D-81C06FDE26BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB7F472B-A997-4873-A44D-81C06FDE26BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB7F472B-A997-4873-A44D-81C06FDE26BE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{DB7F472B-A997-4873-A44D-81C06FDE26BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB7F472B-A997-4873-A44D-81C06FDE26BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB7F472B-A997-4873-A44D-81C06FDE26BE}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -448,6 +456,7 @@ Global
 		{8ECF9F14-1E2B-41DB-826D-8A8460F4114D} = {E005B21B-E236-47DB-835A-6A86899BAFB3}
 		{7B46A045-76A7-43E6-9FED-40EB74F8EDBD} = {E005B21B-E236-47DB-835A-6A86899BAFB3}
 		{1711F10A-864D-4AE9-B6C2-5B36FD6B8171} = {E005B21B-E236-47DB-835A-6A86899BAFB3}
+		{DB7F472B-A997-4873-A44D-81C06FDE26BE} = {8D279C3D-43E8-4823-9D33-682231D1A48D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B3E6AE55-DFFB-4B7B-8143-96D0D1AA8CD9}
