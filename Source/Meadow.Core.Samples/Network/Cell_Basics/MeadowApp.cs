@@ -21,7 +21,7 @@ namespace Cell_Basics
             // (Optional) Call to retrieve cell connection logs, useful for troubleshooting
             // GetCellConnectionLogs(cell);
 
-            // (Optional) Enable cell network scanner by setting 'ScanMode: true' in cell.config.yaml.
+            // (Optional) Enable cell network scanner by setting 'ScanMode: true' in cell.config.yaml
             // CellNetworkScanner(cell);
         }
 
@@ -40,7 +40,7 @@ namespace Cell_Basics
         {
             try
             {
-                // Scanning networks may take a while, you may need to increase the connection timeout by adding 'Timeout: 300' to the cell.config.yaml
+                // Scanning networks may take a few minutes
                 CellNetwork[] operatorList = cell.Scan(); // It only works with 'ScanMode: true' in cell.config.yaml
                 foreach (CellNetwork data in operatorList)
                 {
