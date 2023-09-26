@@ -21,30 +21,41 @@ namespace Cell_Basics
             // (Optional) Call to retrieve cell connection logs, useful for troubleshooting
             // GetCellConnectionLogs(cell);
 
-            // (Optional) Enable cell network scanner by setting 'ScanMode: true' in cell.config.yaml
+            // (Optional) Scan for available cellular networks
             // CellNetworkScanner(cell);
+
+            // (Optional) Get current Cell Signal Quality (CSQ)
+            // FetchSignalQuality(cell);
         }
 
-        // Useful method for troubleshooting by inspecting cell connection logs
+        void FetchSignalQuality(ICellNetworkAdapter cell)
+        {
+            double csq  = cell.GetSignalQuality();
+            Console.WriteLine("Current Cell Signal Quality: " + csq);
+            
+            double dbm = csq * 2 - 113;
+            Console.WriteLine("Current Cell Signal Quality (dbm): " + dbm);
+        }
+
+        // Useful method for troubleshooting by inspecting cellular connection logs
         async void GetCellConnectionLogs(ICellNetworkAdapter cell)
         {
             while (!cell.IsConnected)
             {
                 await Task.Delay(10000);
-                Console.WriteLine($"Cell AT commands output: {cell.AtCmdsOutput}"); // It only works with 'ScanMode: false'
+                Console.WriteLine($"Cell AT commands output: {cell.AtCmdsOutput}");
             }
         }
 
-        // Cell network scanner, useful to see the Cell available networks, including their Operator codes
+        // Get the available cellular networks, including their Operator codes
         async void CellNetworkScanner(ICellNetworkAdapter cell)
         {
             try
             {
-                // Scanning networks may take a few minutes
-                CellNetwork[] operatorList = cell.Scan(); // It only works with 'ScanMode: true' in cell.config.yaml
-                foreach (CellNetwork data in operatorList)
+                CellNetwork[] availableNetworks = cell.ScanForAvailableNetworks();
+                foreach (CellNetwork network in availableNetworks)
                 {
-                    Console.WriteLine($"Operator Status: {data.Status}, Operator Name: {data.Name}, Operator: {data.Operator}, Operator Code: {data.Code}, Mode: {data.Mode}");
+                    Console.WriteLine($"Network Status: {network.Status}, Operator Name: {network.Name}, Operator: {network.Operator}, Operator Code: {network.Code}, Mode: {network.Mode}");
                 }
             }
             catch (Exception ex)
@@ -57,11 +68,11 @@ namespace Cell_Basics
         {
             Console.WriteLine("Cell network connected!");
 
-            ICellNetworkAdapter cellAdapter = networkAdapter as ICellNetworkAdapter;
-            if (cellAdapter != null)
+            ICellNetworkAdapter cell = networkAdapter as ICellNetworkAdapter;
+            if (cell != null)
             {
-                Console.WriteLine("Cell CSQ: " + cellAdapter.Csq);
-                Console.WriteLine("Cell IMEI: " + cellAdapter.Imei);
+                Console.WriteLine("Cell CSQ at the time of connection: " + cell.Csq);
+                Console.WriteLine("Cell IMEI: " + cell.Imei);
                 await GetWebPageViaHttpClient("https://postman-echo.com/get?fool=bar1&foo2=bar2");
             }
         }
