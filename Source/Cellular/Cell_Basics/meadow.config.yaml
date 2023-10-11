@@ -15,7 +15,8 @@ Device:
     # For instance, if you want to utilize the A02 Meadow F7v2 Feather pin to turn on the module, 
     # you should reserve the corresponding A3 MCU pin, instead of C7.
     #
-    ReservedPins: I9;H13;C7 
+    ReservedPins: I9;H13;C7
+
 #
 #   Network configuration.
 #
@@ -23,5 +24,3 @@ Network:
     #   Which interface should be used?
     #
     DefaultInterface: Cell
-
-
