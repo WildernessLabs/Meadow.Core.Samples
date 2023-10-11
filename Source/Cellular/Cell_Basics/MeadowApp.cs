@@ -24,7 +24,7 @@ namespace Cell_Basics
             // (Optional) Scan for available cellular networks
             // CellNetworkScanner(cell);
 
-            // (Optional) Get current Cekk Signal Quality (CSQ)
+            // (Optional) Get current Cell Signal Quality (CSQ)
             // FetchSignalQuality(cell);
 
             return Task.CompletedTask;
@@ -84,7 +84,7 @@ namespace Cell_Basics
             Console.WriteLine("Cell network disconnected!");
         }
 
-        public async Task GetWebPageViaHttpClient(string uri)
+        async Task GetWebPageViaHttpClient(string uri)
         {
             Console.WriteLine($"Requesting {uri} - {DateTime.Now}");
             Stopwatch stopwatch = new Stopwatch();
