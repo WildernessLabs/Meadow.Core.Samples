@@ -1,17 +1,17 @@
-﻿using System;
-using System.Diagnostics;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Meadow;
+﻿using Meadow;
 using Meadow.Devices;
 using Meadow.Hardware;
 using Meadow.Networking;
+using System;
+using System.Diagnostics;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Cell_Basics
 {
     public class MeadowApp : App<F7FeatherV2>
     {
-        public override async Task Run()
+        public override Task Run()
         {
             var cell = Device.NetworkAdapters.Primary<ICellNetworkAdapter>();
 
@@ -21,27 +21,40 @@ namespace Cell_Basics
             // (Optional) Call to retrieve cell connection logs, useful for troubleshooting
             // GetCellConnectionLogs(cell);
 
-            // (Optional) Enable cell network scanner by setting 'ScanMode: true' in cell.config.yaml
+            // (Optional) Scan for available cellular networks
             // CellNetworkScanner(cell);
+
+            // (Optional) Get current Cell Signal Quality (CSQ)
+            // FetchSignalQuality(cell);
+
+            return Task.CompletedTask;
         }
 
-        // Useful method for troubleshooting by inspecting cell connection logs
+        void FetchSignalQuality(ICellNetworkAdapter cell)
+        {
+            double csq = cell.GetSignalQuality();
+            Console.WriteLine("Current Cell Signal Quality: " + csq);
+
+            double dbm = csq * 2 - 113;
+            Console.WriteLine("Current Cell Signal Quality (dbm): " + dbm);
+        }
+
+        // Useful method for troubleshooting by inspecting cellular connection logs
         async void GetCellConnectionLogs(ICellNetworkAdapter cell)
         {
             while (!cell.IsConnected)
             {
                 await Task.Delay(10000);
-                Console.WriteLine($"Cell AT commands output: {cell.AtCmdsOutput}"); // It only works with 'ScanMode: false'
+                Console.WriteLine($"Cell AT commands output: {cell.AtCmdsOutput}");
             }
         }
 
-        // Cell network scanner, useful to see the Cell available networks, including their Operator codes
+        // Get the available cellular networks, including their Operator codes
         async void CellNetworkScanner(ICellNetworkAdapter cell)
         {
             try
             {
-                // Scanning networks may take a few minutes
-                CellNetwork[] operatorList = cell.Scan(); // It only works with 'ScanMode: true' in cell.config.yaml
+                CellNetwork[] operatorList = cell.ScanForAvailableNetworks();
                 foreach (CellNetwork data in operatorList)
                 {
                     Console.WriteLine($"Operator Status: {data.Status}, Operator Name: {data.Name}, Operator: {data.Operator}, Operator Code: {data.Code}, Mode: {data.Mode}");
@@ -52,16 +65,16 @@ namespace Cell_Basics
                 Console.WriteLine(ex);
             }
         }
-    
+
         async void CellAdapter_NetworkConnected(INetworkAdapter networkAdapter, NetworkConnectionEventArgs e)
         {
             Console.WriteLine("Cell network connected!");
 
-            ICellNetworkAdapter cellAdapter = networkAdapter as ICellNetworkAdapter;
-            if (cellAdapter != null)
+            var cell = networkAdapter as ICellNetworkAdapter;
+            if (cell != null)
             {
-                Console.WriteLine("Cell CSQ: " + cellAdapter.Csq);
-                Console.WriteLine("Cell IMEI: " + cellAdapter.Imei);
+                Console.WriteLine("Cell CSQ at the time of connection: " + cell.Csq);
+                Console.WriteLine("Cell IMEI: " + cell.Imei);
                 await GetWebPageViaHttpClient("https://postman-echo.com/get?fool=bar1&foo2=bar2");
             }
         }
@@ -71,7 +84,7 @@ namespace Cell_Basics
             Console.WriteLine("Cell network disconnected!");
         }
 
-        public async Task GetWebPageViaHttpClient(string uri)
+        async Task GetWebPageViaHttpClient(string uri)
         {
             Console.WriteLine($"Requesting {uri} - {DateTime.Now}");
             Stopwatch stopwatch = new Stopwatch();
@@ -80,7 +93,7 @@ namespace Cell_Basics
             using (HttpClient client = new HttpClient())
             {
                 // In weak signal connections and large download scenarios, it's recommended to increase the client timeout
-                client.Timeout = new TimeSpan(0, 60, 0);
+                client.Timeout = TimeSpan.FromMinutes(5);
                 using (HttpResponseMessage response = await client.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead))
                 {
                     try
@@ -120,6 +133,5 @@ namespace Cell_Basics
                 }
             }
         }
-
     }
 }
