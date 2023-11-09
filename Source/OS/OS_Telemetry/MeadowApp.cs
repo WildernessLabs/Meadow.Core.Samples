@@ -32,11 +32,12 @@ public class MeadowApp : App<F7FeatherV1>
             Resolver.Log.Info($" Processor");
             Resolver.Log.Info($"   Usage: {load}%");
 
-            var storage = Device.PlatformOS?.GetStorageInformation();
             Resolver.Log.Info($" Storage");
-            Resolver.Log.Info($"   {storage[0].SpaceAvailable.MegaBytes:0.00}/{storage[0].Size.MegaBytes:0.0}MB");
-            Resolver.Log.Info($"\r\n");
-
+            foreach (var drive in Device.PlatformOS?.FileSystem.Drives)
+            {
+                Resolver.Log.Info($"  {drive.Name}");
+                Resolver.Log.Info($"    {drive.SpaceAvailable.MegaBytes:0.00}/{drive.Size.MegaBytes:0.0}MB");
+            }
             await Task.Delay(5000);
         }
     }

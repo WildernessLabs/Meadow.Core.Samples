@@ -14,17 +14,17 @@ namespace SDCard
         {
             Device.PlatformOS.FileSystem.ExternalStorageEvent += PlatformOS_ExternalStorageEvent;
 
-            var storage = Device.PlatformOS.FileSystem.ExternalStorage.FirstOrDefault();
+            var drive = Device.PlatformOS.FileSystem.Drives.FirstOrDefault(d => d is IExternalStorage);
 
-            if (storage == null)
+            if (drive == null)
             {
                 Resolver.Log.Warn($"SD card is not detected");
             }
             else
             {
-                Resolver.Log.Info($"SD card is mounted at: {storage.Directory.FullName}");
+                Resolver.Log.Info($"SD card is mounted at: {drive.Name}");
 
-                Tree(storage.Directory.FullName, true);
+                Tree(drive.Name, true);
             }
 
             Resolver.Log.Info("Waiting for storage events...");
@@ -37,7 +37,7 @@ namespace SDCard
 
         private void PlatformOS_ExternalStorageEvent(IExternalStorage storage, ExternalStorageState state)
         {
-            Resolver.Log.Info($"Storage Event: {storage.Directory.FullName} is {state}");
+            Resolver.Log.Info($"Storage Event: {storage.Name} is {state}");
 
             if (state == ExternalStorageState.Inserted)
             {
@@ -45,18 +45,18 @@ namespace SDCard
 
                 var name = $"test_{random.Next(32768)}.txt";
 
-                using (var file = File.CreateText(Path.Combine(storage.Directory.FullName, name)))
+                using (var file = File.CreateText(Path.Combine(storage.Name, name)))
                 {
                     file.Write("Hello Meadow!");
                 }
 
                 Resolver.Log.Info($"Created {name}");
 
-                Tree(storage.Directory.FullName, true);
+                Tree(storage.Name, true);
             }
         }
 
-        void Tree(string root, bool showSize = false)
+        private void Tree(string root, bool showSize = false)
         {
             var fileCount = 0;
             var folderCount = 0;
