@@ -42,11 +42,6 @@ public class MeadowApp : App<F7FeatherV2>
                 a0[i] = array.CurrentValues[0];
                 a1[i] = array.CurrentValues[1];
                 a2[i] = array.CurrentValues[2];
-
-                if (i == 0)
-                {
-                    Resolver.Log.Info($"  Means: A0={a0[0]} A1={a1[0]} A2={a2[0]}");
-                }
             }
 
             et = Environment.TickCount - start;
