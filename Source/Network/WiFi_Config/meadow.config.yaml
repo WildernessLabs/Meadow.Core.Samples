@@ -22,7 +22,7 @@ Coprocessor:
   MaximumRetryCount: 7
 
 # Network configuration.
-#Network:
+Network:
 #  Interfaces:
 #    - Name: Ethernet
 #      UseDHCP: false
@@ -39,17 +39,17 @@ Coprocessor:
   DefaultInterface: WiFi
 
   # Automatically attempt to get the time at startup?
-#  GetNetworkTimeAtStartup: true
+  GetNetworkTimeAtStartup: true
 
   # Time synchronization period in seconds.
-#  NtpRefreshPeriodSeconds: 600
+  NtpRefreshPeriodSeconds: 600
 
   # Name of the NTP servers.
-#  NtpServers:
-#    - 0.pool.ntp.org
-#    - 1.pool.ntp.org
-#    - 2.pool.ntp.org
-#    - 3.pool.ntp.org
+  NtpServers:
+    - 0.pool.ntp.org
+    - 1.pool.ntp.org
+    - 2.pool.ntp.org
+    - 3.pool.ntp.org
 
   # IP addresses of the DNS servers.
 #  DnsServers:
