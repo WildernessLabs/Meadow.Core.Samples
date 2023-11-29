@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace WiFi_Basics
 {
-    public class MeadowApp : App<F7FeatherV2>
+    public class MeadowApp : App<F7CoreComputeV2>
     {
-        private const string WIFI_NAME = "[SSID]";
-        private const string WIFI_PASSWORD = "[PASSWORD]";
+        private const string WIFI_NAME = "WildernessLabs.HS";
+        private const string WIFI_PASSWORD = "meadowiot";
 
         public override async Task Run()
         {

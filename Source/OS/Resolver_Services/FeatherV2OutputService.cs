@@ -9,7 +9,7 @@ namespace Threading_Basics
 
         public FeatherV2OutputService(F7FeatherV2 device)
         {
-            OutputPort = device.Pins.OnboardLedRed.CreateDigitalOutputPort();
+            OutputPort = device.CreateDigitalOutputPort(device.Pins.OnboardLedRed);
         }
     }
 }
