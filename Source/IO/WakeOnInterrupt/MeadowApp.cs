@@ -58,8 +58,8 @@ namespace WakeOnInterrupt
                     _green.State = false;
                     await Task.Delay(500);
                 }
-                Device.PlatformOS.Sleep(TimeSpan.FromSeconds(5));
-                //Device.PlatformOS.SleepUntilInterrupt(Device.Pins.D10, InterruptMode.EdgeFalling, ResistorMode.Disabled);
+                //Device.PlatformOS.Sleep(TimeSpan.FromSeconds(5));
+                Device.PlatformOS.Sleep(Device.Pins.D10, InterruptMode.EdgeFalling, ResistorMode.Disabled);
 
                 //                Resolver.Log.Info("Continuing...");
             }
