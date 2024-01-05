@@ -13,7 +13,6 @@ namespace WakeOnInterrupt
     public class MeadowApp : App<F7FeatherV2>
     {
         private IDigitalOutputPort _red;
-        private IDigitalOutputPort _blue;
         private IDigitalOutputPort _green;
 
         public TimeSpan Timespan { get; private set; }
@@ -24,22 +23,18 @@ namespace WakeOnInterrupt
 
             _red = Device.Pins.OnboardLedRed.CreateDigitalOutputPort(false);
             _green = Device.Pins.OnboardLedGreen.CreateDigitalOutputPort(false);
-            _blue = Device.Pins.OnboardLedBlue.CreateDigitalOutputPort(false);
-
-            Resolver.Services.Add<IDigitalOutputPort>(_blue);
 
             Device.PlatformOS.BeforeSleep += () =>
             {
                 _red.State = true;
-                //                Resolver.Log.Info("Sleeping...");
+                Resolver.Log.Info("Sleeping...");
             };
 
             Device.PlatformOS.AfterWake += () =>
             {
                 Thread.Sleep(1000);
                 _red.State = false;
-                //                _blue.State = true;
-                //                Resolver.Log.Info("Resuming...");
+                Resolver.Log.Info("Resuming...");
 
             };
 
@@ -50,7 +45,7 @@ namespace WakeOnInterrupt
         {
             while (true)
             {
-                //                Resolver.Log.Info("Waiting...");
+                Resolver.Log.Info("Waiting...");
                 for (var i = 0; i < 5; i++)
                 {
                     _green.State = true;
@@ -58,10 +53,9 @@ namespace WakeOnInterrupt
                     _green.State = false;
                     await Task.Delay(500);
                 }
-                //Device.PlatformOS.Sleep(TimeSpan.FromSeconds(5));
-                Device.PlatformOS.Sleep(Device.Pins.D10, InterruptMode.EdgeFalling, ResistorMode.Disabled);
+                Device.PlatformOS.Sleep(Device.Pins.D05, InterruptMode.EdgeRising, ResistorMode.InternalPullDown);
 
-                //                Resolver.Log.Info("Continuing...");
+                Resolver.Log.Info("Continuing...");
             }
         }
     }
