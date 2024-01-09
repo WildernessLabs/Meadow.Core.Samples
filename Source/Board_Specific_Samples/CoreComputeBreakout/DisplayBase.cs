@@ -1,4 +1,4 @@
-﻿using Meadow.Foundation;
+﻿using Meadow;
 using Meadow.Foundation.Graphics;
 using Meadow.Logging;
 
@@ -12,7 +12,7 @@ namespace MeadowApp
         protected Logger Logger { get; private set; }
         protected abstract IGraphicsDisplay Display { get; }
 
-        public DisplayBase (Logger logger, RotationType rotation = RotationType.Default)
+        public DisplayBase(Logger logger, RotationType rotation = RotationType.Default)
         {
             Logger = logger;
             _rotation = rotation;
