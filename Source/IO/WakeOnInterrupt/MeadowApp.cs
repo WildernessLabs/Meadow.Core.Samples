@@ -30,7 +30,7 @@ namespace WakeOnInterrupt
                 Resolver.Log.Info("Sleeping...");
             };
 
-            Device.PlatformOS.AfterWake += () =>
+            Device.PlatformOS.AfterWake += (e, o) =>
             {
                 Thread.Sleep(1000);
                 _red.State = false;
