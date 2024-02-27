@@ -39,7 +39,7 @@ namespace DigitalInterruptPort_Basics
             var observer = IDigitalInterruptPort.CreateObserver(
                 handler: result =>
                 {
-                    Resolver.Log.Info($"Observer filter satisfied, time: {result.New.Time.ToShortTimeString()}");
+                    Resolver.Log.Info($"Observer filter satisfied, time: {result.New.Time}");
                 },
                 // Optional filter paramter, showing a 1 second filter, i.e., only notify
                 // if the new event is > 1 second from last time it was notified.
@@ -47,7 +47,8 @@ namespace DigitalInterruptPort_Basics
                 {
                     if (result.Old is { } old)
                     { // C# 8 null pattern matching for not null
-                        return (result.New.Time - old.Time) > TimeSpan.FromSeconds(1);
+                        //return (result.New.Time - old.Time) > TimeSpan.FromSeconds(1);
+                        return (result.New.Time - old.Time) > TimeSpan.FromSeconds(1).TotalSeconds;
                     }
                     else return false;
                 }
