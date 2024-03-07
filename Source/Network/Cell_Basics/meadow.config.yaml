@@ -5,7 +5,27 @@ Device:
 
     # Corresponding MCU pin names for the reserved pins
     # (COMX_RX pin, COM_TX pin, TURN_ON pin)
-    ReservedPins: I9;H13;C7
+    # Examples:
+    # Using mikroBUS 1 on Project Lab v3 with Quectel BG95-M3 (AN as TURN_ON pin),
+    #  reserve the following:
+    ReservedPins: B15;B14;A3
+
+    # Using mikroBUS 1 on Project Lab v3 with Quectel M95 (RST as TURN_ON pin),
+    #  reserve the following:
+    # ReservedPins: B15;B14;H10
+
+    # Using COM4 on F7FeatherV2 with BG95-M3 or M95 (D10 as TurnOnPin), 
+    #  reserve the following:
+    # ReservedPins: I9;H13;C7
+
+    # Using COM1 on F7FeatherV2 with BG95-M3 or M95 (D10 as TurnOnPin), 
+    #  reserve the following:
+    # ReservedPins: B15;B14;C7
+
+    # IMPORTANT: 
+    # Ensure to use the MCU pin names, not the Meadow pin names (seen on the board)
+    # For a custom setup, consult the pinout definition on your 
+    #  Meadow device datasheet for the correct MCU pin names
 
 # Network configuration.
 Network:

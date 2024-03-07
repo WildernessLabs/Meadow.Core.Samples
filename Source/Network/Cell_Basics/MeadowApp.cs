@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Cell_Basics
 {
-    public class MeadowApp : App<F7FeatherV2>
+    public class MeadowApp : App<F7CoreComputeV2>
     {
         public override Task Run()
         {
@@ -32,10 +32,10 @@ namespace Cell_Basics
 
         void FetchSignalQuality(ICellNetworkAdapter cell)
         {
-            double csq = cell.GetSignalQuality();
+            int csq = cell.GetSignalQuality();
             Console.WriteLine("Current Cell Signal Quality: " + csq);
 
-            double dbm = csq * 2 - 113;
+            int dbm = csq * 2 - 113;
             Console.WriteLine("Current Cell Signal Quality (dbm): " + dbm);
         }
 
@@ -92,7 +92,7 @@ namespace Cell_Basics
 
             using (HttpClient client = new HttpClient())
             {
-                // In weak signal connections and large download scenarios, it's recommended to increase the client timeout
+                // In weak signal connections and/or large download scenarios, it's recommended to increase the client timeout
                 client.Timeout = TimeSpan.FromMinutes(5);
                 using (HttpResponseMessage response = await client.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead))
                 {
