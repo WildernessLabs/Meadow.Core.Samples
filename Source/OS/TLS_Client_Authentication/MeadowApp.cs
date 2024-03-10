@@ -47,14 +47,23 @@ namespace TLS_Client_Authentication
             string IOT_HUB_NAME = "IOT_HUB_NAME";
             string IOT_HUB_DEVICE_ID = "IOT_HUB_DEVICE_ID";
 
+            // IMPORTANT:
+            //  Using Client Authentication, keep this value empty
+            //  Using Token-based Authentication, replace it with your SAS token
+            string IOT_HUB_DEVICE_ID_TOKEN = "";
+
             Console.WriteLine("Attempting to connect to " + IOT_HUB_DEVICE_ID);
             var factory = new MqttFactory();
             var mqttClient = factory.CreateMqttClient();
 
+            // IMPORTANT:
+            //  You don't need to add any code references to the client 
+            //  certificate, since OS/Mono will attach your certificate 
+            //  to any connection that requires it automatically
             var options = new MqttClientOptionsBuilder()
                 .WithClientId(IOT_HUB_DEVICE_ID)
                 .WithTcpServer($"{IOT_HUB_NAME}.azure-devices.net", 8883)
-                .WithCredentials($"{IOT_HUB_NAME}.azure-devices.net/{IOT_HUB_DEVICE_ID}/?api-version=2021-04-12", "")
+                .WithCredentials($"{IOT_HUB_NAME}.azure-devices.net/{IOT_HUB_DEVICE_ID}/?api-version=2021-04-12", IOT_HUB_DEVICE_ID_TOKEN)
                 .WithProtocolVersion(MQTTnet.Formatter.MqttProtocolVersion.V311)
                 .WithTls(new MqttClientOptionsBuilderTlsParameters
                 {
