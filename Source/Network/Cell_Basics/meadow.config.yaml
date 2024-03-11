@@ -6,19 +6,19 @@ Device:
     # Corresponding MCU pin names for the reserved pins
     # (COMX_RX pin, COM_TX pin, TURN_ON pin)
     # Examples:
-    # Using mikroBUS 1 on Project Lab v3 with Quectel BG95-M3 (AN as TURN_ON pin),
+    # Using mikroBUS 1 on Project Lab v3 with Quectel BG95-M3 (Meadow AN pin as turn-on pin),
     #  reserve the following:
     ReservedPins: B15;B14;A3
 
-    # Using mikroBUS 1 on Project Lab v3 with Quectel M95 (RST as TURN_ON pin),
+    # Using mikroBUS 1 on Project Lab v3 with Quectel M95 (Meadow RST pin as turn-on pin),
     #  reserve the following:
     # ReservedPins: B15;B14;H10
 
-    # Using COM4 on F7FeatherV2 with BG95-M3 or M95 (D10 as TurnOnPin), 
+    # Using COM4 on F7FeatherV2 with BG95-M3 or M95 (Meadow D10 pin as turn-on pin), 
     #  reserve the following:
     # ReservedPins: I9;H13;C7
 
-    # Using COM1 on F7FeatherV2 with BG95-M3 or M95 (D10 as TurnOnPin), 
+    # Using COM1 on F7FeatherV2 with BG95-M3 or M95 (Meadow D10 pin as turn-on pin), 
     #  reserve the following:
     # ReservedPins: B15;B14;C7
 
