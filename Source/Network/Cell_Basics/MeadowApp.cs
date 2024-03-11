@@ -33,10 +33,7 @@ namespace Cell_Basics
         void FetchSignalQuality(ICellNetworkAdapter cell)
         {
             int csq = cell.GetSignalQuality();
-            Console.WriteLine("Current Cell Signal Quality: " + csq);
-
-            int dbm = csq * 2 - 113;
-            Console.WriteLine("Current Cell Signal Quality (dbm): " + dbm);
+            Console.WriteLine("Current Cell Signal Quality (dbm): " + csq);
         }
 
         // Useful method for troubleshooting by inspecting cellular connection logs
@@ -73,7 +70,7 @@ namespace Cell_Basics
             var cell = networkAdapter as ICellNetworkAdapter;
             if (cell != null)
             {
-                Console.WriteLine("Cell CSQ at the time of connection: " + cell.Csq);
+                Console.WriteLine("Cell CSQ at the time of connection (dbm): " + cell.Csq);
                 Console.WriteLine("Cell IMEI: " + cell.Imei);
                 await GetWebPageViaHttpClient("https://postman-echo.com/get?fool=bar1&foo2=bar2");
             }
