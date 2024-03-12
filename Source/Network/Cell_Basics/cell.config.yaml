@@ -5,10 +5,7 @@ Settings:
     Password: PASSWORD    # (optional) APN password
     Operator: 00000       # (optional) Carrier numeric operator code
     Mode: CATM1           # (optional) Network mode (CATM1, NBIOT or GSM)
-    Interface: /dev/ttyS0 # (required) Serial interface 
-                          # UART1 (COM1) = /dev/ttyS0 (default)
-                          # UART4 (COM4) = /dev/ttyS1, 
-                          # UART6 = /dev/ttyS3 
+    Interface: COM1       # (required) Serial interface (COM1 (default), COM4 or COM6)
     EnablePin: A3         # (required) Enable MCU pin to turn the module on/off.
                           # Default value is MCU Pin A3
 
